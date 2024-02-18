@@ -1,8 +1,6 @@
 package validators
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestIsNumber(t *testing.T) {
 	err, stopLoop := IsNumber()("")
@@ -18,17 +16,26 @@ func TestIsNumber(t *testing.T) {
 	err, stopLoop = IsNumber(errorMessage)("")
 	if err == nil || *err != errorMessage || !stopLoop {
 		t.Errorf(
-			"IsNumber(\"error\")(\"\") = %s, %t; expected: \"%s\", true",
+			"IsNumber(\"error\")(\"\") = %s, %t; expected: \"error\", true",
 			GetValueFromErrorMessage(err),
 			stopLoop,
-			errorMessage,
 		)
 	}
 
 	err, stopLoop = IsNumber()(1)
 	if err != nil || stopLoop {
 		t.Errorf(
-			"IsNumber()(1) = \"%s\", %t; expected: nil, false",
+			"IsNumber()(1) = %s, %t; expected: nil, false",
+			GetValueFromErrorMessage(err),
+			stopLoop,
+		)
+	}
+
+	errorMessage = "error"
+	err, stopLoop = IsNumber(errorMessage)(1)
+	if err != nil || err != nil && *err != errorMessage || stopLoop {
+		t.Errorf(
+			"IsNumber(\"error\")(1) = %s, %t; expected: nil, true",
 			GetValueFromErrorMessage(err),
 			stopLoop,
 		)
@@ -37,7 +44,17 @@ func TestIsNumber(t *testing.T) {
 	err, stopLoop = IsNumber()(1.1)
 	if err != nil || stopLoop {
 		t.Errorf(
-			"IsNumber()(1.1) = \"%s\", %t; expected: nil, false",
+			"IsNumber()(1.1) = %s, %t; expected: nil, false",
+			GetValueFromErrorMessage(err),
+			stopLoop,
+		)
+	}
+
+	errorMessage = "error"
+	err, stopLoop = IsNumber(errorMessage)(1.1)
+	if err != nil || err != nil && *err != errorMessage || stopLoop {
+		t.Errorf(
+			"IsNumber(\"error\")(1.1) = %s, %t; expected: nil, true",
 			GetValueFromErrorMessage(err),
 			stopLoop,
 		)
