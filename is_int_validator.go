@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"math"
 )
 
 func IsInt(
@@ -14,14 +13,17 @@ func IsInt(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		if _, ok := value.(float64); ok && value == math.Trunc(value.(float64)) {
+		if _, ok := value.(int); ok {
 			return nil, false
 		}
 
-		message = fmt.Sprintf(
-			"The value is not an integer: value is %s.",
-			fmt.Sprintf("%T", value),
-		)
+		if message == "" {
+			message = fmt.Sprintf(
+				"The value is not an integer: value is %s.",
+				fmt.Sprintf("%T", value),
+			)
+		}
+
 		return &message, true
 	}
 }

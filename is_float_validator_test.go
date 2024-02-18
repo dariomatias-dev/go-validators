@@ -24,6 +24,24 @@ func TestIsFloat(t *testing.T) {
 		)
 	}
 
+	errorMessage, stopLoop = IsFloat()(1)
+	if errorMessage == nil || !stopLoop {
+		t.Errorf(
+			"IsFloat()(1) = %s, %t; expected: \"[error message]\", true",
+			GetValueFromErrorMessage(errorMessage),
+			stopLoop,
+		)
+	}
+
+	errorMessage, stopLoop = IsFloat(customErrorMessage)(1)
+	if errorMessage == nil || !stopLoop {
+		t.Errorf(
+			"IsFloat(\"error\")(1) = %s, %t; expected: \"error\", true",
+			GetValueFromErrorMessage(errorMessage),
+			stopLoop,
+		)
+	}
+
 	errorMessage, stopLoop = IsFloat()(1.1)
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
