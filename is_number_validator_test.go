@@ -3,59 +3,63 @@ package validators
 import "testing"
 
 func TestIsNumber(t *testing.T) {
-	err, stopLoop := IsNumber()("")
-	if err == nil || !stopLoop {
+	customErrorMessage := "error"
+	errorMessage, stopLoop := IsNumber()("")
+	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsNumber()(\"\") = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(err),
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	errorMessage := "error"
-	err, stopLoop = IsNumber(errorMessage)("")
-	if err == nil || *err != errorMessage || !stopLoop {
+	errorMessage, stopLoop = IsNumber(customErrorMessage)("")
+	if errorMessage == nil ||
+		*errorMessage != customErrorMessage ||
+		!stopLoop {
 		t.Errorf(
 			"IsNumber(\"error\")(\"\") = %s, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(err),
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	err, stopLoop = IsNumber()(1)
-	if err != nil || stopLoop {
+	errorMessage, stopLoop = IsNumber()(1)
+	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsNumber()(1) = %s, %t; expected: nil, false",
-			GetValueFromErrorMessage(err),
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	errorMessage = "error"
-	err, stopLoop = IsNumber(errorMessage)(1)
-	if err != nil || err != nil && *err != errorMessage || stopLoop {
+	errorMessage, stopLoop = IsNumber(customErrorMessage)(1)
+	if errorMessage != nil ||
+		errorMessage != nil && *errorMessage != customErrorMessage ||
+		stopLoop {
 		t.Errorf(
-			"IsNumber(\"error\")(1) = %s, %t; expected: nil, true",
-			GetValueFromErrorMessage(err),
+			"IsNumber(\"error\")(1) = %s, %t; expected: nil, false",
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	err, stopLoop = IsNumber()(1.1)
-	if err != nil || stopLoop {
+	errorMessage, stopLoop = IsNumber()(1.1)
+	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsNumber()(1.1) = %s, %t; expected: nil, false",
-			GetValueFromErrorMessage(err),
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	errorMessage = "error"
-	err, stopLoop = IsNumber(errorMessage)(1.1)
-	if err != nil || err != nil && *err != errorMessage || stopLoop {
+	errorMessage, stopLoop = IsNumber(customErrorMessage)(1.1)
+	if errorMessage != nil ||
+		errorMessage != nil && *errorMessage != customErrorMessage ||
+		stopLoop {
 		t.Errorf(
-			"IsNumber(\"error\")(1.1) = %s, %t; expected: nil, true",
-			GetValueFromErrorMessage(err),
+			"IsNumber(\"error\")(1.1) = %s, %t; expected: nil, false",
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

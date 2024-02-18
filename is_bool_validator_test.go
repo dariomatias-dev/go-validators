@@ -3,40 +3,41 @@ package validators
 import "testing"
 
 func TestIsBool(t *testing.T) {
-	err, stopLoop := IsBool()(0)
-	if err == nil || !stopLoop {
+	customErrorMessage := "error"
+	errorMessage, stopLoop := IsBool()(0)
+	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsBool()(0) = %s, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(err),
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	errorMessage := "error"
-	err, stopLoop = IsBool(errorMessage)(0)
-	if err == nil || *err != errorMessage || !stopLoop {
+	errorMessage, stopLoop = IsBool(customErrorMessage)(0)
+	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(
 			"IsBool(\"error\")(0) = %s, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(err),
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	err, stopLoop = IsBool()(true)
-	if err != nil || stopLoop {
+	errorMessage, stopLoop = IsBool()(true)
+	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsBool()(true) = %s, %t; expected: nil, false",
-			GetValueFromErrorMessage(err),
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	errorMessage = "error"
-	err, stopLoop = IsBool(errorMessage)(true)
-	if err != nil || err != nil && *err != errorMessage || stopLoop {
+	errorMessage, stopLoop = IsBool(customErrorMessage)(true)
+	if errorMessage != nil ||
+		errorMessage != nil && *errorMessage != customErrorMessage ||
+		stopLoop {
 		t.Errorf(
 			"IsBool(\"error\")(true) = %s, %t; expected: nil, false",
-			GetValueFromErrorMessage(err),
+			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
