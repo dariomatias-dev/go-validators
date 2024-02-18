@@ -1,6 +1,8 @@
 package validators
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func IsNumber(
 	errorMessage ...string,
@@ -11,11 +13,15 @@ func IsNumber(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		if _, ok := value.(float64); !ok {
-			message = fmt.Sprintf(
-				"The value is not a number: value is %s.",
-				fmt.Sprintf("%T", value),
-			)
+		_, isInt := value.(int)
+		_, isFloat := value.(float64)
+		if !isInt && !isFloat {
+			if message == "" {
+				message = fmt.Sprintf(
+					"The value is not a number: value is %s.",
+					fmt.Sprintf("%T", value),
+				)
+			}
 			return &message, true
 		}
 
