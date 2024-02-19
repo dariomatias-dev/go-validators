@@ -14,17 +14,6 @@ func Password(
 
 	return func(value interface{}) (*string, bool) {
 		password := value.(string)
-		if len(password) < 8 {
-			if len(errorMessage) == 0 {
-				message = "The minimum size is 8."
-			}
-			return &message, false
-		} else if len(password) > 20 {
-			if len(errorMessage) == 0 {
-				message = "The maximum size is 20."
-			}
-			return &message, false
-		}
 
 		smallLettersRegex := regexp.MustCompile("[a-zA-Z0-9]")
 		capitalLettersRegex := regexp.MustCompile("[A-Z]")
