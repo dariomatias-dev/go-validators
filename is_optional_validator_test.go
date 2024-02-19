@@ -6,7 +6,7 @@ func TestIsOptional(t *testing.T) {
 	errorMessage, stopLoop := IsOptional()(nil)
 	if errorMessage != nil || !stopLoop {
 		t.Errorf(
-			"IsOptional()(nil) = %s, %t; expected: nil, true",
+			"IsOptional()(nil) = %v, %t; expected: nil, true",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -15,7 +15,7 @@ func TestIsOptional(t *testing.T) {
 	errorMessage, stopLoop = IsOptional()("")
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
-			"IsOptional()(\"\") = %s, %t; expected: nil, false",
+			"IsOptional()(\"\") = %v, %t; expected: nil, false",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)

@@ -7,7 +7,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop := IsRequired()(nil)
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
-			"IsRequired()(nil) = %s, %t; expected: \"[error message]\", true",
+			"IsRequired()(nil) = %v, %t; expected: \"[error message]\", true",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -18,7 +18,7 @@ func TestIsRequired(t *testing.T) {
 		*errorMessage != customErrorMessage ||
 		!stopLoop {
 		t.Errorf(
-			"IsRequired(\"error\")(nil) = %s, %t; expected: \"error\", true",
+			"IsRequired(\"error\")(nil) = %v, %t; expected: \"error\", true",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -27,7 +27,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop = IsRequired()("")
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
-			"IsRequired()(\"\") = %s, %t; expected: \"[error message]\", true",
+			"IsRequired()(\"\") = %v, %t; expected: \"[error message]\", true",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -36,7 +36,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop = IsRequired(customErrorMessage)("")
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
-			"IsRequired(\"error\")(\"\") = %s, %t; expected: \"error\", true",
+			"IsRequired(\"error\")(\"\") = %v, %t; expected: \"error\", true",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -45,7 +45,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop = IsRequired()("  ")
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
-			"IsRequired()(\"  \") = %s, %t; expected: \"[error message]\", true",
+			"IsRequired()(\"  \") = %v, %t; expected: \"[error message]\", true",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -54,7 +54,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop = IsRequired(customErrorMessage)("  ")
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
-			"IsRequired(\"error\")(\"  \") = %s, %t; expected: \"error\", true",
+			"IsRequired(\"error\")(\"  \") = %v, %t; expected: \"error\", true",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -63,7 +63,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop = IsRequired()(1)
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
-			"IsRequired()(1) = %s, %t; expected: nil, false",
+			"IsRequired()(1) = %v, %t; expected: nil, false",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -72,7 +72,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop = IsRequired(customErrorMessage)(1)
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
-			"IsRequired(\"error\")(1) = %s, %t; expected: nil, false",
+			"IsRequired(\"error\")(1) = %v, %t; expected: nil, false",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -81,7 +81,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop = IsRequired()("aA")
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
-			"IsRequired()(\"aA\") = %s, %t; expected: nil, false",
+			"IsRequired()(\"aA\") = %v, %t; expected: nil, false",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
@@ -90,7 +90,7 @@ func TestIsRequired(t *testing.T) {
 	errorMessage, stopLoop = IsRequired(customErrorMessage)("aA")
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
-			"IsRequired(\"error\")(\"aA\") = %s, %t; expected: nil, false",
+			"IsRequired(\"error\")(\"aA\") = %v, %t; expected: nil, false",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
