@@ -1,6 +1,9 @@
 package validators
 
-import "regexp"
+import (
+	"regexp"
+	"strings"
+)
 
 func IsAlphaSpace(
 	errorMessage ...string,
@@ -11,8 +14,10 @@ func IsAlphaSpace(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		lettersAndSpaceRegex := regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$`)
-		if !lettersAndSpaceRegex.MatchString(value.(string)) {
+		nonAlphaSpacePattern := regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$`)
+		val := value.(string)
+		if !nonAlphaSpacePattern.MatchString(val) ||
+			strings.TrimSpace(val) == "" {
 			return &message, false
 		}
 
