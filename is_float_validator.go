@@ -20,7 +20,7 @@ func IsFloat(
 
 		if message == "" {
 			if _, ok := value.(float64); ok {
-				message = "The value is not a decimal number: integer (value)."
+				message = "The value is not a decimal number: value is integer."
 			} else {
 				message = fmt.Sprintf(
 					"The value is not a decimal number: value is %s.",
