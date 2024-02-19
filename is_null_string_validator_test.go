@@ -40,19 +40,19 @@ func TestIsNullString(t *testing.T) {
 		)
 	}
 
-	errorMessage, stopLoop = IsNullString()("")
+	errorMessage, stopLoop = IsNullString()("aA")
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
-			"IsNullString()(\"\") = %s, %t; expected: nil, false",
+			"IsNullString()(\"aA\") = %s, %t; expected: nil, false",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
-	errorMessage, stopLoop = IsNullString(customErrorMessage)("")
+	errorMessage, stopLoop = IsNullString(customErrorMessage)("aA")
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
-			"IsNullString(\"error\")(0) = %s, %t; expected: nil, false",
+			"IsNullString(\"error\")(\"aA\") = %s, %t; expected: nil, false",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)

@@ -1,5 +1,7 @@
 package validators
 
+import "strings"
+
 func IsRequired(
 	errorMessage ...string,
 ) Validator {
@@ -9,7 +11,9 @@ func IsRequired(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		if value == nil {
+		stringValue, isString := value.(string)
+
+		if value == nil || isString && strings.TrimSpace(stringValue) == "" {
 			return &message, true
 		}
 

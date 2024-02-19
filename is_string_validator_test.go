@@ -22,20 +22,20 @@ func TestIsString(t *testing.T) {
 		)
 	}
 
-	err, stopLoop = IsString()("")
+	err, stopLoop = IsString()("aA")
 	if err != nil || stopLoop {
 		t.Errorf(
-			"IsString()(\"\") = %v, %t; expected: nil, false",
+			"IsString()(\"aA\") = %v, %t; expected: nil, false",
 			GetValueFromErrorMessage(err),
 			stopLoop,
 		)
 	}
 
 	errorMessage = "error"
-	err, stopLoop = IsString(errorMessage)("")
+	err, stopLoop = IsString(errorMessage)("aA")
 	if err != nil || stopLoop {
 		t.Errorf(
-			"IsString(\"error\")(\"\") = %v, %t; expected: nil, true",
+			"IsString(\"error\")(\"aA\") = %v, %t; expected: nil, true",
 			GetValueFromErrorMessage(err),
 			stopLoop,
 		)

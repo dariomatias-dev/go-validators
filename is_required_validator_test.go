@@ -25,20 +25,72 @@ func TestIsRequired(t *testing.T) {
 	}
 
 	errorMessage, stopLoop = IsRequired()("")
-	if errorMessage != nil || stopLoop {
+	if errorMessage == nil || !stopLoop {
 		t.Errorf(
-			"IsRequired()(\"\") = %s, %t; expected: nil, false",
+			"IsRequired()(\"\") = %s, %t; expected: \"[error message]\", true",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
 
 	errorMessage, stopLoop = IsRequired(customErrorMessage)("")
-	if errorMessage != nil ||
-		errorMessage != nil && *errorMessage != customErrorMessage ||
-		stopLoop {
+	if errorMessage == nil || !stopLoop {
 		t.Errorf(
-			"IsRequired(\"error\")(\"\") = %s, %t; expected: nil, false",
+			"IsRequired(\"error\")(\"\") = %s, %t; expected: \"error\", true",
+			GetValueFromErrorMessage(errorMessage),
+			stopLoop,
+		)
+	}
+
+	errorMessage, stopLoop = IsRequired()("  ")
+	if errorMessage == nil || !stopLoop {
+		t.Errorf(
+			"IsRequired()(\"  \") = %s, %t; expected: \"[error message]\", true",
+			GetValueFromErrorMessage(errorMessage),
+			stopLoop,
+		)
+	}
+
+	errorMessage, stopLoop = IsRequired(customErrorMessage)("  ")
+	if errorMessage == nil || !stopLoop {
+		t.Errorf(
+			"IsRequired(\"error\")(\"  \") = %s, %t; expected: \"error\", true",
+			GetValueFromErrorMessage(errorMessage),
+			stopLoop,
+		)
+	}
+
+	errorMessage, stopLoop = IsRequired()(1)
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			"IsRequired()(1) = %s, %t; expected: nil, false",
+			GetValueFromErrorMessage(errorMessage),
+			stopLoop,
+		)
+	}
+
+	errorMessage, stopLoop = IsRequired(customErrorMessage)(1)
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			"IsRequired(\"error\")(1) = %s, %t; expected: nil, false",
+			GetValueFromErrorMessage(errorMessage),
+			stopLoop,
+		)
+	}
+
+	errorMessage, stopLoop = IsRequired()("aA")
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			"IsRequired()(\"aA\") = %s, %t; expected: nil, false",
+			GetValueFromErrorMessage(errorMessage),
+			stopLoop,
+		)
+	}
+
+	errorMessage, stopLoop = IsRequired(customErrorMessage)("aA")
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			"IsRequired(\"error\")(\"aA\") = %s, %t; expected: nil, false",
 			GetValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)

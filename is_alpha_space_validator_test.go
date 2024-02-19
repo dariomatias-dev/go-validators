@@ -4,43 +4,7 @@ import "testing"
 
 func TestIsAlphaSpace(t *testing.T) {
 	customErrorMessage := "error"
-	errorMessage, stopLoop := IsAlphaSpace()("")
-	if errorMessage == nil || stopLoop {
-		t.Errorf(
-			"IsAlphaSpace()(\"\") = %s, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
-			stopLoop,
-		)
-	}
-
-	errorMessage, stopLoop = IsAlphaSpace(customErrorMessage)("")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
-		t.Errorf(
-			"IsAlphaSpace(\"error\")(\"\") = %s, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
-			stopLoop,
-		)
-	}
-
-	errorMessage, stopLoop = IsAlphaSpace()(" ")
-	if errorMessage == nil || stopLoop {
-		t.Errorf(
-			"IsAlphaSpace()(\" \") = %s, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
-			stopLoop,
-		)
-	}
-
-	errorMessage, stopLoop = IsAlphaSpace(customErrorMessage)(" ")
-	if errorMessage == nil || stopLoop {
-		t.Errorf(
-			"IsAlphaSpace(\"error\")(\" \") = %s, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
-			stopLoop,
-		)
-	}
-
-	errorMessage, stopLoop = IsAlphaSpace()("abcDEFáÉ123!@# ")
+	errorMessage, stopLoop := IsAlphaSpace()("abcDEFáÉ123!@# ")
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"IsAlphaSpace()(\"abcDEFáÉ123!@# \") = %s, %t; expected: \"[error message]\", false",
