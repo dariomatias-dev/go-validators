@@ -8,7 +8,7 @@ func TestIsInt(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsInt()(\"\") = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -19,7 +19,7 @@ func TestIsInt(t *testing.T) {
 		!stopLoop {
 		t.Errorf(
 			"IsInt(\"error\")(\"\") = %v, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -28,7 +28,7 @@ func TestIsInt(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsInt()(1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -37,7 +37,7 @@ func TestIsInt(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsInt(\"error\")(1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -46,7 +46,7 @@ func TestIsInt(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsInt()(1.1) = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -55,7 +55,7 @@ func TestIsInt(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsInt(\"error\")(1.1) = %v, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

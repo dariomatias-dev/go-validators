@@ -8,7 +8,7 @@ func TestMinLength(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"MinLength(5)(\"\") = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -17,7 +17,7 @@ func TestMinLength(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"MinLength(5, \"error\")(\"\") = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -26,7 +26,7 @@ func TestMinLength(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"MinLength(5)(\"aA\") = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -35,7 +35,7 @@ func TestMinLength(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"MinLength(5, \"error\")(\"aA\") = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -44,7 +44,7 @@ func TestMinLength(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"MinLength(5)(\"aAbBcC\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -53,7 +53,7 @@ func TestMinLength(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"MinLength(5, \"error\")(\"aAbBcC\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

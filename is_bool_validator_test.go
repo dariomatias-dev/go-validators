@@ -8,7 +8,7 @@ func TestIsBool(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsBool()(0) = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -17,7 +17,7 @@ func TestIsBool(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(
 			"IsBool(\"error\")(0) = %v, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -26,7 +26,7 @@ func TestIsBool(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsBool()(true) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -37,7 +37,7 @@ func TestIsBool(t *testing.T) {
 		stopLoop {
 		t.Errorf(
 			"IsBool(\"error\")(true) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

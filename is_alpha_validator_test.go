@@ -8,7 +8,7 @@ func TestIsAlpha(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"IsAlpha()(\"abcDEFáÉ123!@#\") = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -17,7 +17,7 @@ func TestIsAlpha(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf(
 			"IsAlpha(\"error\")(\"abcDEFáÉ123!@#\") = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -26,7 +26,7 @@ func TestIsAlpha(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsAlpha()(\"abcDEFáÉ\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -35,7 +35,7 @@ func TestIsAlpha(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsAlpha(\"error\")(\"abcDEFáÉ\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

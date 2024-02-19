@@ -8,7 +8,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsRequired()(nil) = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -19,7 +19,7 @@ func TestIsRequired(t *testing.T) {
 		!stopLoop {
 		t.Errorf(
 			"IsRequired(\"error\")(nil) = %v, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -28,7 +28,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsRequired()(\"\") = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -37,7 +37,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsRequired(\"error\")(\"\") = %v, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -46,7 +46,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsRequired()(\"  \") = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -55,7 +55,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsRequired(\"error\")(\"  \") = %v, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -64,7 +64,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsRequired()(1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -73,7 +73,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsRequired(\"error\")(1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -82,7 +82,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsRequired()(\"aA\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -91,7 +91,7 @@ func TestIsRequired(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsRequired(\"error\")(\"aA\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

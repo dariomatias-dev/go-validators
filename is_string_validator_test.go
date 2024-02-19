@@ -7,7 +7,7 @@ func TestIsString(t *testing.T) {
 	if err == nil || !stopLoop {
 		t.Errorf(
 			"IsString()(0) = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(err),
+			getValueFromErrorMessage(err),
 			stopLoop,
 		)
 	}
@@ -17,7 +17,7 @@ func TestIsString(t *testing.T) {
 	if err == nil || *err != errorMessage || !stopLoop {
 		t.Errorf(
 			"IsString(\"error\")(0) = %v, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(err),
+			getValueFromErrorMessage(err),
 			stopLoop,
 		)
 	}
@@ -26,7 +26,7 @@ func TestIsString(t *testing.T) {
 	if err != nil || stopLoop {
 		t.Errorf(
 			"IsString()(\"aA\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(err),
+			getValueFromErrorMessage(err),
 			stopLoop,
 		)
 	}
@@ -36,7 +36,7 @@ func TestIsString(t *testing.T) {
 	if err != nil || stopLoop {
 		t.Errorf(
 			"IsString(\"error\")(\"aA\") = %v, %t; expected: nil, true",
-			GetValueFromErrorMessage(err),
+			getValueFromErrorMessage(err),
 			stopLoop,
 		)
 	}

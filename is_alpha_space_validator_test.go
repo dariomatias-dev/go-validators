@@ -8,7 +8,7 @@ func TestIsAlphaSpace(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"IsAlphaSpace()(\"abcDEFáÉ123!@# \") = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -17,7 +17,7 @@ func TestIsAlphaSpace(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf(
 			"IsAlphaSpace(\"error\")(\"abcDEFáÉ123!@# \") = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -26,7 +26,7 @@ func TestIsAlphaSpace(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsAlphaSpace()(\"abcDEFáÉ\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -35,7 +35,7 @@ func TestIsAlphaSpace(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsAlphaSpace(\"error\")(\"abcDEFáÉ\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -44,7 +44,7 @@ func TestIsAlphaSpace(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsAlphaSpace()(\"abcDEFáÉ \") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -53,7 +53,7 @@ func TestIsAlphaSpace(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsAlphaSpace(\"error\")(\"abcDEFáÉ \") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

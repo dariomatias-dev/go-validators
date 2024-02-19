@@ -8,7 +8,7 @@ func TestPassword(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"Password()(\"a\") = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -17,7 +17,7 @@ func TestPassword(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf(
 			"Password(\"error\")(\"a\") = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -26,7 +26,7 @@ func TestPassword(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"Password()(\"aA\") = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -35,7 +35,7 @@ func TestPassword(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf(
 			"Password(\"error\")(\"aA\") = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -44,7 +44,7 @@ func TestPassword(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"Password()(\"aA1\") = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -53,7 +53,7 @@ func TestPassword(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf(
 			"Password(\"error\")(\"aA1\") = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -62,7 +62,7 @@ func TestPassword(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"Password()(\"aA1!\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -71,7 +71,7 @@ func TestPassword(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"Password(\"error\")(\"aA1!\") = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

@@ -2,7 +2,7 @@ package validators
 
 import "fmt"
 
-func GetValueFromErrorMessage(
+func getValueFromErrorMessage(
 	errorMessage *string,
 ) interface{} {
 	if errorMessage == nil {

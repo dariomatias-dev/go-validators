@@ -8,7 +8,7 @@ func TestMax(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"Max(1)(2) = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -17,7 +17,7 @@ func TestMax(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"Max(1, \"error\")(2) = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -26,7 +26,7 @@ func TestMax(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"Max(1.1)(1.2) = %v, %t; expected: \"[error message]\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -35,7 +35,7 @@ func TestMax(t *testing.T) {
 	if errorMessage == nil || stopLoop {
 		t.Errorf(
 			"Max(1.1, \"error\")(1.2) = %v, %t; expected: \"error\", false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -44,7 +44,7 @@ func TestMax(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"Max(2)(1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -53,7 +53,7 @@ func TestMax(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"Max(2, \"error\")(1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -62,7 +62,7 @@ func TestMax(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"Max(2.1)(1.1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -71,7 +71,7 @@ func TestMax(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"Max(2.1, \"error\")(1.1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}

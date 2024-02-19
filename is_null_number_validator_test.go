@@ -8,7 +8,7 @@ func TestIsNullNumber(t *testing.T) {
 	if errorMessage != nil || !stopLoop {
 		t.Errorf(
 			"IsNullNumber()(nil) = %v, %t; expected: nil, true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -17,7 +17,7 @@ func TestIsNullNumber(t *testing.T) {
 	if errorMessage != nil || !stopLoop {
 		t.Errorf(
 			"IsNullNumber()(nil) = %v, %t; expected: nil, true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -26,7 +26,7 @@ func TestIsNullNumber(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			"IsNullNumber()(\"\") = %v, %t; expected: \"[error message]\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -35,7 +35,7 @@ func TestIsNullNumber(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(
 			"IsNullNumber()(\"error\") = %v, %t; expected: \"error\", true",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -44,7 +44,7 @@ func TestIsNullNumber(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsNumber()(1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -53,7 +53,7 @@ func TestIsNullNumber(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsNumber(\"error\")(1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -62,7 +62,7 @@ func TestIsNullNumber(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsNumber()(1.1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
@@ -71,7 +71,7 @@ func TestIsNullNumber(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			"IsNumber(\"error\")(1.1) = %v, %t; expected: nil, false",
-			GetValueFromErrorMessage(errorMessage),
+			getValueFromErrorMessage(errorMessage),
 			stopLoop,
 		)
 	}
