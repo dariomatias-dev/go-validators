@@ -15,7 +15,7 @@ func TestIsInt(t *testing.T) {
 
 	errorMessage, stopLoop = IsInt(customErrorMessage)("")
 	if errorMessage == nil ||
-		errorMessage != nil && *errorMessage != customErrorMessage ||
+		*errorMessage != customErrorMessage ||
 		!stopLoop {
 		t.Errorf(
 			"IsInt(\"error\")(\"\") = %v, %t; expected: \"error\", true",

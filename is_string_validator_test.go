@@ -33,7 +33,7 @@ func TestIsString(t *testing.T) {
 
 	errorMessage = "error"
 	err, stopLoop = IsString(errorMessage)("")
-	if err != nil || err != nil && *err != errorMessage || stopLoop {
+	if err != nil || stopLoop {
 		t.Errorf(
 			"IsString(\"error\")(\"\") = %v, %t; expected: nil, true",
 			GetValueFromErrorMessage(err),
