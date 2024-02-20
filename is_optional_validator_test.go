@@ -3,21 +3,13 @@ package validators
 import "testing"
 
 func TestIsOptional(t *testing.T) {
-	errorMessage, stopLoop := IsOptional()(nil)
+	errorMessage, stopLoop = IsOptional()(nil)
 	if errorMessage != nil || !stopLoop {
-		t.Errorf(
-			"IsOptional()(nil) = %v, %t; expected: nil, true",
-			getValueFromErrorMessage(errorMessage),
-			stopLoop,
-		)
+		newError(t, "IsOptional()(nil) = %v, %t; expected: nil, true")
 	}
 
 	errorMessage, stopLoop = IsOptional()("")
 	if errorMessage != nil || stopLoop {
-		t.Errorf(
-			"IsOptional()(\"\") = %v, %t; expected: nil, false",
-			getValueFromErrorMessage(errorMessage),
-			stopLoop,
-		)
+		newError(t, "IsOptional()(\"\") = %v, %t; expected: nil, false")
 	}
 }

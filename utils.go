@@ -1,13 +1,28 @@
 package validators
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
-func getValueFromErrorMessage(
-	errorMessage *string,
-) interface{} {
-	if errorMessage == nil {
-		return nil
-	}
+var (
+	errorMessage *string
+	stopLoop     bool
+)
 
-	return fmt.Sprintf("\"%s\"", *errorMessage)
+func newError(
+	t *testing.T,
+	message string,
+) {
+	t.Errorf(
+		message,
+		func() interface{} {
+			if errorMessage == nil {
+				return nil
+			}
+		
+			return fmt.Sprintf("\"%s\"", *errorMessage)
+		}(),
+		stopLoop,
+	)
 }

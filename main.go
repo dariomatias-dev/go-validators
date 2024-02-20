@@ -29,7 +29,7 @@ func Validate(
 ) *[]string {
 	var errorMessages []string
 	for _, validation := range validations {
-		errorMessage, stopLoop := validation(value)
+		errorMessage, stopLoop = validation(value)
 
 		if errorMessage != nil {
 			errorMessages = append(errorMessages, *errorMessage)
