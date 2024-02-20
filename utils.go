@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"testing"
 )
 
 var (
@@ -10,19 +9,15 @@ var (
 	stopLoop     bool
 )
 
-func newError(
-	t *testing.T,
-	message string,
-) {
-	t.Errorf(
-		message,
+func getArgs() []interface{} {
+	return []interface{}{
 		func() interface{} {
 			if errorMessage == nil {
 				return nil
 			}
-		
+
 			return fmt.Sprintf("\"%s\"", *errorMessage)
 		}(),
 		stopLoop,
-	)
+	}
 }

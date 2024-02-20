@@ -6,21 +6,21 @@ func TestMaxLength(t *testing.T) {
 	customErrorMessage := "error"
 	errorMessage, stopLoop = MaxLength(5)("aAbBcC")
 	if errorMessage == nil || stopLoop {
-		newError(t, "MaxLength(5)(\"aAbBcC\") = %v, %t; expected: \"[error message]\", false")
+		t.Errorf("MaxLength(5)(\"aAbBcC\") = %v, %t; expected: \"[error message]\", false", getArgs()...)
 	}
 
 	errorMessage, stopLoop = MaxLength(5, customErrorMessage)("aAbBcC")
 	if errorMessage == nil || stopLoop {
-		newError(t, "MaxLength(5, \"error\")(\"aAbBcC\") = %v, %t; expected: \"error\", false")
+		t.Errorf("MaxLength(5, \"error\")(\"aAbBcC\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
 	errorMessage, stopLoop = MaxLength(5)("aA")
 	if errorMessage != nil || stopLoop {
-		newError(t, "MaxLength(5)(\"aA\") = %v, %t; expected: \"[error message]\", false")
+		t.Errorf("MaxLength(5)(\"aA\") = %v, %t; expected: \"[error message]\", false", getArgs()...)
 	}
 
 	errorMessage, stopLoop = MaxLength(5, customErrorMessage)("aA")
 	if errorMessage != nil || stopLoop {
-		newError(t, "MaxLength(5, \"error\")(\"aA\") = %v, %t; expected: \"error\", false")
+		t.Errorf("MaxLength(5, \"error\")(\"aA\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

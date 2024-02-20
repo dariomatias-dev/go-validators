@@ -19,10 +19,7 @@ func IsArray(
 	fieldValidators []Validator,
 	errorMessage ...string,
 ) Validator {
-	message := "The value is not an array."
-	if len(errorMessage) != 0 {
-		message = errorMessage[0]
-	}
+	message := ""
 	validateValue := ValidateValue(
 		message,
 		fieldValidators,
@@ -32,7 +29,9 @@ func IsArray(
 	return func(value interface{}) (*string, bool) {
 		switch typeOfValues {
 		case ArrayIsInterface:
-			message = fmt.Sprintf("The value is not an %s array", "interface")
+			if message == "" {
+				message = fmt.Sprintf("The value is not an %s array", "interface")
+			}
 
 			if arrayInterface, ok := value.([]interface{}); ok {
 				for _, element := range arrayInterface {
@@ -113,6 +112,12 @@ func IsArray(
 			}
 		}
 
+		if len(errorMessage) != 0 {
+			message = errorMessage[0]
+		} else {
+			message = "The value is not an array."
+		}
+
 		return &message, true
 	}
 }
@@ -128,6 +133,7 @@ func ValidateValue(
 
 			if err != nil {
 				if len(errorMessage) != 0 {
+					message = errorMessage[0]
 					return &message, true
 				}
 
