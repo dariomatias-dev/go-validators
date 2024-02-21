@@ -6,12 +6,12 @@ import (
 )
 
 const (
-	ArrayIsInterface = "arrayIsInterface"
-	ArrayIsString    = "arrayIsString"
-	ArrayIsInt       = "arrayIsInt"
-	ArrayIsFloat64   = "arrayIsFloat64"
-	ArrayIsBool      = "arrayIsBool"
-	ArrayIsStruct    = "arrayIsStruct"
+	InterfaceArray = "interfaceArray"
+	StringArray    = "stringArray"
+	IntArray       = "intArray"
+	float64Array   = "float64Array"
+	boolArray      = "boolArray"
+	structArray    = "structArray"
 )
 
 func IsArray(
@@ -28,7 +28,7 @@ func IsArray(
 
 	return func(value interface{}) (*string, bool) {
 		switch typeOfValues {
-		case ArrayIsInterface:
+		case InterfaceArray:
 			if message == "" {
 				message = fmt.Sprintf("The value is not an %s array", "interface")
 			}
@@ -43,7 +43,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case ArrayIsString:
+		case StringArray:
 			message = fmt.Sprintf("The value is not an %s array", "string")
 
 			if arrayString, ok := value.([]string); ok {
@@ -56,7 +56,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case ArrayIsInt:
+		case IntArray:
 			message = fmt.Sprintf("The value is not an %s array", "int")
 
 			if arrayInt, ok := value.([]int); ok {
@@ -69,7 +69,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case ArrayIsFloat64:
+		case float64Array:
 			message = fmt.Sprintf("The value is not an %s array", "float64")
 
 			if arrayFloat64, ok := value.([]float64); ok {
@@ -82,7 +82,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case ArrayIsBool:
+		case boolArray:
 			message = fmt.Sprintf("The value is not an %s array", "bool")
 
 			if arrayBool, ok := value.([]bool); ok {
@@ -95,7 +95,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case ArrayIsStruct:
+		case structArray:
 			kind := reflect.TypeOf(value).Kind()
 			if kind == reflect.Array || kind == reflect.Slice {
 				arrayStruct := reflect.ValueOf(value)
