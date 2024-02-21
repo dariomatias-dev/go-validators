@@ -9,9 +9,9 @@ const (
 	InterfaceArray = "interfaceArray"
 	StringArray    = "stringArray"
 	IntArray       = "intArray"
-	float64Array   = "float64Array"
-	boolArray      = "boolArray"
-	structArray    = "structArray"
+	Float64Array   = "float64Array"
+	BoolArray      = "boolArray"
+	StructArray    = "structArray"
 )
 
 func IsArray(
@@ -69,7 +69,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case float64Array:
+		case Float64Array:
 			message = fmt.Sprintf("The value is not an %s array", "float64")
 
 			if arrayFloat64, ok := value.([]float64); ok {
@@ -82,7 +82,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case boolArray:
+		case BoolArray:
 			message = fmt.Sprintf("The value is not an %s array", "bool")
 
 			if arrayBool, ok := value.([]bool); ok {
@@ -95,7 +95,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case structArray:
+		case StructArray:
 			kind := reflect.TypeOf(value).Kind()
 			if kind == reflect.Array || kind == reflect.Slice {
 				arrayStruct := reflect.ValueOf(value)
