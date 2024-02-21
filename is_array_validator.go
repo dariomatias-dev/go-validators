@@ -11,7 +11,7 @@ const (
 	IntArray       = "intArray"
 	Float64Array   = "float64Array"
 	BoolArray      = "boolArray"
-	StructArray    = "structArray"
+	AnyArray       = "anyArray"
 )
 
 func IsArray(
@@ -95,7 +95,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case StructArray:
+		case AnyArray:
 			kind := reflect.TypeOf(value).Kind()
 			if kind == reflect.Array || kind == reflect.Slice {
 				arrayStruct := reflect.ValueOf(value)

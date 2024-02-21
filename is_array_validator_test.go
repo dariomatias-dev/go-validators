@@ -369,4 +369,79 @@ errorMessage, stopLoop = IsArray(
 			getArgs()...,
 		)
 	}
+
+	/// any array
+	type Struct struct{}
+
+	// Errors
+	errorMessage, stopLoop = IsArray(
+		AnyArray,
+		[]Validator{},
+	)("")
+
+	if errorMessage == nil || !stopLoop {
+		t.Errorf(`
+errorMessage, stopLoop = IsArray(
+	AnyArray,
+	[]Validator{},
+)("") = %v, %t; expected: "[error message]", true
+		`,
+			getArgs()...,
+		)
+	}
+
+	errorMessage, stopLoop = IsArray(
+		AnyArray,
+		[]Validator{},
+		customErrorMessage,
+	)("")
+
+	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+		t.Errorf(`
+errorMessage, stopLoop = IsArray(
+	AnyArray,
+	[]Validator{},
+	"error",
+)("") = %v, %t; expected: "error", true
+		`,
+			getArgs()...,
+		)
+	}
+
+	// Successes
+	errorMessage, stopLoop = IsArray(
+		AnyArray,
+		[]Validator{},
+	)([]Struct{})
+
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			`
+errorMessage, stopLoop = IsArray(
+	AnyArray,
+	[]Validator{},
+)([]Struct{}) = %v, %t; expected: nil, false
+			`,
+			getArgs()...,
+		)
+	}
+
+	errorMessage, stopLoop = IsArray(
+		AnyArray,
+		[]Validator{},
+		customErrorMessage,
+	)([]Struct{})
+
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			`
+errorMessage, stopLoop = IsArray(
+	AnyArray,
+	[]Validator{},
+	"error",
+)([]Struct{}) = %v, %t; expected: nil, false
+			`,
+			getArgs()...,
+		)
+	}
 }
