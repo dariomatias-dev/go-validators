@@ -7,6 +7,7 @@ import (
 
 func IsArray(
 	typeOfValues string,
+	arraySettings Array,
 	fieldValidators []Validator,
 	errorMessage ...string,
 ) Validator {
