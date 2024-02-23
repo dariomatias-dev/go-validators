@@ -12,6 +12,10 @@ func IsArray(
 	errorMessage ...string,
 ) Validator {
 	message := ""
+	validateArray := ValidateArray(
+		arraySettings,
+		&message,
+	)
 	validateValue := ValidateValue(
 		message,
 		fieldValidators,
@@ -26,6 +30,10 @@ func IsArray(
 			}
 
 			if arrayInterface, ok := value.([]interface{}); ok {
+				if err := validateArray(len(arrayInterface)); err != nil {
+					return err, true
+				}
+
 				for _, element := range arrayInterface {
 					err, stopLoop := validateValue(element)
 
@@ -39,6 +47,10 @@ func IsArray(
 			message = fmt.Sprintf("The value is not an %s array", "string")
 
 			if arrayString, ok := value.([]string); ok {
+				if err := validateArray(len(arrayString)); err != nil {
+					return err, true
+				}
+
 				for _, element := range arrayString {
 					err, stopLoop := validateValue(element)
 
@@ -52,6 +64,10 @@ func IsArray(
 			message = fmt.Sprintf("The value is not an %s array", "int")
 
 			if arrayInt, ok := value.([]int); ok {
+				if err := validateArray(len(arrayInt)); err != nil {
+					return err, true
+				}
+
 				for _, element := range arrayInt {
 					err, stopLoop := validateValue(element)
 
@@ -65,6 +81,10 @@ func IsArray(
 			message = fmt.Sprintf("The value is not an %s array", "float64")
 
 			if arrayFloat64, ok := value.([]float64); ok {
+				if err := validateArray(len(arrayFloat64)); err != nil {
+					return err, true
+				}
+
 				for _, element := range arrayFloat64 {
 					err, stopLoop := validateValue(element)
 
@@ -78,6 +98,10 @@ func IsArray(
 			message = fmt.Sprintf("The value is not an %s array", "bool")
 
 			if arrayBool, ok := value.([]bool); ok {
+				if err := validateArray(len(arrayBool)); err != nil {
+					return err, true
+				}
+
 				for _, element := range arrayBool {
 					err, stopLoop := validateValue(element)
 
@@ -91,6 +115,10 @@ func IsArray(
 			kind := reflect.TypeOf(value).Kind()
 			if kind == reflect.Array || kind == reflect.Slice {
 				arrayStruct := reflect.ValueOf(value)
+
+				if err := validateArray(arrayStruct.Len()); err != nil {
+					return err, true
+				}
 
 				for i := range arrayStruct.Len() {
 					err, stopLoop := validateValue(arrayStruct.Index(i).Interface())
@@ -111,6 +139,27 @@ func IsArray(
 		}
 
 		return &message, true
+	}
+}
+
+func ValidateArray(
+	arraySettings Array,
+	message *string,
+) func(arraySize int) *string {
+	return func(arraySize int) *string {
+		if !arraySettings.AllowEmpty && arraySize == 0 {
+			*message = "The array cannot be empty."
+			return message
+		}
+		if arraySettings.MinLength != 0 && arraySize < arraySettings.MinLength {
+			*message = fmt.Sprintf("The minimum size array is %d.", arraySettings.MinLength)
+			return message
+		}
+		if arraySettings.MaxLength != 0 && arraySize > arraySettings.MaxLength {
+			*message = fmt.Sprintf("The maximum size array is %d.", arraySettings.MaxLength)
+			return message
+		}
+		return nil
 	}
 }
 
