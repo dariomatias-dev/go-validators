@@ -12,6 +12,10 @@ func IsArray(
 	errorMessage ...string,
 ) Validator {
 	message := ""
+	if len(errorMessage) != 0 {
+		message = errorMessage[0]
+	}
+
 	validateArray := ValidateArray(
 		arraySettings,
 		&message,
@@ -44,7 +48,9 @@ func IsArray(
 				return nil, false
 			}
 		case StringArray:
-			message = fmt.Sprintf("The value is not an %s array", "string")
+			if message == "" {
+				message = fmt.Sprintf("The value is not an %s array", "string")
+			}
 
 			if arrayString, ok := value.([]string); ok {
 				if err := validateArray(len(arrayString)); err != nil {
@@ -61,7 +67,9 @@ func IsArray(
 				return nil, false
 			}
 		case IntArray:
-			message = fmt.Sprintf("The value is not an %s array", "int")
+			if message == "" {
+				message = fmt.Sprintf("The value is not an %s array", "int")
+			}
 
 			if arrayInt, ok := value.([]int); ok {
 				if err := validateArray(len(arrayInt)); err != nil {
@@ -78,7 +86,9 @@ func IsArray(
 				return nil, false
 			}
 		case Float64Array:
-			message = fmt.Sprintf("The value is not an %s array", "float64")
+			if message == "" {
+				message = fmt.Sprintf("The value is not an %s array", "float64")
+			}
 
 			if arrayFloat64, ok := value.([]float64); ok {
 				if err := validateArray(len(arrayFloat64)); err != nil {
@@ -95,7 +105,9 @@ func IsArray(
 				return nil, false
 			}
 		case BoolArray:
-			message = fmt.Sprintf("The value is not an %s array", "bool")
+			if message == "" {
+				message = fmt.Sprintf("The value is not an %s array", "bool")
+			}
 
 			if arrayBool, ok := value.([]bool); ok {
 				if err := validateArray(len(arrayBool)); err != nil {
@@ -124,7 +136,9 @@ func IsArray(
 					err, stopLoop := validateValue(arrayStruct.Index(i).Interface())
 
 					if stopLoop {
-						message = fmt.Sprintf("The value is not an %s array", "struct")
+						if message == "" {
+							message = fmt.Sprintf("The value is not an %s array", "struct")
+						}
 						return err, stopLoop
 					}
 				}
@@ -132,9 +146,7 @@ func IsArray(
 			}
 		}
 
-		if len(errorMessage) != 0 {
-			message = errorMessage[0]
-		} else {
+		if message == "" {
 			message = "The value is not an array."
 		}
 
@@ -148,15 +160,21 @@ func ValidateArray(
 ) func(arraySize int) *string {
 	return func(arraySize int) *string {
 		if !arraySettings.AllowEmpty && arraySize == 0 {
-			*message = "The array cannot be empty."
+			if *message == "" {
+				*message = "The array cannot be empty."
+			}
 			return message
 		}
 		if arraySettings.MinLength != 0 && arraySize < arraySettings.MinLength {
-			*message = fmt.Sprintf("The minimum size array is %d.", arraySettings.MinLength)
+			if *message == "" {
+				*message = fmt.Sprintf("The minimum size array is %d.", arraySettings.MinLength)
+			}
 			return message
 		}
 		if arraySettings.MaxLength != 0 && arraySize > arraySettings.MaxLength {
-			*message = fmt.Sprintf("The maximum size array is %d.", arraySettings.MaxLength)
+			if *message == "" {
+				*message = fmt.Sprintf("The maximum size array is %d.", arraySettings.MaxLength)
+			}
 			return message
 		}
 		return nil

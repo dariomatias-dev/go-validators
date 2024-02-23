@@ -19,7 +19,7 @@ func IsNullArray(
 		if message == "" {
 			return IsArray(
 				typeOfValues,
-				Array{},
+				arraySettings,
 				fieldValidators,
 			)(value)
 		}
