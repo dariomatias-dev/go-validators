@@ -17,7 +17,7 @@ func TestIsNullArray(t *testing.T) {
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{},
 	[]Validator{},
@@ -37,7 +37,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{},
 	[]Validator{},
@@ -59,7 +59,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{
 		MinLength: 3,
@@ -83,7 +83,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{
 		MinLength: 3,
@@ -106,7 +106,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage != nil || !stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{},
 	[]Validator{},
@@ -126,7 +126,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage != nil || !stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{},
 	[]Validator{},
@@ -146,7 +146,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{},
 	[]Validator{},
@@ -166,7 +166,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{},
 	[]Validator{},
@@ -188,7 +188,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{
 		MinLength: 3,
@@ -212,7 +212,7 @@ errorMessage, stopLoop := IsNullArray(
 	if errorMessage != nil || stopLoop {
 		t.Errorf(
 			`
-errorMessage, stopLoop := IsNullArray(
+IsNullArray(
 	StringArray,
 	Array{
 		MinLength: 3,
