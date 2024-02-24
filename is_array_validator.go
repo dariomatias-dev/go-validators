@@ -30,7 +30,7 @@ func IsArray(
 		switch typeOfValues {
 		case InterfaceArray:
 			if message == "" {
-				message = fmt.Sprintf("The value is not an %s array", "interface")
+				message = arrayTypeErrorMessage("interface")
 			}
 
 			if arrayInterface, ok := value.([]interface{}); ok {
@@ -49,7 +49,7 @@ func IsArray(
 			}
 		case StringArray:
 			if message == "" {
-				message = fmt.Sprintf("The value is not an %s array", "string")
+				message = arrayTypeErrorMessage("string")
 			}
 
 			if arrayString, ok := value.([]string); ok {
@@ -68,7 +68,7 @@ func IsArray(
 			}
 		case IntArray:
 			if message == "" {
-				message = fmt.Sprintf("The value is not an %s array", "int")
+				message = arrayTypeErrorMessage("int")
 			}
 
 			if arrayInt, ok := value.([]int); ok {
@@ -87,7 +87,7 @@ func IsArray(
 			}
 		case Float64Array:
 			if message == "" {
-				message = fmt.Sprintf("The value is not an %s array", "float64")
+				message = arrayTypeErrorMessage("float64")
 			}
 
 			if arrayFloat64, ok := value.([]float64); ok {
@@ -106,7 +106,7 @@ func IsArray(
 			}
 		case BoolArray:
 			if message == "" {
-				message = fmt.Sprintf("The value is not an %s array", "bool")
+				message = arrayTypeErrorMessage("bool")
 			}
 
 			if arrayBool, ok := value.([]bool); ok {
@@ -137,7 +137,7 @@ func IsArray(
 
 					if stopLoop {
 						if message == "" {
-							message = fmt.Sprintf("The value is not an %s array", "struct")
+							message = arrayTypeErrorMessage("struct")
 						}
 						return err, stopLoop
 					}
@@ -154,27 +154,40 @@ func IsArray(
 	}
 }
 
+func arrayTypeErrorMessage(arrayType string) string {
+	return fmt.Sprintf("The value is not an %s array", arrayType)
+}
+
 func ValidateArray(
 	arraySettings Array,
 	message *string,
 ) func(arraySize int) *string {
 	return func(arraySize int) *string {
 		if !arraySettings.AllowEmpty && arraySize == 0 {
-			if *message == "" {
+			if arraySettings.AllowEmptyErrorMessage == "" {
 				*message = "The array cannot be empty."
+			} else {
+				*message = arraySettings.AllowEmptyErrorMessage
 			}
+
 			return message
 		}
 		if arraySettings.MinLength != 0 && arraySize < arraySettings.MinLength {
-			if *message == "" {
+			if arraySettings.MinLengthErrorMessage == "" {
 				*message = fmt.Sprintf("The minimum size array is %d.", arraySettings.MinLength)
+			} else {
+				*message = arraySettings.MinLengthErrorMessage
 			}
+
 			return message
 		}
 		if arraySettings.MaxLength != 0 && arraySize > arraySettings.MaxLength {
-			if *message == "" {
+			if arraySettings.MinLengthErrorMessage == "" {
 				*message = fmt.Sprintf("The maximum size array is %d.", arraySettings.MaxLength)
+			} else {
+				*message = arraySettings.MaxLengthErrorMessage
 			}
+
 			return message
 		}
 		return nil

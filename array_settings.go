@@ -1,7 +1,10 @@
 package validators
 
 type Array struct {
-	AllowEmpty bool
-	MinLength  int
-	MaxLength  int
+	AllowEmpty             bool
+	AllowEmptyErrorMessage string
+	MinLength              int
+	MinLengthErrorMessage  string
+	MaxLength              int
+	MaxLengthErrorMessage  string
 }
