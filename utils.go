@@ -1,8 +1,6 @@
 package validators
 
-import (
-	"fmt"
-)
+import "fmt"
 
 var (
 	errorMessage *string

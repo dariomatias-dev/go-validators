@@ -4,6 +4,7 @@ import "testing"
 
 func TestEmail(t *testing.T) {
 	customErrorMessage := "error"
+	customErrorMessage2 := "error2"
 	errorMessage, stopLoop = Email()("aA")
 	if errorMessage == nil || stopLoop {
 		t.Errorf("Email()(\"aA\") = %v, %t; expected: \"[error message]\", true", getArgs()...)
@@ -12,6 +13,16 @@ func TestEmail(t *testing.T) {
 	errorMessage, stopLoop = Email(customErrorMessage)("aA")
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf("Email()(\"aA\") = %v, %t; expected: \"error\", true", getArgs()...)
+	}
+
+	errorMessage, stopLoop = Email("", customErrorMessage2)(nil)
+	if errorMessage == nil || *errorMessage != customErrorMessage2 || stopLoop {
+		t.Errorf("Email(\"\", \"error2\")(nil) = %v, %t; expected: \"error2\", true", getArgs()...)
+	}
+
+	errorMessage, stopLoop = Email(customErrorMessage, customErrorMessage2)(nil)
+	if errorMessage == nil || *errorMessage != customErrorMessage2 || stopLoop {
+		t.Errorf("Email(\"error\", \"error2\")(nil) = %v, %t; expected: \"error2\", true", getArgs()...)
 	}
 
 	errorMessage, stopLoop = Email()("emailexamplegmail.com")

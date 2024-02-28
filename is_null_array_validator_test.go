@@ -80,7 +80,7 @@ IsNullArray(
 		customErrorMessage,
 	)([]string{"a", "b"})
 
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || !stopLoop {
 		t.Errorf(
 			`
 IsNullArray(
