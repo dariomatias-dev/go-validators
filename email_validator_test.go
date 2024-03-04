@@ -5,6 +5,7 @@ import "testing"
 func TestEmail(t *testing.T) {
 	customErrorMessage := "error"
 	customErrorMessage2 := "error2"
+
 	errorMessage, stopLoop = Email()("aA")
 	if errorMessage == nil || stopLoop {
 		t.Errorf("Email()(\"aA\") = %v, %t; expected: \"[error message]\", true", getArgs()...)

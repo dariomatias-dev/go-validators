@@ -9,19 +9,20 @@ func Email(
 	errorMessages ...string,
 ) Validator {
 	message := "Invalid email"
-	sizeOfErrorMessages := len(errorMessages)
-	if sizeOfErrorMessages != 0 && errorMessages[0] != "" {
+	errorMessageLen := len(errorMessages)
+	if errorMessageLen > 0 && errorMessages[0] != "" {
 		message = errorMessages[0]
 	}
 
 	return func(value interface{}) (*string, bool) {
 		valueType := fmt.Sprintf("%T", value)
 		if valueType != fmt.Sprintf("%T", string("")) {
-			if sizeOfErrorMessages > 1 {
+			if errorMessageLen > 1 {
 				message = errorMessages[1]
 			} else {
 				message = fmt.Sprintf("The value is not a string: value is %s.", valueType)
 			}
+
 			return &message, false
 		}
 
