@@ -1,25 +1,28 @@
 # Validation Package
 
-Para que as validações sejam aplicadas corretamente, utilize os validadores na seguinte ordem: `IsRequired` ou `IsOptional`, validador de tipo e em seguida os validadores do valor.
-É importante que sejam passados nessa ordem para que não seja gerado erros, pois por exemplo, o validador `IsOptional` permitirá que o campo seja nulo, logo não faz sentido aplicar as validações seguintes nele, contudo, se não passar esse validador como primeiro, poderá ocorrer um comportamento inesperado ou um erro.
-
-# Validadores em Go
-
 O pacote oferece um conjunto de utilitários de validação para verificar diversas condições em campos de dados. Esses validadores podem ser usados para garantir a integridade dos dados e impor requisitos específicos em suas aplicações Go, utilizando apenas as bibliotecas nativas para realizar as validações.
 
 ## Objetivo
 
-O objetivo é oferecer uma maneira simples e flexível de realizar a validação de dados em aplicações Go de maneira custumizavel. Ao fornecer um conjunto de validadores, os desenvolvedores podem facilmente incorporar lógica de validação de dados em suas aplicações para garantir consistência dos dados e atender aos requisitos específicos de validação, sem a necessidade de escrever o codigo de validacao do zero, podendo custumizar de acordo com as necessidades do projeto.
+O objetivo é oferecer uma maneira simples e flexível de realizar a validação de dados em aplicações Go de maneira custumizavel. Ao fornecer um conjunto de validadores, os desenvolvedores podem facilmente incorporar lógica de validação de dados em suas aplicações para garantir consistência dos dados e atender aos requisitos específicos de validação, sem a necessidade de escrever o código de validação do zero, podendo custumizar de acordo com as necessidades do projeto.
 
 ## Instalação
 
-Para utilizar o pacote Validadores em Go em seu projeto Go, pode instalá-lo usando `go get`:
+Para utilizar o pacote em seus projetos Go, digite o seguinte comando em seu terminal:
 
 ```bash
 go get github.com/dariomatias-dev/go-validadores
 ```
 
-## Validators
+## How to Use
+
+Os validadores devem ser organizados seguindo a seguinte ordem: validador de presença, validador de tipo e validadores de valor. Eles devem seguir essa ordem porque, caso contrário, pode ocorrer um erro se o valor enviado não for aceito por um validador que está colocado posteriormente, mesmo que seja um valor válido.
+
+Essa organização garante que os requisitos básicos, como presença e tipo, sejam validados primeiro antes de validações mais específicas sobre o valor em si. Ao validar nessa ordem, podemos detectar quaisquer erros potenciais no início do processo, levando a um sistema de validação mais robusto e livre de erros.
+
+Assim como não há razões para verificar se o valor é de um tipo específico nos validadores de valor, que necessitam que o valor enviado seja de determinado tipo, pois existe validadores dedicados a esse próposito, diminuindo assim a quantidade de verificações deixando o processo de validação mais eficientes.
+
+### Validators Available
 
 <table>
     <tr>
