@@ -9,9 +9,9 @@ func Regex(
 	errorMessage string,
 ) Validator {
 	message := errorMessage
+	re := regexp.MustCompile(regex)
 
 	return func(value interface{}) (*string, bool) {
-		re := regexp.MustCompile(regex)
 		if !re.MatchString(value.(string)) {
 			return &message, false
 		}

@@ -4,6 +4,13 @@ import (
 	"regexp"
 )
 
+var (
+	smallLettersRegex       = regexp.MustCompile("[a-z]")
+	capitalLettersRegex     = regexp.MustCompile("[A-Z]")
+	numberRegex             = regexp.MustCompile("[0-9]")
+	specialCharacteresRegex = regexp.MustCompile(`[^a-zA-Z0-9\s]`)
+)
+
 func Password(
 	errorMessage ...string,
 ) Validator {
@@ -15,10 +22,6 @@ func Password(
 	return func(value interface{}) (*string, bool) {
 		password := value.(string)
 
-		smallLettersRegex := regexp.MustCompile("[a-zA-Z0-9]")
-		capitalLettersRegex := regexp.MustCompile("[A-Z]")
-		numberRegex := regexp.MustCompile("[0-9]")
-		specialCharacteresRegex := regexp.MustCompile(`[^a-zA-Z0-9\s]`)
 		if !smallLettersRegex.MatchString(password) ||
 			!capitalLettersRegex.MatchString(password) ||
 			!numberRegex.MatchString(password) ||

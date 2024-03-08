@@ -4,6 +4,10 @@ import (
 	"regexp"
 )
 
+var (
+	alphaRegex = regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ]+$`)
+)
+
 func IsAlpha(
 	errorMessage ...string,
 ) Validator {
@@ -13,8 +17,7 @@ func IsAlpha(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		lettersRegex := regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ]+$`)
-		if !lettersRegex.MatchString(value.(string)) {
+		if !alphaRegex.MatchString(value.(string)) {
 			return &message, false
 		}
 

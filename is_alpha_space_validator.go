@@ -5,6 +5,10 @@ import (
 	"strings"
 )
 
+var (
+	alphaSpaceRegex = regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$`)
+)
+
 func IsAlphaSpace(
 	errorMessage ...string,
 ) Validator {
@@ -14,9 +18,8 @@ func IsAlphaSpace(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		nonAlphaSpacePattern := regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$`)
 		val := value.(string)
-		if !nonAlphaSpacePattern.MatchString(val) ||
+		if !alphaSpaceRegex.MatchString(val) ||
 			strings.TrimSpace(val) == "" {
 			return &message, false
 		}
