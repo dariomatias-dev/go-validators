@@ -14,5 +14,9 @@ func ValidateMap(
 		}
 	}
 
+	if len(errorMessages) == 0 {
+		return nil
+	}
+
 	return &errorMessages
 }

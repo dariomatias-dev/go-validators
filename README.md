@@ -14,13 +14,112 @@ To use the package in your Go projects, type the following command in your termi
 go get github.com/dariomatias-dev/go-validadores
 ```
 
-## How to Use
+## Order of Validators
 
 Validators should be organized following the following order: presence validator, type validator, and value validators. They should follow this order because otherwise, an error may occur if the sent value is not accepted by a validator that is placed later, even if it is a valid value.
 
 This organization ensures that basic requirements, such as presence and type, are validated first before more specific validations about the value itself. By validating in this order, we can detect any potential errors early in the process, leading to a more robust and error-free validation system.
 
 Just as there are no reasons to check if the value is of a specific type in value validators, which require the sent value to be of a certain type, as there are dedicated validators for this purpose, thus reducing the number of checks, making the validation process more efficient.
+
+## How to Use
+
+To use the package, first import it into your project with the following import statement:
+
+```go
+import "github.com/dariomatias-dev/go-validators"
+```
+
+I advise you to give it an alias to make package usage simpler and more efficient, like this:
+
+```go
+import v "github.com/dariomatias-dev/go-validators"
+```
+
+### Functionality of Validators
+
+The validators have been created based on configurable functions, where the first set of parameters within the first pair of parentheses is used to configure the behavior of the validator, while the second set of parentheses receives the value to be validated.
+In the table of [validadores disponíveis](#validators-available), it's referenced which validators require which value to be provided in order to perform validation.
+
+### Usage
+
+To use the validations, use `v.` followed by the desired validation. In the first parenthesis, provide what is being requested, and if you don't want the default error message, insert the desired message afterwards.
+The validators will return two values: the first will be the error message if the provided value did not pass validation, and the second will be a boolean value indicating whether the validations should be halted or not. The second value is used in situations where, if the value did not pass the validator, subsequent validations cannot be executed because they will result in an error.
+
+Validations can be performed in three distinct ways: [individually](#validate-individual-value), in [combination](#validate-value-with-multiple-validators), or within a [map](#validate-map).
+
+</br>
+
+#### Validate Individual Value
+
+Um único validador é aplicado a um valor específico.
+
+**Example:**
+
+```go
+value := 4
+
+if err, _ := v.Min(3)(value); err != nil {
+    log.Fatal(err)
+}
+```
+
+#### Validate Value with Multiple Validators
+
+Vários validadores são combinados para validar um único valor.
+
+**Example:**
+
+```go
+value := 4
+
+errors := v.Validate(
+    value,
+    v.IsInt(),
+    v.Min(3),
+    v.Max(10),
+)
+
+if len(*errors) != 0 {
+    log.Fatal(*errors)
+}
+```
+
+#### Validate Map
+
+Cada chave do mapa é validada separadamente com seus próprios conjuntos de validadores.
+
+**Example:**
+
+```go
+data := map[string]interface{}{
+    "name":  "Name",
+    "age":   15,
+    "email": "emailexample@gmail.com",
+}
+
+validations := Validators{
+    "name": []Validator{
+        IsString(),
+        MinLength(3),
+        MaxLength(20),
+    },
+    "age": []Validator{
+        IsInt(),
+        Min(18),
+        Max(100),
+    },
+    "email": []Validator{
+        Email(),
+    },
+}
+
+errors := ValidateMap(data, validations)
+if errors != nil {
+    fmt.Println(*errors)
+    return
+}
+```
 
 ### Validators Available
 
@@ -193,4 +292,4 @@ Just as there are no reasons to check if the value is of a specific type in valu
 
 </br>
 
-**All entries marked with (*) are mandatory.**
+**All entries marked with (\*) are mandatory.**
