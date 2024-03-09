@@ -14,13 +14,11 @@ func Min(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		val, _ := value.(string)
-
 		if message == "" {
 			message = fmt.Sprintf(
-				"The minimum value is %v, but it received %d.",
+				"The minimum value is %v, but it received %v.",
 				min,
-				len(val),
+				value,
 			)
 		}
 

@@ -14,13 +14,11 @@ func Max(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		val, _ := value.(string)
-
 		if message == "" {
 			message = fmt.Sprintf(
-				"The maximum value is %v, but it received %d.",
+				"The maximum value is %v, but it received %v.",
 				max,
-				len(val),
+				value,
 			)
 		}
 
