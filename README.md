@@ -39,7 +39,7 @@ import v "github.com/dariomatias-dev/go-validators"
 ### Functionality of Validators
 
 The validators have been created based on configurable functions, where the first set of parameters within the first pair of parentheses is used to configure the behavior of the validator, while the second set of parentheses receives the value to be validated.
-In the table of [validadores disponíveis](#validators-available), it's referenced which validators require which value to be provided in order to perform validation.
+In the table of [validators-available](#validators-available), it's referenced which validators require which value to be provided in order to perform validation.
 
 ### Usage
 
@@ -52,7 +52,7 @@ Validations can be performed in three distinct ways: [individually](#validate-in
 
 #### Validate Individual Value
 
-Um único validador é aplicado a um valor específico.
+A single validator is applied to a specific value.
 
 **Example:**
 
@@ -66,7 +66,7 @@ if err, _ := v.Min(3)(value); err != nil {
 
 #### Validate Value with Multiple Validators
 
-Vários validadores são combinados para validar um único valor.
+Multiple validators are combined to validate a single value.
 
 **Example:**
 
@@ -87,7 +87,7 @@ if len(*errors) != 0 {
 
 #### Validate Map
 
-Cada chave do mapa é validada separadamente com seus próprios conjuntos de validadores.
+Each key of the map is validated separately with its own sets of validators.
 
 **Example:**
 
@@ -137,7 +137,9 @@ if errors != nil {
     <tr>
         <td>IsOptional</td>
         <td>Presence</td>
-        <td>None</td>
+        <td>
+            None
+        </td>
     </tr>
     <tr>
         <td>IsString</td>
@@ -168,12 +170,10 @@ if errors != nil {
         <td>IsArray</td>
         <td>Type</td>
         <td>
-            <ul>
-                <li>Type of values*</li>
-                <li>Array settings*</li>
-                <li>Field validators*</li>
-                <li>Error message</li>
-            </ul>
+            Type of values* </br>
+            Array settings* </br>
+            Field validators* </br>
+            Error message </br>
         </td>
     </tr>
     <tr>
@@ -205,52 +205,42 @@ if errors != nil {
         <td>IsNullArray</td>
         <td>Type</td>
         <td>
-            <ul>
-                <li>Type of values*</li>
-                <li>Array settings*</li>
-                <li>Field validators*</li>
-                <li>Error message</li>
-            </ul>
+            Type of values* </br>
+            Array settings* </br>
+            Field validators* </br>
+            Error message </br>
         </td>
     </tr>
     <tr>
         <td>Min</td>
         <td>Value</td>
         <td>
-            <ul>
-                <li>Minimum value*</li>
-                <li>Error message</li>
-            </ul>
+            Minimum value* </br>
+            Error message </br>
         </td>
     </tr>
     <tr>
         <td>Max</td>
         <td>Value</td>
         <td>
-            <ul>
-                <li>Maximum value*</li>
-                <li>Error message</li>
-            </ul>
+            Maximum value* </br>
+            Error message </br>
         </td>
     </tr>
     <tr>
         <td>MinLength</td>
         <td>Value</td>
         <td>
-            <ul>
-                <li>Minimum size*</li>
-                <li>Error message</li>
-            </ul>
+            Minimum size* </br>
+            Error message </br>
         </td>
     </tr>
     <tr>
         <td>MaxLength</td>
         <td>Value</td>
         <td>
-            <ul>
-                <li>Maximum size*</li>
-                <li>Error message</li>
-            </ul>
+            Maximum size* </br>
+            Error message </br>
         </td>
     </tr>
     <tr>
@@ -267,10 +257,8 @@ if errors != nil {
         <td>Regex</td>
         <td>Value</td>
         <td>
-            <ul>
-                <li>Regex*</li>
-                <li>Error message*</li>
-            </ul>
+            Regex* </br>
+            Error message* </br>
         </td>
     </tr>
     <tr>
