@@ -16,11 +16,11 @@ func IsArray(
 		message = errorMessage[0]
 	}
 
-	validateArray := ValidateArray(
+	configuredValidateArray := validateArray(
 		arraySettings,
 		&message,
 	)
-	validateValue := ValidateValue(
+	configuredValidateValue := validateValue(
 		message,
 		fieldValidators,
 		errorMessage...,
@@ -34,12 +34,12 @@ func IsArray(
 			}
 
 			if arrayInterface, ok := value.([]interface{}); ok {
-				if err := validateArray(len(arrayInterface)); err != nil {
+				if err := configuredValidateArray(len(arrayInterface)); err != nil {
 					return err, true
 				}
 
 				for _, element := range arrayInterface {
-					err, stopLoop := validateValue(element)
+					err, stopLoop := configuredValidateValue(element)
 
 					if stopLoop {
 						return err, stopLoop
@@ -53,12 +53,12 @@ func IsArray(
 			}
 
 			if arrayString, ok := value.([]string); ok {
-				if err := validateArray(len(arrayString)); err != nil {
+				if err := configuredValidateArray(len(arrayString)); err != nil {
 					return err, true
 				}
 
 				for _, element := range arrayString {
-					err, stopLoop := validateValue(element)
+					err, stopLoop := configuredValidateValue(element)
 
 					if stopLoop {
 						return err, stopLoop
@@ -72,12 +72,12 @@ func IsArray(
 			}
 
 			if arrayInt, ok := value.([]int); ok {
-				if err := validateArray(len(arrayInt)); err != nil {
+				if err := configuredValidateArray(len(arrayInt)); err != nil {
 					return err, true
 				}
 
 				for _, element := range arrayInt {
-					err, stopLoop := validateValue(element)
+					err, stopLoop := configuredValidateValue(element)
 
 					if stopLoop {
 						return err, stopLoop
@@ -91,12 +91,12 @@ func IsArray(
 			}
 
 			if arrayFloat64, ok := value.([]float64); ok {
-				if err := validateArray(len(arrayFloat64)); err != nil {
+				if err := configuredValidateArray(len(arrayFloat64)); err != nil {
 					return err, true
 				}
 
 				for _, element := range arrayFloat64 {
-					err, stopLoop := validateValue(element)
+					err, stopLoop := configuredValidateValue(element)
 
 					if stopLoop {
 						return err, stopLoop
@@ -110,12 +110,12 @@ func IsArray(
 			}
 
 			if arrayBool, ok := value.([]bool); ok {
-				if err := validateArray(len(arrayBool)); err != nil {
+				if err := configuredValidateArray(len(arrayBool)); err != nil {
 					return err, true
 				}
 
 				for _, element := range arrayBool {
-					err, stopLoop := validateValue(element)
+					err, stopLoop := configuredValidateValue(element)
 
 					if stopLoop {
 						return err, stopLoop
@@ -128,12 +128,12 @@ func IsArray(
 			if kind == reflect.Array || kind == reflect.Slice {
 				arrayStruct := reflect.ValueOf(value)
 
-				if err := validateArray(arrayStruct.Len()); err != nil {
+				if err := configuredValidateArray(arrayStruct.Len()); err != nil {
 					return err, true
 				}
 
 				for i := range arrayStruct.Len() {
-					err, stopLoop := validateValue(arrayStruct.Index(i).Interface())
+					err, stopLoop := configuredValidateValue(arrayStruct.Index(i).Interface())
 
 					if stopLoop {
 						if message == "" {
@@ -158,7 +158,7 @@ func arrayTypeErrorMessage(arrayType string) string {
 	return fmt.Sprintf("The value is not an %s array", arrayType)
 }
 
-func ValidateArray(
+func validateArray(
 	arraySettings Array,
 	message *string,
 ) func(arraySize int) *string {
@@ -194,7 +194,7 @@ func ValidateArray(
 	}
 }
 
-func ValidateValue(
+func validateValue(
 	message string,
 	fieldValidators []Validator,
 	errorMessage ...string,
