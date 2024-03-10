@@ -1,9 +1,22 @@
 package validators
 
-import (
-	"fmt"
-)
+import "fmt"
 
+// Checks if the value is a string.
+//
+// Configuration parameters:
+//   - errorMessage (string): custom error message (optional)
+// Input value (any): Value to be validated
+//
+// Usage examples:
+//  value1 := "Name"
+//  v.IsString()(value1) // Output: nil, false
+//
+//  value2 := nil
+//  v.IsString()(value2) // Output: [error message], true
+//
+//  value3 := 0
+//  v.IsString()(value3) // Output: [error message], true
 func IsString(
 	errorMessage ...string,
 ) Validator {
