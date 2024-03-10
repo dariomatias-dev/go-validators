@@ -2,6 +2,26 @@ package validators
 
 import "fmt"
 
+// Checks if the value is a number or null.
+//
+// Configuration parameters:
+//   - errorMessage (string): custom error message (optional)
+//
+// Input value (any): value to be validated
+//
+// Usage examples:
+//
+//	value1 := 1
+//	v.IsNullNumber()(value1) // Output: nil, false
+//
+//	value1 := 1.0
+//	v.IsNullNumber()(value1) // Output: nil, false
+//
+//	value2 := nil
+//	v.IsNullNumber()(value2) // Output: nil, true
+//
+//	value3 := ""
+//	v.IsNullNumber()(value3) // Output: [error message], true
 func IsNullNumber(
 	errorMessage ...string,
 ) Validator {

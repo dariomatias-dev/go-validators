@@ -4,6 +4,26 @@ import (
 	"fmt"
 )
 
+// Checks if the value is a number.
+//
+// Configuration parameters:
+//   - errorMessage (string): custom error message (optional)
+//
+// Input value (any): value to be validated
+//
+// Usage examples:
+//
+//	value1 := 1
+//	v.IsNumber()(value1) // Output: nil, false
+//
+//	value1 := 1.0
+//	v.IsNumber()(value1) // Output: nil, false
+//
+//	value2 := nil
+//	v.IsNumber()(value2) // Output: [error message], true
+//
+//	value3 := ""
+//	v.IsNumber()(value3) // Output: [error message], true
 func IsNumber(
 	errorMessage ...string,
 ) Validator {
