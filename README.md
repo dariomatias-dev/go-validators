@@ -94,7 +94,7 @@ Each key of the map is validated separately with its own sets of validators.
 ```go
 data := map[string]interface{}{
     "name":  "Name",
-    "age":   15,
+    "age":   18,
     "email": "emailexample@gmail.com",
 }
 

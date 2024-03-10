@@ -5,6 +5,14 @@ import (
 )
 
 func TestValidate(t *testing.T) {
+	extractValue := func(value *[]string) any {
+		if value == nil {
+			return nil
+		} else {
+			return *value
+		}
+	}
+
 	// Test 1
 	test1 := func(
 		value any,
@@ -20,7 +28,7 @@ func TestValidate(t *testing.T) {
 
 		if condition(len(*errors)) {
 			t.Errorf(`
-errors := Validate(
+Validate(
 	%v,
 	IsInt(),
 	Min(3),
@@ -28,13 +36,13 @@ errors := Validate(
 ) = %v; expected: %v
 			`,
 				value,
-				*errors,
+				extractValue(errors),
 				expected,
 			)
 		}
 	}
 
-	/// Error
+	/// Errors
 	test1(
 		"4",
 		"[error message(s)]",
@@ -83,13 +91,13 @@ errors := Validate(
 ) = %v; expected: %v
 			`,
 				value,
-				*errors,
+				extractValue(errors),
 				expected,
 			)
 		}
 	}
 
-	/// Error
+	/// Errors
 	test2(
 		nil,
 		"[error message(s)]",
