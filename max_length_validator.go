@@ -1,9 +1,21 @@
 package validators
 
-import (
-	"fmt"
-)
+import "fmt"
 
+// Checks if a string has the specified maximum length.
+//
+// Configuration parameters:
+//   - maxLength (int): Maximum length that the string must have
+//   - errorMessage (string): Custom error message (optional)
+// Input value (string): Value to be validated
+//
+// Usage examples:
+//
+//	value := "Name"
+//	v.MaxLength(5)(value) // Output: nil, false
+//
+//	value = "Name is..."
+//	v.MaxLength(5)(value) // Output: [error message], false
 func MaxLength(
 	maxLength interface{},
 	errorMessage ...string,
