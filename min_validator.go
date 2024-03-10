@@ -13,6 +13,9 @@ func Min(
 		message = errorMessage[0]
 	}
 
+	val := 0.0
+	minValue := 0.0
+
 	return func(value interface{}) (*string, bool) {
 		if message == "" {
 			message = fmt.Sprintf(
@@ -24,27 +27,32 @@ func Min(
 
 		switch value := value.(type) {
 		case int:
-			switch min := min.(type) {
-			case int:
-				if value < min {
-					return &message, false
-				}
-			case float64:
-				if float64(value) < min {
-					return &message, false
-				}
-			}
+			val = float64(value)
+		case int32:
+			val = float64(value)
+		case int64:
+			val = float64(value)
+		case float32:
+			val = float64(value)
 		case float64:
-			switch min := min.(type) {
-			case int:
-				if value < float64(min) {
-					return &message, false
-				}
-			case float64:
-				if value < min {
-					return &message, false
-				}
-			}
+			val = value
+		}
+
+		switch min := min.(type) {
+		case int:
+			minValue = float64(min)
+		case int32:
+			minValue = float64(min)
+		case int64:
+			minValue = float64(min)
+		case float32:
+			minValue = float64(min)
+		case float64:
+			minValue = min
+		}
+
+		if val < minValue {
+			return &message, false
 		}
 
 		return nil, false
