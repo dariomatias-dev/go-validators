@@ -2,6 +2,21 @@ package validators
 
 import "fmt"
 
+// Checks if the value is greater than the specified maximum value.
+//
+// Configuration parameters:
+//   - max(int | int32| int64 | float32 | float64): maximum value that the value must have
+//   - errorMessage (string): custom error message (optional)
+//
+// Input value (int | int32| int64 | float32 | float64): value to be validated
+//
+// Usage examples:
+//
+//	value := 3
+//	v.Max(5)(value) // Output: nil, false
+//
+//	value := 6
+//	v.Max(5)(value) // Output: [error message], false
 func Max(
 	max interface{},
 	errorMessage ...string,

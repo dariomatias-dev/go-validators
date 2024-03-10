@@ -2,6 +2,21 @@ package validators
 
 import "fmt"
 
+// Checks if the value is less than the specified minimum value.
+//
+// Configuration parameters:
+//   - min(int | int32| int64 | float32 | float64): minimum value that the value must have
+//   - errorMessage (string): custom error message (optional)
+//
+// Input value (int | int32| int64 | float32 | float64): value to be validated
+//
+// Usage examples:
+//
+//	value := 6
+//	v.Min(5)(value) // Output: nil, false
+//
+//	value := 3
+//	v.Min(5)(value) // Output: [error message], false
 func Min(
 	min interface{},
 	errorMessage ...string,
