@@ -19,3 +19,20 @@ func getArgs() []interface{} {
 		stopLoop,
 	}
 }
+
+func convertToFloat64(value interface{}) float64 {
+	switch value := value.(type) {
+	case int:
+		return float64(value)
+	case int32:
+		return float64(value)
+	case int64:
+		return float64(value)
+	case float32:
+		return float64(value)
+	case float64:
+		return value
+	}
+
+	return 0.0
+}

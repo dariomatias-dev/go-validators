@@ -1,8 +1,6 @@
 package validators
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func Min(
 	min interface{},
@@ -14,7 +12,7 @@ func Min(
 	}
 
 	val := 0.0
-	minValue := 0.0
+	minValue := convertToFloat64(min)
 
 	return func(value interface{}) (*string, bool) {
 		if message == "" {
@@ -25,31 +23,7 @@ func Min(
 			)
 		}
 
-		switch value := value.(type) {
-		case int:
-			val = float64(value)
-		case int32:
-			val = float64(value)
-		case int64:
-			val = float64(value)
-		case float32:
-			val = float64(value)
-		case float64:
-			val = value
-		}
-
-		switch min := min.(type) {
-		case int:
-			minValue = float64(min)
-		case int32:
-			minValue = float64(min)
-		case int64:
-			minValue = float64(min)
-		case float32:
-			minValue = float64(min)
-		case float64:
-			minValue = min
-		}
+		val = convertToFloat64(value)
 
 		if val < minValue {
 			return &message, false

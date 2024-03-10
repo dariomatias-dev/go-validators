@@ -1,8 +1,6 @@
 package validators
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func Max(
 	max interface{},
@@ -13,6 +11,9 @@ func Max(
 		message = errorMessage[0]
 	}
 
+	val := 0.0
+	maxValue := convertToFloat64(max)
+
 	return func(value interface{}) (*string, bool) {
 		if message == "" {
 			message = fmt.Sprintf(
@@ -22,29 +23,10 @@ func Max(
 			)
 		}
 
-		switch value := value.(type) {
-		case int:
-			switch max := max.(type) {
-			case int:
-				if value > max {
-					return &message, false
-				}
-			case float64:
-				if float64(value) > max {
-					return &message, false
-				}
-			}
-		case float64:
-			switch max := max.(type) {
-			case int:
-				if value > float64(max) {
-					return &message, false
-				}
-			case float64:
-				if value > max {
-					return &message, false
-				}
-			}
+		val = convertToFloat64(value)
+
+		if val > maxValue {
+			return &message, false
 		}
 
 		return nil, false
