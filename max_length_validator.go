@@ -5,9 +5,10 @@ import "fmt"
 // Checks if a string has the specified maximum length.
 //
 // Configuration parameters:
-//   - maxLength (int): Maximum length that the string must have
-//   - errorMessage (string): Custom error message (optional)
-// Input value (string): Value to be validated
+//   - maxLength (int): maximum length that the string must have
+//   - errorMessage (string): custom error message (optional)
+//
+// Input value (string): value to be validated
 //
 // Usage examples:
 //

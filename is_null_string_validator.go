@@ -6,17 +6,19 @@ import "fmt"
 //
 // Configuration parameters:
 //   - errorMessage (string): custom error message (optional)
-// Input value (any): Value to be validated
+//
+// Input value (any): value to be validated
 //
 // Usage examples:
-//  value1 := "Name"
-//  v.IsString()(value1) // Output: nil, false
 //
-//  value2 := nil
-//  v.IsString()(value2) // Output: nil, false
+//	value1 := "Name"
+//	v.IsString()(value1) // Output: nil, false
 //
-//  value3 := 0
-//  v.IsString()(value3) // Output: [error message], true
+//	value2 := nil
+//	v.IsString()(value2) // Output: nil, true
+//
+//	value3 := 0
+//	v.IsString()(value3) // Output: [error message], true
 func IsNullString(
 	errorMessage ...string,
 ) Validator {
