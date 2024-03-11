@@ -5,6 +5,20 @@ import (
 	"net/mail"
 )
 
+// Checks if the value is a validated email
+//
+// Configuration parameters:
+//   - errorMessage (string): custom error message (optional)
+//
+// Input value (string): value to be validated
+//
+// Usage examples:
+//
+//	value := "emailexample@gmail.com"
+//	v.Email()(value) // Output: nil, false
+//
+//	value = "emailexample"
+//	v.Email()(value) // Output: [error message], false
 func Email(
 	errorMessages ...string,
 ) Validator {
