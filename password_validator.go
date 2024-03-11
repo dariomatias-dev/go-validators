@@ -1,8 +1,6 @@
 package validators
 
-import (
-	"regexp"
-)
+import "regexp"
 
 var (
 	smallLettersRegex       = regexp.MustCompile("[a-z]")
@@ -11,6 +9,20 @@ var (
 	specialCharacteresRegex = regexp.MustCompile(`[^a-zA-Z0-9\s]`)
 )
 
+// Checks whether the value contains lowercase and uppercase letters, numbers and special characters
+//
+// Configuration parameters:
+//   - errorMessage (string): custom error message
+//
+// Input value (string): value to be validated
+//
+// Usage examples:
+//
+//	value := "abcABC0123!@"
+//	v.Password()(value) // Output: nil, false
+//
+//	value = "abc"
+//	v.Password()(value) // Output: [error message], false
 func Password(
 	errorMessage ...string,
 ) Validator {

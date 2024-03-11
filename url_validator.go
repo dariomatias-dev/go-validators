@@ -1,9 +1,19 @@
 package validators
 
-import (
-	"net/url"
-)
+import "net/url"
 
+// Checks if the value is a valid URL
+//
+// Configuration parameters:
+//   - errorMessage (string): custom error message
+//
+// Input value (string): value to be validated
+//
+//	value := "golang.org"
+//	v.URL()(value) // Output: nil, false
+//
+//	value = "golang"
+//	v.URL()(value) // Output: [error message], false
 func URL(
 	errorMessage ...string,
 ) Validator {
