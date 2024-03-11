@@ -29,12 +29,11 @@ func Email(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		valueType := fmt.Sprintf("%T", value)
-		if valueType != fmt.Sprintf("%T", string("")) {
+		if _, ok := value.(string); !ok {
 			if errorMessageLen > 1 {
 				message = errorMessages[1]
 			} else {
-				message = fmt.Sprintf("The value is not a string: value is %s.", valueType)
+				message = fmt.Sprintf("The value is not a string: value is %T.", value)
 			}
 
 			return &message, false

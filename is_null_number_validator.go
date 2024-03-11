@@ -38,8 +38,8 @@ func IsNullNumber(
 		if _, ok := value.(float64); !ok {
 			if message == "" {
 				message = fmt.Sprintf(
-					"The value is not a float or null: value is %s.",
-					fmt.Sprintf("%T", value),
+					"The value is not a float or null: value is %T.",
+					value,
 				)
 			}
 			return &message, true

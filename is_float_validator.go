@@ -43,11 +43,12 @@ func IsFloat(
 				message = "The value is not a decimal number: value is integer."
 			} else {
 				message = fmt.Sprintf(
-					"The value is not a decimal number: value is %s.",
-					fmt.Sprintf("%T", value),
+					"The value is not a decimal number: value is %T.",
+					value,
 				)
 			}
 		}
+
 		return &message, true
 	}
 }

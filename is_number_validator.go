@@ -38,8 +38,8 @@ func IsNumber(
 		if !isInt && !isFloat {
 			if message == "" {
 				message = fmt.Sprintf(
-					"The value is not a number: value is %s.",
-					fmt.Sprintf("%T", value),
+					"The value is not a number: value is %T.",
+					value,
 				)
 			}
 			return &message, true

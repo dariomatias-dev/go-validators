@@ -37,12 +37,12 @@ func IsNullInt(
 
 		if message == "" {
 			message = fmt.Sprintf(
-				"The value is not a integer or null: value is %s.",
-				fmt.Sprintf("%T", value),
+				"The value is not a integer or null: value is %T.",
+				value,
 			)
 		}
-		isInt, _ := IsInt(message)(value)
 
+		isInt, _ := IsInt(message)(value)
 		if isInt != nil {
 			return &message, true
 		}

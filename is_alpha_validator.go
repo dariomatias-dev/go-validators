@@ -1,8 +1,6 @@
 package validators
 
-import (
-	"regexp"
-)
+import "regexp"
 
 var (
 	alphaRegex = regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ]+$`)

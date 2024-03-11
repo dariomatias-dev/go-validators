@@ -37,8 +37,8 @@ func IsInt(
 
 		if message == "" {
 			message = fmt.Sprintf(
-				"The value is not an integer: value is %s.",
-				fmt.Sprintf("%T", value),
+				"The value is not an integer: value is %T.",
+				value,
 			)
 		}
 

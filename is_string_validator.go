@@ -31,8 +31,8 @@ func IsString(
 		if _, ok := value.(string); !ok {
 			if message == "" {
 				message = fmt.Sprintf(
-					"The value is not a string: value is %s.",
-					fmt.Sprintf("%T", value),
+					"The value is not a string: value is %T.",
+					value,
 				)
 			}
 			return &message, true

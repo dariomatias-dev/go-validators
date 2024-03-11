@@ -31,8 +31,8 @@ func IsBool(
 		if _, ok := value.(bool); !ok {
 			if message == "" {
 				message = fmt.Sprintf(
-					"The value is not an boolean: value is %s.",
-					fmt.Sprintf("%T", value),
+					"The value is not an boolean: value is %T.",
+					value,
 				)
 			}
 			return &message, true
