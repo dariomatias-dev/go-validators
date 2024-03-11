@@ -8,37 +8,34 @@ package validators
 //
 // Usage examples:
 //
+//	validations := v.Validate(
+//		v.IsInt(),
+//		v.Min(3),
+//		v.Max(10),
+//	)
+//
 //	value := 4
-//	v.Validate(
-//	    value,
-//	    v.IsInt(),
-//	    v.Min(3),
-//	    v.Max(10),
-//	) // Output: nil
+//	validations(value) // Output: nil
 //
 //	value = 2
-//	v.Validate(
-//	    value,
-//	    v.IsInt(),
-//	    v.Min(3),
-//	    v.Max(10),
-//	) // Output: [ error messages ]
+//	validations(value) // Output: [ error messages ]
 func Validate(
-	value interface{},
 	validations ...Validator,
-) *[]string {
-	var errorMessages []string
-	for _, validation := range validations {
-		errorMessage, stopLoop = validation(value)
+) func(value interface{}) *[]string {
+	return func(value interface{}) *[]string {
+		var errorMessages []string
+		for _, validation := range validations {
+			errorMessage, stopLoop = validation(value)
 
-		if errorMessage != nil {
-			errorMessages = append(errorMessages, *errorMessage)
+			if errorMessage != nil {
+				errorMessages = append(errorMessages, *errorMessage)
+			}
+
+			if stopLoop {
+				break
+			}
 		}
 
-		if stopLoop {
-			break
-		}
+		return &errorMessages
 	}
-
-	return &errorMessages
 }

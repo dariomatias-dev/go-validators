@@ -20,11 +20,10 @@ func TestValidate(t *testing.T) {
 		condition func(errorsLen int) bool,
 	) {
 		errors := Validate(
-			value,
 			IsInt(),
 			Min(3),
 			Max(10),
-		)
+		)(value)
 
 		if condition(len(*errors)) {
 			t.Errorf(`
@@ -75,11 +74,10 @@ Validate(
 		condition func(errorsLen int) bool,
 	) {
 		errors := Validate(
-			value,
 			IsString(),
 			MinLength(3),
 			MaxLength(10),
-		)
+		)(value)
 
 		if condition(len(*errors)) {
 			t.Errorf(`

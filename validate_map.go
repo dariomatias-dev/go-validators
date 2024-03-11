@@ -8,7 +8,7 @@ func ValidateMap(
 	for fieldName, fieldValidations := range fieldsValidations {
 		fieldValue := data[fieldName]
 
-		errorMessage := Validate(fieldValue, fieldValidations...)
+		errorMessage := Validate(fieldValidations...)(fieldValue)
 		if len(*errorMessage) != 0 {
 			errorMessages[fieldName] = *errorMessage
 		}
