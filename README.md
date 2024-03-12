@@ -54,13 +54,25 @@ Validations can be performed in three distinct ways: [individually](#validate-in
 
 A single validator is applied to a specific value.
 
-**Example:**
+**Examples:**
 
 ```go
+// Success
 value := 4
 
-if err, _ := v.Min(3)(value); err != nil {
-    log.Fatal(err)
+err, _ := v.Min(3)(value) // nil, false
+if err != nil {
+    fmt.Println(err)
+    return
+}
+
+// Error
+value = 2
+
+err, _ = v.Min(3)(value) // [error message], false
+if err != nil {
+    fmt.Println(err)
+    return
 }
 ```
 
@@ -68,20 +80,31 @@ if err, _ := v.Min(3)(value); err != nil {
 
 Multiple validators are combined to validate a single value.
 
-**Example:**
+**Examples:**
 
 ```go
-value := 4
-
-errors := v.Validate(
-    value,
+validations := v.Validate(
     v.IsInt(),
     v.Min(3),
     v.Max(10),
 )
 
+// Success
+value := 4
+errors := validations(value) // Output: nil
+
 if len(*errors) != 0 {
-    log.Fatal(*errors)
+    fmt.Println(*errors)
+    return
+}
+
+// Error
+value = 2
+errors = validations(value) // Output: [ error messages ]
+
+if len(*errors) != 0 {
+    fmt.Println(*errors)
+    return
 }
 ```
 
@@ -89,7 +112,7 @@ if len(*errors) != 0 {
 
 Each key of the map is validated separately with its own sets of validators.
 
-**Example:**
+**Examples:**
 
 ```go
 data := map[string]interface{}{
@@ -98,23 +121,34 @@ data := map[string]interface{}{
     "email": "emailexample@gmail.com",
 }
 
-validations := Validators{
-    "name": []Validator{
-        IsString(),
-        MinLength(3),
-        MaxLength(20),
+validations := v.Validators{
+    "name": []v.Validator{
+        v.IsString(),
+        v.MinLength(3),
+        v.MaxLength(20),
     },
-    "age": []Validator{
-        IsInt(),
-        Min(18),
-        Max(100),
+    "age": []v.Validator{
+        v.IsInt(),
+        v.Min(18),
+        v.Max(100),
     },
-    "email": []Validator{
-        Email(),
+    "email": []v.Validator{
+        v.Email(),
     },
 }
 
-errors := ValidateMap(data, validations)
+validateMap := v.ValidateMap(validations)
+
+// Success
+errors := validateMap(data) // Output: nil
+if errors != nil {
+    fmt.Println(*errors)
+    return
+}
+
+// Error
+data["name"] = "Na"
+errors = validateMap(data) // Output: { [error messages] }
 if errors != nil {
     fmt.Println(*errors)
     return
