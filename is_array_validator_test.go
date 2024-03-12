@@ -1,6 +1,10 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+
+	arraytype "github.com/dariomatias-dev/go-validators/array_type"
+)
 
 func TestIsArray(t *testing.T) {
 	customErrorMessage := "error"
@@ -8,7 +12,7 @@ func TestIsArray(t *testing.T) {
 	/// AllowEmpty
 	// Success
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			AllowEmpty: true,
 		},
@@ -18,7 +22,7 @@ func TestIsArray(t *testing.T) {
 	if errorMessage != nil || stopLoop {
 		t.Errorf(`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		AllowEmpty: true,
 	},
@@ -32,7 +36,7 @@ IsArray(
 	/// MinLength
 	// Error
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			MinLength: 3,
 		},
@@ -42,7 +46,7 @@ IsArray(
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		MinLength: 3,
 	},
@@ -55,7 +59,7 @@ IsArray(
 
 	// Success
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			MinLength: 3,
 		},
@@ -65,7 +69,7 @@ IsArray(
 	if errorMessage != nil || stopLoop {
 		t.Errorf(`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		MinLength: 3,
 	},
@@ -79,7 +83,7 @@ IsArray(
 	/// MaxLength
 	// Error
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			MaxLength: 3,
 		},
@@ -89,7 +93,7 @@ IsArray(
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		MaxLength: 3,
 	},
@@ -102,7 +106,7 @@ IsArray(
 
 	// Success
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			MaxLength: 3,
 		},
@@ -112,7 +116,7 @@ IsArray(
 	if errorMessage != nil || stopLoop {
 		t.Errorf(`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		MaxLength: 3,
 	},
@@ -126,7 +130,7 @@ IsArray(
 	/// interface Array
 	// Errors
 	errorMessage, stopLoop = IsArray(
-		InterfaceArray,
+		arraytype.Interface,
 		Array{},
 		[]Validator{},
 	)([]string{})
@@ -144,7 +148,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		InterfaceArray,
+		arraytype.Interface,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -165,7 +169,7 @@ IsArray(
 
 	// Successes
 	errorMessage, stopLoop = IsArray(
-		InterfaceArray,
+		arraytype.Interface,
 		Array{},
 		[]Validator{},
 	)([]interface{}{"a", nil, "b"})
@@ -184,7 +188,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		InterfaceArray,
+		arraytype.Interface,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -207,7 +211,7 @@ IsArray(
 	/// string Array
 	// Errors
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 	)([]interface{}{})
@@ -215,7 +219,7 @@ IsArray(
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 )([]interface{}{}) = %v, %t; expected: "[error message]", true
@@ -225,7 +229,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -234,7 +238,7 @@ IsArray(
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 	"error",
@@ -246,7 +250,7 @@ IsArray(
 
 	// Successes
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 	)([]string{"a", "b"})
@@ -255,7 +259,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 )([]string{"a", "b"}) = %v, %t; expected: nil, false
@@ -265,7 +269,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -275,7 +279,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 	"error",
@@ -288,7 +292,7 @@ IsArray(
 	/// int Array
 	// Errors
 	errorMessage, stopLoop = IsArray(
-		IntArray,
+		arraytype.Int,
 		Array{},
 		[]Validator{},
 	)([]interface{}{})
@@ -296,7 +300,7 @@ IsArray(
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(`
 IsArray(
-	IntArray,
+	arraytype.Int,
 	Array{},
 	[]Validator{},
 )([]interface{}{}) = %v, %t; expected: "[error message]", true
@@ -306,7 +310,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		IntArray,
+		arraytype.Int,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -315,7 +319,7 @@ IsArray(
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(`
 IsArray(
-	IntArray,
+	arraytype.Int,
 	Array{},
 	[]Validator{},
 	"error",
@@ -327,7 +331,7 @@ IsArray(
 
 	// Successes
 	errorMessage, stopLoop = IsArray(
-		IntArray,
+		arraytype.Int,
 		Array{},
 		[]Validator{},
 	)([]int{0, 1, 2})
@@ -336,7 +340,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	IntArray,
+	arraytype.Int,
 	Array{},
 	[]Validator{},
 )([]int{0, 1, 2}) = %v, %t; expected: nil, false
@@ -346,7 +350,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		IntArray,
+		arraytype.Int,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -356,7 +360,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	IntArray,
+	arraytype.Int,
 	Array{},
 	[]Validator{},
 	"error",
@@ -369,7 +373,7 @@ IsArray(
 	/// float64 Array
 	// Errors
 	errorMessage, stopLoop = IsArray(
-		Float64Array,
+		arraytype.Float64,
 		Array{},
 		[]Validator{},
 	)([]interface{}{})
@@ -377,7 +381,7 @@ IsArray(
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(`
 IsArray(
-	Float64Array,
+	arraytype.Float64,
 	Array{},
 	[]Validator{},
 )([]interface{}{}) = %v, %t; expected: "[error message]", true
@@ -387,7 +391,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		Float64Array,
+		arraytype.Float64,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -396,7 +400,7 @@ IsArray(
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(`
 IsArray(
-	Float64Array,
+	arraytype.Float64,
 	Array{},
 	[]Validator{},
 	"error",
@@ -408,7 +412,7 @@ IsArray(
 
 	// Successes
 	errorMessage, stopLoop = IsArray(
-		Float64Array,
+		arraytype.Float64,
 		Array{},
 		[]Validator{},
 	)([]float64{0.0, 1.0, 2.0})
@@ -417,7 +421,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	Float64Array,
+	arraytype.Float64,
 	Array{},
 	[]Validator{},
 )([]float64{0.0, 1.0, 2.0}) = %v, %t; expected: nil, false
@@ -427,7 +431,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		Float64Array,
+		arraytype.Float64,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -437,7 +441,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	Float64Array,
+	arraytype.Float64,
 	Array{},
 	[]Validator{},
 	"error",
@@ -450,7 +454,7 @@ IsArray(
 	/// bool Array
 	// Errors
 	errorMessage, stopLoop = IsArray(
-		BoolArray,
+		arraytype.Bool,
 		Array{},
 		[]Validator{},
 	)([]interface{}{})
@@ -458,7 +462,7 @@ IsArray(
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(`
 IsArray(
-	BoolArray,
+	arraytype.Bool,
 	Array{},
 	[]Validator{},
 )([]interface{}{}) = %v, %t; expected: "[error message]", true
@@ -468,7 +472,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		BoolArray,
+		arraytype.Bool,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -477,7 +481,7 @@ IsArray(
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(`
 IsArray(
-	BoolArray,
+	arraytype.Bool,
 	Array{},
 	[]Validator{},
 	"error",
@@ -489,7 +493,7 @@ IsArray(
 
 	// Successes
 	errorMessage, stopLoop = IsArray(
-		BoolArray,
+		arraytype.Bool,
 		Array{},
 		[]Validator{},
 	)([]bool{true, false})
@@ -498,7 +502,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	BoolArray,
+	arraytype.Bool,
 	Array{},
 	[]Validator{},
 )([]bool{true, false}) = %v, %t; expected: nil, false
@@ -508,7 +512,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		BoolArray,
+		arraytype.Bool,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -518,7 +522,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	BoolArray,
+	arraytype.Bool,
 	Array{},
 	[]Validator{},
 	"error",
@@ -535,7 +539,7 @@ IsArray(
 
 	// Errors
 	errorMessage, stopLoop = IsArray(
-		AnyArray,
+		arraytype.Any,
 		Array{},
 		[]Validator{},
 	)("")
@@ -543,7 +547,7 @@ IsArray(
 	if errorMessage == nil || !stopLoop {
 		t.Errorf(`
 IsArray(
-	AnyArray,
+	arraytype.Any,
 	Array{},
 	[]Validator{},
 )("") = %v, %t; expected: "[error message]", true
@@ -553,7 +557,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		AnyArray,
+		arraytype.Any,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -562,7 +566,7 @@ IsArray(
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(`
 IsArray(
-	AnyArray,
+	arraytype.Any,
 	Array{},
 	[]Validator{},
 	"error",
@@ -574,7 +578,7 @@ IsArray(
 
 	// Successes
 	errorMessage, stopLoop = IsArray(
-		AnyArray,
+		arraytype.Any,
 		Array{},
 		[]Validator{},
 	)([]Struct{{Name: "Name"}})
@@ -583,7 +587,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	AnyArray,
+	arraytype.Any,
 	Array{},
 	[]Validator{},
 )([]Struct{{Name: "Name"}}) = %v, %t; expected: nil, false
@@ -593,7 +597,7 @@ IsArray(
 	}
 
 	errorMessage, stopLoop = IsArray(
-		AnyArray,
+		arraytype.Any,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -603,7 +607,7 @@ IsArray(
 		t.Errorf(
 			`
 IsArray(
-	AnyArray,
+	arraytype.Any,
 	Array{},
 	[]Validator{},
 	"error",

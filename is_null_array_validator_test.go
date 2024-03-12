@@ -2,6 +2,8 @@ package validators
 
 import (
 	"testing"
+
+	arraytype "github.com/dariomatias-dev/go-validators/array_type"
 )
 
 func TestIsNullArray(t *testing.T) {
@@ -9,7 +11,7 @@ func TestIsNullArray(t *testing.T) {
 
 	// Errors
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 	)([]interface{}{})
@@ -18,7 +20,7 @@ func TestIsNullArray(t *testing.T) {
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 )([]interface{}{}) = %v, %t; expected: "[error message]", true
@@ -28,7 +30,7 @@ IsNullArray(
 	}
 
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -38,7 +40,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 	"error",
@@ -49,7 +51,7 @@ IsNullArray(
 	}
 
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			MinLength: 3,
 		},
@@ -60,7 +62,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		MinLength: 3,
 	},
@@ -72,7 +74,7 @@ IsNullArray(
 	}
 
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			MinLength: 3,
 		},
@@ -84,7 +86,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		MinLength: 3,
 	},
@@ -98,7 +100,7 @@ IsNullArray(
 
 	// Successes
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 	)(nil)
@@ -107,7 +109,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 )(nil) = %v, %t; expected: nil, true
@@ -117,7 +119,7 @@ IsNullArray(
 	}
 
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -127,7 +129,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 	"error",
@@ -138,7 +140,7 @@ IsNullArray(
 	}
 
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 	)([]string{"a", "b"})
@@ -147,7 +149,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 )([]string{"a", "b"}) = %v, %t; expected: nil, false
@@ -157,7 +159,7 @@ IsNullArray(
 	}
 
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{},
 		[]Validator{},
 		customErrorMessage,
@@ -167,7 +169,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{},
 	[]Validator{},
 	"error",
@@ -178,7 +180,7 @@ IsNullArray(
 	}
 
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			MinLength: 3,
 		},
@@ -189,7 +191,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		MinLength: 3,
 	},
@@ -201,7 +203,7 @@ IsNullArray(
 	}
 
 	errorMessage, stopLoop = IsNullArray(
-		StringArray,
+		arraytype.String,
 		Array{
 			MinLength: 3,
 		},
@@ -213,7 +215,7 @@ IsNullArray(
 		t.Errorf(
 			`
 IsNullArray(
-	StringArray,
+	arraytype.String,
 	Array{
 		MinLength: 3,
 	},

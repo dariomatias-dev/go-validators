@@ -31,10 +31,10 @@ package validators
 //		},
 //	}
 //
-// v.ValidateMap(validations)(data) // Output: nil
+//  v.ValidateMap(validations)(data) // Output: nil
 //
-// data["name"] = "Na"
-// v.ValidateMap(validations)(data) // Output: { [error messages] }
+//  data["name"] = "Na"
+//  v.ValidateMap(validations)(data) // Output: { [error messages] }
 func ValidateMap(
 	fieldsValidations Validators,
 ) func(data map[string]interface{}) *map[string][]string {

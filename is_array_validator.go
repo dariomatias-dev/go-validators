@@ -3,6 +3,8 @@ package validators
 import (
 	"fmt"
 	"reflect"
+
+	arraytype "github.com/dariomatias-dev/go-validators/array_type"
 )
 
 func IsArray(
@@ -28,7 +30,7 @@ func IsArray(
 
 	return func(value interface{}) (*string, bool) {
 		switch typeOfValues {
-		case InterfaceArray:
+		case arraytype.Interface:
 			if message == "" {
 				message = arrayTypeErrorMessage("interface")
 			}
@@ -47,7 +49,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case StringArray:
+		case arraytype.String:
 			if message == "" {
 				message = arrayTypeErrorMessage("string")
 			}
@@ -66,7 +68,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case IntArray:
+		case arraytype.Int:
 			if message == "" {
 				message = arrayTypeErrorMessage("int")
 			}
@@ -85,7 +87,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case Float64Array:
+		case arraytype.Float64:
 			if message == "" {
 				message = arrayTypeErrorMessage("float64")
 			}
@@ -104,7 +106,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case BoolArray:
+		case arraytype.Bool:
 			if message == "" {
 				message = arrayTypeErrorMessage("bool")
 			}
@@ -123,7 +125,7 @@ func IsArray(
 				}
 				return nil, false
 			}
-		case AnyArray:
+		case arraytype.Any:
 			kind := reflect.TypeOf(value).Kind()
 			if kind == reflect.Array || kind == reflect.Slice {
 				arrayStruct := reflect.ValueOf(value)
