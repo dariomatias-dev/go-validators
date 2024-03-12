@@ -64,7 +64,7 @@ Validators{
 	}
 
 	// Errors
-	errors := ValidateMap(data, validations)
+	errors := ValidateMap(validations)(data)
 	if errors == nil {
 		t.Error(
 			generateErrorMessage(errors, "[error message(s)]"),
@@ -72,7 +72,7 @@ Validators{
 	}
 
 	data["email"] = "emailexample"
-	errors = ValidateMap(data, validations)
+	errors = ValidateMap(validations)(data)
 	if errors == nil {
 		t.Error(
 			generateErrorMessage(errors, "[error message(s)]"),
@@ -82,7 +82,7 @@ Validators{
 	// Success
 	data["age"] = 18
 	data["email"] = "emailexample@gmail.com"
-	errors = ValidateMap(data, validations)
+	errors = ValidateMap(validations)(data)
 	if errors != nil {
 		t.Error(
 			generateErrorMessage(errors, "nil"),

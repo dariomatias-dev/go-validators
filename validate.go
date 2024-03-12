@@ -22,8 +22,11 @@ package validators
 func Validate(
 	validations ...Validator,
 ) func(value interface{}) *[]string {
+	var errorMessages []string
+
 	return func(value interface{}) *[]string {
-		var errorMessages []string
+		errorMessages = []string{}
+
 		for _, validation := range validations {
 			errorMessage, stopLoop = validation(value)
 
