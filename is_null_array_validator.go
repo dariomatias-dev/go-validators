@@ -49,24 +49,31 @@ func IsNullArray(
 		message = errorMessage[0]
 	}
 
+	var isArray Validator
+	if message == "" {
+		isArray = IsArray(
+			typeOfValues,
+			arraySettings,
+			fieldValidators,
+		)
+	} else {
+		isArray = IsArray(
+			typeOfValues,
+			arraySettings,
+			fieldValidators,
+			message,
+		)
+	}
+
 	return func(value interface{}) (*string, bool) {
 		if value == nil {
 			return nil, true
 		}
 
 		if message == "" {
-			return IsArray(
-				typeOfValues,
-				arraySettings,
-				fieldValidators,
-			)(value)
+			return isArray(value)
 		}
 
-		return IsArray(
-			typeOfValues,
-			arraySettings,
-			fieldValidators,
-			message,
-		)(value)
+		return isArray(value)
 	}
 }

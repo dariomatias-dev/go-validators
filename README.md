@@ -314,4 +314,4 @@ if errors != nil {
 
 </br>
 
-**All entries marked with (\*) are mandatory.**
+**All entries marked with (*) are mandatory.**
