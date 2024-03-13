@@ -1,8 +1,6 @@
 package validators
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // Checks if the value is a number.
 //
