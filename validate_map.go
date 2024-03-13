@@ -1,5 +1,7 @@
 package validators
 
+import "encoding/json"
+
 // Applies all validations to the respective fields
 //
 // Configuration parameters:
@@ -39,14 +41,23 @@ package validators
 //  validateMap(data) // Output: { [error messages] }
 func ValidateMap(
 	fieldsValidations Validators,
-) func(data map[string]interface{}) *map[string][]string {
+) func(data any) *map[string][]string {
 	var errorMessages map[string][]string
+	var value map[string]interface{}
 
-	return func(data map[string]interface{}) *map[string][]string {
+	return func(data any) *map[string][]string {
+		switch v := data.(type) {
+		case map[string]interface{}:
+			value = v
+		default:
+			result, _ := json.Marshal(data)
+			json.Unmarshal(result, &value)
+		}
+
 		errorMessages = map[string][]string{}
 
 		for fieldName, fieldValidations := range fieldsValidations {
-			fieldValue := data[fieldName]
+			fieldValue := value[fieldName]
 
 			errorMessage := Validate(fieldValidations...)(fieldValue)
 			if len(*errorMessage) != 0 {
