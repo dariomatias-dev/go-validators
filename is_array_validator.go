@@ -7,6 +7,44 @@ import (
 	arraytype "github.com/dariomatias-dev/go-validators/array_type"
 )
 
+// Checks if the value is a valid array
+//
+// Configuration parameters:
+//   - typeOfValues (string): type of array values
+//   - arraySettings (Array): array settings
+//   - fieldValidators ([]Validator): validators that must be applied to each value in the array
+//   - errorMessage (string): custom error message (optional)
+//
+// Input value ([]any): value to be validated
+//
+// Usage examples:
+//
+//	value1 := []string{}
+//	IsArray(
+//		arraytype.String,
+//		Array{
+//			AllowEmpty: true,
+//		},
+//		[]Validator{},
+//	)(value1) // Output: nil, false
+//
+//	value2 := nil
+//	IsArray(
+//		arraytype.String,
+//		Array{
+//			MinLength: 3,
+//		},
+//		[]Validator{},
+//	)(value2) // Output: [error message], true
+//
+//	value3 := []string{"a", "b"}
+//	IsArray(
+//		arraytype.String,
+//		Array{
+//			MinLength: 3,
+//		},
+//		[]Validator{},
+//	)(value3) // Output: [error message], true
 func IsArray(
 	typeOfValues string,
 	arraySettings Array,
