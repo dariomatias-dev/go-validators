@@ -1,9 +1,6 @@
 package validators
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
 // Checks if the value is a number or null.
 //
@@ -34,7 +31,7 @@ func IsFloat(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		if _, ok := value.(float64); ok && value != math.Floor(value.(float64)) {
+		if _, ok := value.(float64); ok {
 			return nil, false
 		}
 

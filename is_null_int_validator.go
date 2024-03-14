@@ -42,11 +42,6 @@ func IsNullInt(
 			)
 		}
 
-		isInt, _ := IsInt(message)(value)
-		if isInt != nil {
-			return &message, true
-		}
-
-		return nil, false
+		return IsInt(message)(value)
 	}
 }
