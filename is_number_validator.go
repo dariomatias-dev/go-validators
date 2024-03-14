@@ -40,6 +40,7 @@ func IsNumber(
 					value,
 				)
 			}
+
 			return &message, true
 		}
 
