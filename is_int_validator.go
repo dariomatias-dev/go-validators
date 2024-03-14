@@ -31,7 +31,9 @@ func IsInt(
 	}
 
 	return func(value interface{}) (*string, bool) {
-		if _, ok := value.(int); ok {
+		valueFloat, isFloat := value.(float64)
+		_, isInt := value.(int)
+		if isFloat && float64(int(valueFloat)) == valueFloat || isInt {
 			return nil, false
 		}
 

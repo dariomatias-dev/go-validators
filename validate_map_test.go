@@ -63,20 +63,47 @@ Validators{
 		)
 	}
 
+	user := User{
+		Name:  "Name",
+		Age:   18,
+		Email: "exampleemail@gmail.com",
+	}
+
 	data := map[string]interface{}{
 		"name":  "Name",
-		"age":   15,
+		"age":   18,
 		"email": "emailexample@gmail.com",
 	}
 
-	// Errors
-	errors := ValidateMap(validations)(data)
+	/// - Successes
+	// Test 1
+	errors := ValidateMap(validations)(user)
+	if errors != nil {
+		t.Error(
+			generateErrorMessage(errors, "nil"),
+		)
+	}
+
+	// Test 2
+	errors = ValidateMap(validations)(data)
+	if errors != nil {
+		t.Error(
+			generateErrorMessage(errors, "nil"),
+		)
+	}
+
+	/// - Errors
+	// Test 1
+	data["age"] = 15
+	errors = ValidateMap(validations)(data)
 	if errors == nil {
 		t.Error(
 			generateErrorMessage(errors, "[error message(s)]"),
 		)
 	}
 
+	// Test 2
+	data["age"] = 18
 	data["email"] = "emailexample"
 	errors = ValidateMap(validations)(data)
 	if errors == nil {
@@ -85,12 +112,8 @@ Validators{
 		)
 	}
 
-	user := User{
-		Name:  "Name",
-		Age:   15,
-		Email: "exampleemail@gmail.com",
-	}
-
+	// Test 3
+	user.Age = 15
 	errors = ValidateMap(validations)(user)
 	if errors == nil {
 		t.Error(
@@ -98,30 +121,13 @@ Validators{
 		)
 	}
 
-	user.Email = "emailexample"
-
-	errors = ValidateMap(validations)(user)
-	if errors == nil {
-		t.Error(
-			generateErrorMessage(errors, "[error message(s)]"),
-		)
-	}
-
-	// Success
-	data["age"] = 18
-	data["email"] = "emailexample@gmail.com"
-	errors = ValidateMap(validations)(data)
-	if errors != nil {
-		t.Error(
-			generateErrorMessage(errors, "nil"),
-		)
-	}
-
+	// Test 4
 	user.Age = 18
-	user.Email = "emailexample@gmail.com"
-	if errors != nil {
+	user.Email = "emailexample"
+	errors = ValidateMap(validations)(user)
+	if errors == nil {
 		t.Error(
-			generateErrorMessage(errors, "nil"),
+			generateErrorMessage(errors, "[error message(s)]"),
 		)
 	}
 }

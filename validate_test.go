@@ -13,7 +13,7 @@ func TestValidate(t *testing.T) {
 		}
 	}
 
-	// Test 1
+	// Test Case 1
 	test1 := func(
 		value any,
 		expected any,
@@ -41,33 +41,7 @@ Validate(
 		}
 	}
 
-	/// Errors
-	test1(
-		"4",
-		"[error message(s)]",
-		func(errorsLen int) bool {
-			return errorsLen == 0
-		},
-	)
-
-	test1(
-		2,
-		"[error message(s)]",
-		func(errorsLen int) bool {
-			return errorsLen == 0
-		},
-	)
-
-	/// Success
-	test1(
-		4,
-		nil,
-		func(errorsLen int) bool {
-			return errorsLen != 0
-		},
-	)
-
-	// Test 2
+	// Test Case 2
 	test2 := func(
 		value any,
 		expected any,
@@ -95,24 +69,19 @@ errors := Validate(
 		}
 	}
 
-	/// Errors
-	test2(
+	/// - Successes
+	/// Test Case 1
+	// Test 1
+	test1(
+		4,
 		nil,
-		"[error message(s)]",
 		func(errorsLen int) bool {
-			return errorsLen == 0
+			return errorsLen != 0
 		},
 	)
 
-	test2(
-		"Na",
-		"[error message(s)]",
-		func(errorsLen int) bool {
-			return errorsLen == 0
-		},
-	)
-
-	/// Success
+	/// Test Case 2
+	// Test 1
 	test2(
 		"Name",
 		nil,
@@ -121,4 +90,42 @@ errors := Validate(
 		},
 	)
 
+	/// - Errors
+	/// Test Case 1
+	// Test 1
+	test1(
+		2,
+		"[error message(s)]",
+		func(errorsLen int) bool {
+			return errorsLen == 0
+		},
+	)
+
+	// Test 2
+	test1(
+		"4",
+		"[error message(s)]",
+		func(errorsLen int) bool {
+			return errorsLen == 0
+		},
+	)
+
+	/// Test Case 2
+	// Test 1
+	test2(
+		nil,
+		"[error message(s)]",
+		func(errorsLen int) bool {
+			return errorsLen == 0
+		},
+	)
+
+	// Test 2
+	test2(
+		"Na",
+		"[error message(s)]",
+		func(errorsLen int) bool {
+			return errorsLen == 0
+		},
+	)
 }
