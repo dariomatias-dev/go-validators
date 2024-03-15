@@ -9,7 +9,143 @@ import (
 func TestIsNullArray(t *testing.T) {
 	customErrorMessage := "error"
 
-	// Errors
+	/// - Successes
+	// Test 1
+	errorMessage, stopLoop = IsNullArray(
+		arraytype.String,
+		Array{},
+		[]Validator{},
+	)(nil)
+
+	if errorMessage != nil || !stopLoop {
+		t.Errorf(
+			`
+IsNullArray(
+	arraytype.String,
+	Array{},
+	[]Validator{},
+)(nil) = %v, %t; expected: nil, true
+			`,
+			getArgs()...,
+		)
+	}
+
+	// Test 2
+	errorMessage, stopLoop = IsNullArray(
+		arraytype.String,
+		Array{},
+		[]Validator{},
+		customErrorMessage,
+	)(nil)
+
+	if errorMessage != nil || !stopLoop {
+		t.Errorf(
+			`
+IsNullArray(
+	arraytype.String,
+	Array{},
+	[]Validator{},
+	"error",
+)(nil) = %v, %t; expected: nil, true
+			`,
+			getArgs()...,
+		)
+	}
+
+	// Test 3
+	errorMessage, stopLoop = IsNullArray(
+		arraytype.String,
+		Array{},
+		[]Validator{},
+	)([]string{"a", "b"})
+
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			`
+IsNullArray(
+	arraytype.String,
+	Array{},
+	[]Validator{},
+)([]string{"a", "b"}) = %v, %t; expected: nil, false
+			`,
+			getArgs()...,
+		)
+	}
+
+	// Test 4
+	errorMessage, stopLoop = IsNullArray(
+		arraytype.String,
+		Array{},
+		[]Validator{},
+		customErrorMessage,
+	)([]string{"a", "b"})
+
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			`
+IsNullArray(
+	arraytype.String,
+	Array{},
+	[]Validator{},
+	"error",
+)([]string{"a", "b"}) = %v, %t; expected: nil, false
+			`,
+			getArgs()...,
+		)
+	}
+
+	// Test 5
+	errorMessage, stopLoop = IsNullArray(
+		arraytype.String,
+		Array{
+			MinLength: 3,
+		},
+		[]Validator{},
+	)([]string{"a", "b", "c"})
+
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			`
+IsNullArray(
+	arraytype.String,
+	Array{
+		MinLength: 3,
+	},
+	[]Validator{},
+)([]string{"a", "b", "c"}) = %v, %t; expected: nil, false
+			`,
+			getArgs()...,
+		)
+	}
+
+	// Test 6
+	errorMessage, stopLoop = IsNullArray(
+		arraytype.String,
+		Array{
+			MinLength: 3,
+		},
+		[]Validator{},
+		customErrorMessage,
+	)([]string{"a", "b", "c"})
+
+	if errorMessage != nil || stopLoop {
+		t.Errorf(
+			`
+IsNullArray(
+	arraytype.String,
+	Array{
+		MinLength: 3,
+	},
+	[]Validator{},
+	"error",
+)([]string{"a", "b", "c"}) = %v, %t; expected: nil, false
+			`,
+			getArgs()...,
+		)
+	}
+
+	/// - Errors
+	// Test 1
 	errorMessage, stopLoop = IsNullArray(
 		arraytype.String,
 		Array{},
@@ -29,6 +165,7 @@ IsNullArray(
 		)
 	}
 
+	// Test 2
 	errorMessage, stopLoop = IsNullArray(
 		arraytype.String,
 		Array{},
@@ -50,6 +187,7 @@ IsNullArray(
 		)
 	}
 
+	// Test 3
 	errorMessage, stopLoop = IsNullArray(
 		arraytype.String,
 		Array{
@@ -73,155 +211,27 @@ IsNullArray(
 		)
 	}
 
+	// Test 4
 	errorMessage, stopLoop = IsNullArray(
 		arraytype.String,
 		Array{
-			MinLength: 3,
+			MinLength:             3,
+			MinLengthErrorMessage: customErrorMessage,
 		},
 		[]Validator{},
-		customErrorMessage,
 	)([]string{"a", "b"})
 
-	if errorMessage == nil || !stopLoop {
+	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf(
 			`
 IsNullArray(
 	arraytype.String,
 	Array{
 		MinLength: 3,
+		MinLengthErrorMessage: "error",,
 	},
 	[]Validator{},
-	"error",
 )([]string{"a", "b"}) = %v, %t; expected: "error", true
-			`,
-			getArgs()...,
-		)
-	}
-
-	// Successes
-	errorMessage, stopLoop = IsNullArray(
-		arraytype.String,
-		Array{},
-		[]Validator{},
-	)(nil)
-
-	if errorMessage != nil || !stopLoop {
-		t.Errorf(
-			`
-IsNullArray(
-	arraytype.String,
-	Array{},
-	[]Validator{},
-)(nil) = %v, %t; expected: nil, true
-			`,
-			getArgs()...,
-		)
-	}
-
-	errorMessage, stopLoop = IsNullArray(
-		arraytype.String,
-		Array{},
-		[]Validator{},
-		customErrorMessage,
-	)(nil)
-
-	if errorMessage != nil || !stopLoop {
-		t.Errorf(
-			`
-IsNullArray(
-	arraytype.String,
-	Array{},
-	[]Validator{},
-	"error",
-)(nil) = %v, %t; expected: nil, true
-			`,
-			getArgs()...,
-		)
-	}
-
-	errorMessage, stopLoop = IsNullArray(
-		arraytype.String,
-		Array{},
-		[]Validator{},
-	)([]string{"a", "b"})
-
-	if errorMessage != nil || stopLoop {
-		t.Errorf(
-			`
-IsNullArray(
-	arraytype.String,
-	Array{},
-	[]Validator{},
-)([]string{"a", "b"}) = %v, %t; expected: nil, false
-			`,
-			getArgs()...,
-		)
-	}
-
-	errorMessage, stopLoop = IsNullArray(
-		arraytype.String,
-		Array{},
-		[]Validator{},
-		customErrorMessage,
-	)([]string{"a", "b"})
-
-	if errorMessage != nil || stopLoop {
-		t.Errorf(
-			`
-IsNullArray(
-	arraytype.String,
-	Array{},
-	[]Validator{},
-	"error",
-)([]string{"a", "b"}) = %v, %t; expected: nil, false
-			`,
-			getArgs()...,
-		)
-	}
-
-	errorMessage, stopLoop = IsNullArray(
-		arraytype.String,
-		Array{
-			MinLength: 3,
-		},
-		[]Validator{},
-	)([]string{"a", "b", "c"})
-
-	if errorMessage != nil || stopLoop {
-		t.Errorf(
-			`
-IsNullArray(
-	arraytype.String,
-	Array{
-		MinLength: 3,
-	},
-	[]Validator{},
-)([]string{"a", "b", "c"}) = %v, %t; expected: nil, false
-			`,
-			getArgs()...,
-		)
-	}
-
-	errorMessage, stopLoop = IsNullArray(
-		arraytype.String,
-		Array{
-			MinLength: 3,
-		},
-		[]Validator{},
-		customErrorMessage,
-	)([]string{"a", "b", "c"})
-
-	if errorMessage != nil || stopLoop {
-		t.Errorf(
-			`
-IsNullArray(
-	arraytype.String,
-	Array{
-		MinLength: 3,
-	},
-	[]Validator{},
-	"error",
-)([]string{"a", "b", "c"}) = %v, %t; expected: nil, false
 			`,
 			getArgs()...,
 		)

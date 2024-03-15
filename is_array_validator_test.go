@@ -9,6 +9,50 @@ import (
 func TestIsArray(t *testing.T) {
 	customErrorMessage := "error"
 
+	/// - Nil
+	/// Errors
+	// Test 1
+	errorMessage, stopLoop = IsArray(
+		arraytype.String,
+		Array{},
+		[]Validator{},
+	)(nil)
+
+	if errorMessage == nil || !stopLoop {
+		t.Errorf(
+			`
+IsArray(
+	arraytype.String,
+	Array{},
+	[]Validator{},
+)(nil) = %v, %t; expected: "[error message]", true
+				`,
+			getArgs()...,
+		)
+	}
+
+	// Test 2
+	errorMessage, stopLoop = IsArray(
+		arraytype.String,
+		Array{},
+		[]Validator{},
+		customErrorMessage,
+	)(nil)
+
+	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+		t.Errorf(
+			`
+IsArray(
+	arraytype.String,
+	Array{},
+	[]Validator{},
+	"error",
+)(nil) = %v, %t; expected: "error", true
+				`,
+			getArgs()...,
+		)
+	}
+
 	/// - AllowEmpty
 	/// Success
 	// Test 1
