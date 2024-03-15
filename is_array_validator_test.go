@@ -79,6 +79,29 @@ IsArray(
 		)
 	}
 
+	// Test 2
+	errorMessage, stopLoop = IsArray(
+		arraytype.String,
+		Array{
+			AllowEmptyErrorMessage: customErrorMessage,
+		},
+		[]Validator{},
+	)([]string{})
+
+	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+		t.Errorf(`
+IsArray(
+	arraytype.String,
+	Array{
+		AllowEmptyErrorMessage: "error",
+	},
+	[]Validator{},
+)([]string{}) = %v, %t; expected: "error", true
+		`,
+			getArgs()...,
+		)
+	}
+
 	/// - MinLength
 	/// Success
 	// Test 1
@@ -153,6 +176,30 @@ IsArray(
 		)
 	}
 
+	errorMessage, stopLoop = IsArray(
+		arraytype.String,
+		Array{
+			MinLength:             3,
+			MinLengthErrorMessage: customErrorMessage,
+		},
+		[]Validator{},
+	)([]string{"a", "b"})
+
+	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+		t.Errorf(`
+IsArray(
+	arraytype.String,
+	Array{
+		MinLength: 3,
+		MinLengthErrorMessage: "error",
+	},
+	[]Validator{},
+)([]string{"a", "b"}) = %v, %t; expected: "error", true
+		`,
+			getArgs()...,
+		)
+	}
+
 	/// - MaxLength
 	/// Success
 	// Test 1
@@ -222,6 +269,31 @@ IsArray(
 	},
 	[]Validator{},
 )([]string{"a", "b", "c", "d"}) = %v, %t; expected: "[error message]", true
+		`,
+			getArgs()...,
+		)
+	}
+
+	// Test 2
+	errorMessage, stopLoop = IsArray(
+		arraytype.String,
+		Array{
+			MaxLength:             3,
+			MaxLengthErrorMessage: customErrorMessage,
+		},
+		[]Validator{},
+	)([]string{"a", "b", "c", "d"})
+
+	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+		t.Errorf(`
+IsArray(
+	arraytype.String,
+	Array{
+		MaxLength: 3,
+		MaxLengthErrorMessage: "error",
+	},
+	[]Validator{},
+)([]string{"a", "b", "c", "d"}) = %v, %t; expected: "error", true
 		`,
 			getArgs()...,
 		)

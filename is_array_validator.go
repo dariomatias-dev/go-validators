@@ -222,7 +222,7 @@ func validateArray(
 			return message
 		}
 		if arraySettings.MaxLength != 0 && arraySize > arraySettings.MaxLength {
-			if arraySettings.MinLengthErrorMessage == "" {
+			if arraySettings.MaxLengthErrorMessage == "" {
 				*message = fmt.Sprintf("The maximum size array is %d.", arraySettings.MaxLength)
 			} else {
 				*message = arraySettings.MaxLengthErrorMessage
