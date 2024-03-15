@@ -28,10 +28,17 @@ func Email(
 		message = errorMessages[0]
 	}
 
+	isFormattingPlaceholders := formattingPlaceholdersPattern.MatchString(message)
+
 	return func(value interface{}) (*string, bool) {
 		if _, ok := value.(string); !ok {
 			if errorMessageLen > 1 {
 				message = errorMessages[1]
+				isFormattingPlaceholders = formattingPlaceholdersPattern.MatchString(message)
+
+				if isFormattingPlaceholders {
+					message = fmt.Sprintf(message, value)
+				}
 			} else {
 				message = fmt.Sprintf("The value is not a string: value is %T.", value)
 			}

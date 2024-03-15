@@ -1,10 +1,15 @@
 package validators
 
-import "fmt"
+import (
+	"fmt"
+	"regexp"
+)
 
 var (
 	errorMessage *string
 	stopLoop     bool
+	formattingPlaceholdersPattern = regexp.MustCompile("%[dfT]")
+	errorValuePattern = regexp.MustCompile("error: value is .+")
 )
 
 func getArgs() []interface{} {

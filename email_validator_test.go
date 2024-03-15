@@ -1,10 +1,13 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestEmail(t *testing.T) {
 	customErrorMessage := "error"
 	customErrorMessage2 := "error2"
+	valueErrorMessage := "error: value is %T"
 
 	/// - Successes
 	// Test 1
@@ -45,24 +48,36 @@ func TestEmail(t *testing.T) {
 	}
 
 	// Test 3
+	errorMessage, stopLoop = Email()(nil)
+	if errorMessage == nil || stopLoop {
+		t.Errorf("Email()(nil) = %v, %t; expected: \"[error message]\", true", getArgs()...)
+	}
+
+	// Test 4
 	errorMessage, stopLoop = Email("", customErrorMessage2)(nil)
 	if errorMessage == nil || *errorMessage != customErrorMessage2 || stopLoop {
 		t.Errorf("Email(\"\", \"error2\")(nil) = %v, %t; expected: \"error2\", true", getArgs()...)
 	}
 
-	// Test 4
+	// Test 5
 	errorMessage, stopLoop = Email(customErrorMessage, customErrorMessage2)(nil)
 	if errorMessage == nil || *errorMessage != customErrorMessage2 || stopLoop {
 		t.Errorf("Email(\"error\", \"error2\")(nil) = %v, %t; expected: \"error2\", true", getArgs()...)
 	}
 
-	// Test 5
+	// Test 6
+	errorMessage, stopLoop = Email("", valueErrorMessage)(nil)
+	if errorMessage == nil || !errorValuePattern.MatchString(*errorMessage) || stopLoop {
+		t.Errorf("Email(\"\", \"error: value is %%T\", %s)(nil) = %v, %t; expected: \"error: value is [value type]\", true", getArgs()...)
+	}
+
+	// Test 7
 	errorMessage, stopLoop = Email()("emailexamplegmail.com")
 	if errorMessage == nil || stopLoop {
 		t.Errorf("Email()(\"emailexamplegmail.com\") = %v, %t; expected: \"[error message]\", true", getArgs()...)
 	}
 
-	// Test 6
+	// Test 8
 	errorMessage, stopLoop = Email(customErrorMessage)("emailexamplegmail")
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf("Email()(\"emailexamplegmail.com\") = %v, %t; expected: \"error\", true", getArgs()...)
