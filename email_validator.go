@@ -8,7 +8,10 @@ import (
 // Checks if the value is a validated email
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional)
+//
+// - errorMessages (optional):
+//   - Invalid email
+//   - value is not string (%v: any - optional)
 //
 // Input value (string): value to be validated
 //
@@ -19,6 +22,8 @@ import (
 //
 //	value = "emailexample"
 //	v.Email()(value) // Output: [error message], false
+//	v.Email("error")(value) // Output: "error", false
+//	v.Email("error", "invalid value, received value is %T")(0) // Output: "invalid value, received value is int", false
 func Email(
 	errorMessages ...string,
 ) Validator {

@@ -1,8 +1,6 @@
 package validators
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestEmail(t *testing.T) {
 	/// - Successes
