@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestIsBool(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = IsBool()(true)

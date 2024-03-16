@@ -7,8 +7,6 @@ import (
 )
 
 func TestIsArray(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Nil
 	/// Errors
 	// Test 1

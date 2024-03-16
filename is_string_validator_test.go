@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestIsString(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = IsString()("aA")

@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestIsFloat(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = IsFloat()(1.1)

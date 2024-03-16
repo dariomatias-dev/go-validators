@@ -5,10 +5,6 @@ import (
 )
 
 func TestEmail(t *testing.T) {
-	customErrorMessage := "error"
-	customErrorMessage2 := "error2"
-	valueErrorMessage := "error: value is %T"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = Email()("emailexample@gmail.com")

@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestIsNullNumber(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = IsNullNumber()(nil)

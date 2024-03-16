@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestIsNullBool(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = IsNullBool()(nil)

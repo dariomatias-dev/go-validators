@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestURL(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	errorMessage, stopLoop = URL()("https://example.com")
 	if errorMessage != nil || stopLoop {

@@ -7,8 +7,6 @@ import (
 )
 
 func TestIsNullArray(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = IsNullArray(

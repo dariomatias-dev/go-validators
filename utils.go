@@ -8,6 +8,9 @@ import (
 var (
 	errorMessage *string
 	stopLoop     bool
+	customErrorMessage = "error"
+	customErrorMessage2 = "error2"
+	valueErrorMessage = "error: value is %T"
 	formattingPlaceholdersPattern = regexp.MustCompile("%[dfT]")
 	errorValuePattern = regexp.MustCompile("error: value is .+")
 )

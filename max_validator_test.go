@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestMax(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = Max(2)(1)

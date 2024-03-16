@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestMinLength(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Successes
 	// Test 1
 	errorMessage, stopLoop = MinLength(5)("aAbBcC")

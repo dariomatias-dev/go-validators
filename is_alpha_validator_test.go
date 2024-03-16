@@ -3,8 +3,6 @@ package validators
 import "testing"
 
 func TestIsAlpha(t *testing.T) {
-	customErrorMessage := "error"
-
 	/// - Succcesses
 	// Test 1
 	errorMessage, stopLoop = IsAlpha()("abcDEFáÉ")
