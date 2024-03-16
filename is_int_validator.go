@@ -22,6 +22,8 @@ import "fmt"
 //
 //	value4 := ""
 //	v.IsNullNumber()(value4) // Output: [error message], true
+//	v.IsNullNumber("error")(value4) // Output: "error", true
+//	v.IsNullNumber("invalid value, received value is %T")(value4) // Output: "invalid value, received value is string", true
 func IsInt(
 	errorMessage ...string,
 ) Validator {
@@ -29,6 +31,8 @@ func IsInt(
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
 	}
+
+	isFormattingPlaceholders := formattingPlaceholdersPattern.MatchString(message)
 
 	return func(value interface{}) (*string, bool) {
 		valueFloat, isFloat := value.(float64)
@@ -42,6 +46,8 @@ func IsInt(
 				"The value is not an integer: value is %T.",
 				value,
 			)
+		} else if isFormattingPlaceholders {
+			message = fmt.Sprintf(message, value)
 		}
 
 		return &message, true

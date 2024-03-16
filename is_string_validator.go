@@ -19,6 +19,8 @@ import "fmt"
 //
 //	value3 := 0
 //	v.IsString()(value3) // Output: [error message], true
+//	v.IsString("error")(value3) // Output: "error", true
+//	v.IsString("invalid value, received value is %T")(value3) // Output: "invalid value, received value is int", true
 func IsString(
 	errorMessage ...string,
 ) Validator {
@@ -27,6 +29,8 @@ func IsString(
 		message = errorMessage[0]
 	}
 
+	isFormattingPlaceholders := formattingPlaceholdersPattern.MatchString(message)
+
 	return func(value interface{}) (*string, bool) {
 		if _, ok := value.(string); !ok {
 			if message == "" {
@@ -34,7 +38,10 @@ func IsString(
 					"The value is not a string: value is %T.",
 					value,
 				)
+			} else if isFormattingPlaceholders {
+				message = fmt.Sprintf(message, value)
 			}
+
 			return &message, true
 		}
 

@@ -40,4 +40,10 @@ func TestIsInt(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf("IsInt(\"error\")(1.1) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
+
+	// Test 5
+	errorMessage, stopLoop = IsInt(valueErrorMessage)(1.1)
+	if errorMessage == nil || !errorValuePattern.MatchString(*errorMessage) || !stopLoop {
+		t.Errorf("IsInt(\"error: value is %%T\")(1.1) = %v, %t; expected: \"error: value is float64\", true", getArgs()...)
+	}
 }
