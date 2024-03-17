@@ -23,6 +23,7 @@ import (
 //	value = "emailexample"
 //	v.Email()(value) // Output: [error message], false
 //	v.Email("error")(value) // Output: "error", false
+//	v.Email("", "error2")(nil) // Output: "error2", false
 func Email(
 	errorMessages ...string,
 ) Validator {

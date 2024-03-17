@@ -52,7 +52,7 @@ IsArray(
 	}
 
 	/// - AllowEmpty
-	/// Success
+	/// Successes
 	// Test 1
 	errorMessage, stopLoop = IsArray(
 		arraytype.String,
@@ -101,7 +101,7 @@ IsArray(
 		)
 	}
 
-	/// Error
+	/// Errors
 	// Test 1
 	errorMessage, stopLoop = IsArray(
 		arraytype.String,
@@ -145,7 +145,7 @@ IsArray(
 	}
 
 	/// - MinLength
-	/// Success
+	/// Successes
 	// Test 1
 	errorMessage, stopLoop = IsArray(
 		arraytype.String,
@@ -194,7 +194,7 @@ IsArray(
 		)
 	}
 
-	/// Error
+	/// Errors
 	// Test 1
 	errorMessage, stopLoop = IsArray(
 		arraytype.String,
@@ -218,6 +218,7 @@ IsArray(
 		)
 	}
 
+	// Test 2
 	errorMessage, stopLoop = IsArray(
 		arraytype.String,
 		Array{
@@ -243,7 +244,7 @@ IsArray(
 	}
 
 	/// - MaxLength
-	/// Success
+	/// Successes
 	// Test 1
 	errorMessage, stopLoop = IsArray(
 		arraytype.String,
@@ -292,7 +293,7 @@ IsArray(
 		)
 	}
 
-	/// Error
+	/// Errors
 	// Test 1
 	errorMessage, stopLoop = IsArray(
 		arraytype.String,

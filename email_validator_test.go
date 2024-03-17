@@ -13,7 +13,7 @@ func TestEmail(t *testing.T) {
 	// Test 2
 	errorMessage, stopLoop = Email(customErrorMessage)("emailexample@gmail.com")
 	if errorMessage != nil || stopLoop {
-		t.Errorf("Email()(\"emailexample@gmail.com\") = %v, %t; expected: nil, false", getArgs()...)
+		t.Errorf("Email(\"error\")(\"emailexample@gmail.com\") = %v, %t; expected: nil, false", getArgs()...)
 	}
 
 	// Test 3
@@ -38,7 +38,7 @@ func TestEmail(t *testing.T) {
 	// Test 2
 	errorMessage, stopLoop = Email(customErrorMessage)("aA")
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
-		t.Errorf("Email()(\"aA\") = %v, %t; expected: \"error\", true", getArgs()...)
+		t.Errorf("Email(\"error\")(\"aA\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
 	// Test 3
@@ -68,6 +68,6 @@ func TestEmail(t *testing.T) {
 	// Test 7
 	errorMessage, stopLoop = Email(customErrorMessage)("emailexamplegmail")
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
-		t.Errorf("Email()(\"emailexamplegmail.com\") = %v, %t; expected: \"error\", true", getArgs()...)
+		t.Errorf("Email(\"error\")(\"emailexamplegmail.com\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

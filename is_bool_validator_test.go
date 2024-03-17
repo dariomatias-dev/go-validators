@@ -18,12 +18,24 @@ func TestIsBool(t *testing.T) {
 
 	/// - Errors
 	// Test 1
+	errorMessage, stopLoop = IsBool()(nil)
+	if errorMessage == nil || !stopLoop {
+		t.Errorf("IsBool()(nil) = %v, %t; expected: \"[error message]\", true", getArgs()...)
+	}
+
+	// Test 2
+	errorMessage, stopLoop = IsBool(customErrorMessage)(nil)
+	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+		t.Errorf("IsBool(\"error\")(nil) = %v, %t; expected: \"error\", true", getArgs()...)
+	}
+
+	// Test 3
 	errorMessage, stopLoop = IsBool()(0)
 	if errorMessage == nil || !stopLoop {
 		t.Errorf("IsBool()(0) = %v, %t; expected: \"[error message]\", true", getArgs()...)
 	}
 
-	// Test 2
+	// Test 4
 	errorMessage, stopLoop = IsBool(customErrorMessage)(0)
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf("IsBool(\"error\")(0) = %v, %t; expected: \"error\", true", getArgs()...)

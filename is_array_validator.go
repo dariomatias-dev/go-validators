@@ -31,9 +31,7 @@ import (
 //	value2 := nil
 //	IsArray(
 //		arraytype.String,
-//		Array{
-//			MinLength: 3,
-//		},
+//		Array{},
 //		[]Validator{},
 //	)(value2) // Output: [error message], true
 //
@@ -211,8 +209,7 @@ func validateArray(
 			}
 
 			return message
-		}
-		if arraySettings.MinLength != 0 && arraySize < arraySettings.MinLength {
+		} else if arraySettings.MinLength != 0 && arraySize < arraySettings.MinLength {
 			if arraySettings.MinLengthErrorMessage == "" {
 				*message = fmt.Sprintf("The minimum size array is %d.", arraySettings.MinLength)
 			} else {
@@ -220,8 +217,7 @@ func validateArray(
 			}
 
 			return message
-		}
-		if arraySettings.MaxLength != 0 && arraySize > arraySettings.MaxLength {
+		} else if arraySettings.MaxLength != 0 && arraySize > arraySettings.MaxLength {
 			if arraySettings.MaxLengthErrorMessage == "" {
 				*message = fmt.Sprintf("The maximum size array is %d.", arraySettings.MaxLength)
 			} else {
@@ -230,6 +226,7 @@ func validateArray(
 
 			return message
 		}
+
 		return nil
 	}
 }
