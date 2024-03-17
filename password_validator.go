@@ -23,6 +23,7 @@ var (
 //
 //	value = "abc"
 //	v.Password()(value) // Output: [error message], false
+//	v.Password("error")(value) // Output: "error", false
 func Password(
 	errorMessage ...string,
 ) Validator {

@@ -9,11 +9,11 @@ package validators
 //
 // Usage examples:
 //
-//	value1 := "Name"
-//	v.IsOptional()(value1) // Output: nil, false
-//
 //	value2 := nil
 //	v.IsOptional()(value2) // Output: nil, true
+//
+//	value1 := "Name"
+//	v.IsOptional()(value1) // Output: nil, false
 func IsOptional() Validator {
 	return func(value interface{}) (*string, bool) {
 		if value == nil {

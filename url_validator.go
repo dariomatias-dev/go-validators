@@ -14,6 +14,7 @@ import "net/url"
 //
 //	value = "golang"
 //	v.URL()(value) // Output: [error message], false
+//	v.URL("error")(value) // Output: "error", false
 func URL(
 	errorMessage ...string,
 ) Validator {

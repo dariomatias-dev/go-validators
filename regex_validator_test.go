@@ -51,7 +51,7 @@ Regex(
 Regex(
 	"^[0-9]+$",
 	"Invalid value",
-)("aA01") = %s, %t; expected: "[error message]", false
+)("aA01") = %s, %t; expected: "Invalid value", false
 		`,
 			getArgs()...,
 		)
@@ -67,7 +67,7 @@ Regex(
 Regex(
 	"^[a-zA-Z]+$",
 	"Invalid value",
-)("aA01") = %s, %t; expected: "[error message]", false
+)("aA01") = %s, %t; expected: "Invalid value", false
 		`,
 			getArgs()...,
 		)

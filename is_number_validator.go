@@ -22,6 +22,7 @@ import "fmt"
 //
 //	value4 := ""
 //	v.IsNumber()(value4) // Output: [error message], true
+//	v.IsNumber("error")(value4) // Output: "error", true
 func IsNumber(
 	errorMessage ...string,
 ) Validator {
