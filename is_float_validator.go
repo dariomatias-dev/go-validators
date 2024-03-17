@@ -5,7 +5,7 @@ import "fmt"
 // Checks if the value is a number or null.
 //
 // Configuration parameters:
-//   - errorMessage (string, placeholder available: %T - optional): custom error message (optional)
+//   - errorMessage (string): custom error message (optional)
 //
 // Input value (any): value to be validated
 //
@@ -23,7 +23,6 @@ import "fmt"
 //	value4 := ""
 //	v.IsFloat()(value4) // Output: [error message], true
 //	v.IsFloat("error")(value4) // Output: "error", true
-//	v.IsFloat("invalid value, received value is %T")(value4) // Output: "invalid value, received value is string", true
 func IsFloat(
 	errorMessage ...string,
 ) Validator {
@@ -32,8 +31,6 @@ func IsFloat(
 		message = errorMessage[0]
 	}
 
-	isFormattingPlaceholders := formattingPlaceholdersPattern.MatchString(message)
-
 	return func(value interface{}) (*string, bool) {
 		if _, ok := value.(float64); !ok {
 			if message == "" {
@@ -41,8 +38,6 @@ func IsFloat(
 					"The value is not a decimal number: value is %T.",
 					value,
 				)
-			} else if isFormattingPlaceholders {
-				message = fmt.Sprintf(message, value)
 			}
 
 			return &message, true

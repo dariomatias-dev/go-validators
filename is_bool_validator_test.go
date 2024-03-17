@@ -28,10 +28,4 @@ func TestIsBool(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf("IsBool(\"error\")(0) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
-
-	// Test 3
-	errorMessage, stopLoop = IsBool(valueErrorMessage)(0)
-	if errorMessage == nil || !errorValuePattern.MatchString(*errorMessage) || !stopLoop {
-		t.Errorf("IsBool(\"error: value is %%T\")(0) = %v, %t; expected: \"error: value is int\", true", getArgs()...)
-	}
 }

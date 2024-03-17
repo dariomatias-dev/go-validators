@@ -17,6 +17,7 @@ import "fmt"
 //
 //	value := 6
 //	v.Max(5)(value) // Output: [error message], false
+//	v.Max(5, "error")(value) // Output: "error", false
 func Max(
 	max interface{},
 	errorMessage ...string,

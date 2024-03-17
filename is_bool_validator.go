@@ -5,7 +5,7 @@ import "fmt"
 // Checks if the value is a boolean.
 //
 // Configuration parameters:
-//   - errorMessage (string, placeholder available: %T - optional): custom error message (optional)
+//   - errorMessage (string): custom error message (optional)
 //
 // Input value (any): Value to be validated
 //
@@ -20,7 +20,6 @@ import "fmt"
 //	value3 := 0
 //	v.IsBool()(value3) // Output: [error message], true
 //	v.IsBool("error")(value3) // Output: "error", true
-//	v.IsBool("invalid value, received value is %T")(value3) // Output: "invalid value, received value is int", true
 func IsBool(
 	errorMessage ...string,
 ) Validator {
@@ -29,8 +28,6 @@ func IsBool(
 		message = errorMessage[0]
 	}
 
-	isFormattingPlaceholders := formattingPlaceholdersPattern.MatchString(message)
-
 	return func(value interface{}) (*string, bool) {
 		if _, ok := value.(bool); !ok {
 			if message == "" {
@@ -38,8 +35,6 @@ func IsBool(
 					"The value is not an boolean: value is %T.",
 					value,
 				)
-			} else if isFormattingPlaceholders {
-				message = fmt.Sprintf(message, value)
 			}
 
 			return &message, true

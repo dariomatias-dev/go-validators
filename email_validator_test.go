@@ -60,18 +60,12 @@ func TestEmail(t *testing.T) {
 	}
 
 	// Test 6
-	errorMessage, stopLoop = Email("", valueErrorMessage)(nil)
-	if errorMessage == nil || !errorValuePattern.MatchString(*errorMessage) || stopLoop {
-		t.Errorf("Email(\"\", \"error: value is %%T\", %s)(nil) = %v, %t; expected: \"error: value is [value type]\", true", getArgs()...)
-	}
-
-	// Test 7
 	errorMessage, stopLoop = Email()("emailexamplegmail.com")
 	if errorMessage == nil || stopLoop {
 		t.Errorf("Email()(\"emailexamplegmail.com\") = %v, %t; expected: \"[error message]\", true", getArgs()...)
 	}
 
-	// Test 8
+	// Test 7
 	errorMessage, stopLoop = Email(customErrorMessage)("emailexamplegmail")
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf("Email()(\"emailexamplegmail.com\") = %v, %t; expected: \"error\", true", getArgs()...)

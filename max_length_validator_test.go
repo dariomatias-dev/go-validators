@@ -28,10 +28,4 @@ func TestMaxLength(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
 		t.Errorf("MaxLength(5, \"error\")(\"aAbBcC\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
-
-	// Test 3
-	errorMessage, stopLoop = MaxLength(5, valueErrorMessage)("aAbBcC")
-	if errorMessage == nil || !errorValuePattern.MatchString(*errorMessage) || stopLoop {
-		t.Errorf("MaxLength(5, \"received size %%d\")(\"aAbBcC\") = %v, %t; expected: \"received size 6\", false", getArgs()...)
-	}
 }

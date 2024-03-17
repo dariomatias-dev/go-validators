@@ -1,18 +1,12 @@
 package validators
 
-import (
-	"fmt"
-	"regexp"
-)
+import "fmt"
 
 var (
-	errorMessage *string
-	stopLoop     bool
-	customErrorMessage = "error"
+	errorMessage        *string
+	stopLoop            bool
+	customErrorMessage  = "error"
 	customErrorMessage2 = "error2"
-	valueErrorMessage = "error: value is %T"
-	formattingPlaceholdersPattern = regexp.MustCompile("%[dfT]")
-	errorValuePattern = regexp.MustCompile("error: value is .+")
 )
 
 func getArgs() []interface{} {
