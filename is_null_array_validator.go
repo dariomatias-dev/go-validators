@@ -13,7 +13,7 @@ package validators
 // Usage examples:
 //
 //	value1 := []string{}
-//	IsArray(
+//	IsNullArray(
 //		arraytype.String,
 //		Array{
 //			AllowEmpty: true,
@@ -22,7 +22,7 @@ package validators
 //	)(value1) // Output: nil, false
 //
 //	value2 := nil
-//	IsArray(
+//	IsNullArray(
 //		arraytype.String,
 //		Array{
 //			MinLength: 3,
@@ -31,7 +31,7 @@ package validators
 //	)(value2) // Output: nil, false
 //
 //	value3 := []string{"a", "b"}
-//	IsArray(
+//	IsNullArray(
 //		arraytype.String,
 //		Array{
 //			MinLength: 3,
@@ -44,34 +44,16 @@ func IsNullArray(
 	fieldValidators []Validator,
 	errorMessage ...string,
 ) Validator {
-	message := ""
-	if len(errorMessage) != 0 {
-		message = errorMessage[0]
-	}
-
-	var isArray Validator
-	if message == "" {
-		isArray = IsArray(
-			typeOfValues,
-			arraySettings,
-			fieldValidators,
-		)
-	} else {
-		isArray = IsArray(
-			typeOfValues,
-			arraySettings,
-			fieldValidators,
-			message,
-		)
-	}
+	isArray := IsArray(
+		typeOfValues,
+		arraySettings,
+		fieldValidators,
+		errorMessage...,
+	)
 
 	return func(value interface{}) (*string, bool) {
 		if value == nil {
 			return nil, true
-		}
-
-		if message == "" {
-			return isArray(value)
 		}
 
 		return isArray(value)

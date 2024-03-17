@@ -19,6 +19,7 @@ import "fmt"
 //
 //	value3 := 0
 //	v.IsNullBool()(value3) // Output: [error message], true
+//	v.IsNullBool("error")(value3) // Output: "error", true
 func IsNullBool(
 	errorMessage ...string,
 ) Validator {
