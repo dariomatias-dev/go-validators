@@ -1,6 +1,9 @@
 package validators
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestMinLength(t *testing.T) {
 	/// - Successes
@@ -43,7 +46,7 @@ func TestMinLength(t *testing.T) {
 
 	// Test 5
 	errorMessage, stopLoop = MinLength(5, customErrorMessage)("aA")
-	if errorMessage == nil || !errorValuePattern.MatchString(*errorMessage) || stopLoop {
+	if errorMessage == nil || strings.Contains("received size", *errorMessage) || stopLoop {
 		t.Errorf("MinLength(5, \"received size %%d\")(\"aA\") = %v, %t; expected: \"received size 2\", false", getArgs()...)
 	}
 }

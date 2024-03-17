@@ -5,7 +5,7 @@ import "fmt"
 // Checks if the value is a string.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional)
+//   - errorMessage (string, placeholder available: %T - optional): custom error message (optional)
 //
 // Input value (any): value to be validated
 //

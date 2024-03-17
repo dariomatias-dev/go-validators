@@ -40,4 +40,10 @@ func TestIsFloat(t *testing.T) {
 	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
 		t.Errorf("IsFloat(\"error\")(1) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
+
+	// Test 4
+	errorMessage, stopLoop = IsFloat(valueErrorMessage)(1)
+	if errorMessage == nil || !errorValuePattern.MatchString(*errorMessage) || !stopLoop {
+		t.Errorf("IsFloat(\"error: value is %%T\")(1) = %v, %t; expected: \"error: value is int\", true", getArgs()...)
+	}
 }

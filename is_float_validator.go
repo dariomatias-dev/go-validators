@@ -5,23 +5,25 @@ import "fmt"
 // Checks if the value is a number or null.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional)
+//   - errorMessage (string, placeholder available: %T - optional): custom error message (optional)
 //
 // Input value (any): value to be validated
 //
 // Usage examples:
 //
-//	value1 := 1
-//	v.IsNullNumber()(value1) // Output: [error message], true
-//
 //	value2 := 1.0
-//	v.IsNullNumber()(value2) // Output: nil, false
+//	v.IsFloat()(value2) // Output: nil, false
+//
+//	value1 := 1
+//	v.IsFloat()(value1) // Output: [error message], true
 //
 //	value3 := nil
-//	v.IsNullNumber()(value3) // Output: [error message], true
+//	v.IsFloat()(value3) // Output: [error message], true
 //
 //	value4 := ""
-//	v.IsNullNumber()(value4) // Output: [error message], true
+//	v.IsFloat()(value4) // Output: [error message], true
+//	v.IsFloat("error")(value4) // Output: "error", true
+//	v.IsFloat("invalid value, received value is %T")(value4) // Output: "invalid value, received value is string", true
 func IsFloat(
 	errorMessage ...string,
 ) Validator {
@@ -30,22 +32,22 @@ func IsFloat(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
-		if _, ok := value.(float64); ok {
-			return nil, false
-		}
+	isFormattingPlaceholders := formattingPlaceholdersPattern.MatchString(message)
 
-		if message == "" {
-			if _, ok := value.(float64); ok {
-				message = "The value is not a decimal number: value is integer."
-			} else {
+	return func(value interface{}) (*string, bool) {
+		if _, ok := value.(float64); !ok {
+			if message == "" {
 				message = fmt.Sprintf(
 					"The value is not a decimal number: value is %T.",
 					value,
 				)
+			} else if isFormattingPlaceholders {
+				message = fmt.Sprintf(message, value)
 			}
+
+			return &message, true
 		}
 
-		return &message, true
+		return nil, false
 	}
 }
