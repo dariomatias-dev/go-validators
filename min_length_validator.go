@@ -6,7 +6,7 @@ import "fmt"
 //
 // Configuration parameters:
 //   - minLength (int): minimum length that the string must have
-//   - errorMessage (string): custom error message (optional)
+//   - errorMessage (string, placeholder available: %d (received size) - optional): custom error message (optional)
 //
 // Input value (string): value to be validated
 //
@@ -17,6 +17,8 @@ import "fmt"
 //
 //	value = "Na"
 //	v.MinLength(3)(value) // Output: [error message], false
+//	v.MinLength(3, "error")(value) // Output: "error", false
+//	v.MinLength(3, "the minimum size is 3 but he received %d")(value) // Output: "the minimum size is 3 but he received 2", false
 func MinLength(
 	minLength interface{},
 	errorMessage ...string,
@@ -25,6 +27,8 @@ func MinLength(
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
 	}
+
+	isFormattingPlaceholders := formattingPlaceholdersPattern.MatchString(message)
 
 	return func(value interface{}) (*string, bool) {
 		val, _ := value.(string)
@@ -35,7 +39,10 @@ func MinLength(
 					minLength,
 					len(val),
 				)
+			} else if isFormattingPlaceholders {
+				message = fmt.Sprintf(message, len(val))
 			}
+
 			return &message, false
 		}
 
