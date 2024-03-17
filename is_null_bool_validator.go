@@ -33,16 +33,13 @@ func IsNullBool(
 			return nil, true
 		}
 
-		if _, ok := value.(bool); !ok {
-			if message == "" {
-				message = fmt.Sprintf(
-					"The value is not a bool or null: value is %T.",
-					value,
-				)
-			}
-			return &message, true
+		if message == "" {
+			message = fmt.Sprintf(
+				"The value is not a bool or null: value is %T.",
+				value,
+			)
 		}
 
-		return nil, false
+		return IsBool(message)(value)
 	}
 }

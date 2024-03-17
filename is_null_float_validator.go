@@ -37,15 +37,10 @@ func IsNullFloat(
 		}
 
 		if message == "" {
-			valueFloat, isFloat := value.(float64)
-			if isFloat && valueFloat == float64(int(valueFloat)) {
-				message = "The value is not a decimal number or null: value is integer."
-			} else {
-				message = fmt.Sprintf(
-					"The value is not a decimal number or null: value is %T.",
-					value,
-				)
-			}
+			message = fmt.Sprintf(
+				"The value is not a decimal number or null: value is %T.",
+				value,
+			)
 		}
 
 		return IsFloat(message)(value)

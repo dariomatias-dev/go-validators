@@ -44,11 +44,16 @@ func IsNullArray(
 	fieldValidators []Validator,
 	errorMessage ...string,
 ) Validator {
+	message := "The value is not a array or null"
+	if len(errorMessage) != 0 {
+		message = errorMessage[0]
+	}
+
 	isArray := IsArray(
 		typeOfValues,
 		arraySettings,
 		fieldValidators,
-		errorMessage...,
+		message,
 	)
 
 	return func(value interface{}) (*string, bool) {

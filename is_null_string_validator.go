@@ -11,14 +11,15 @@ import "fmt"
 //
 // Usage examples:
 //
-//	value1 := "Name"
-//	v.IsString()(value1) // Output: nil, false
+//	value1 := nil
+//	v.IsNullString()(value1) // Output: nil, true
 //
-//	value2 := nil
-//	v.IsString()(value2) // Output: nil, true
+//	value2 := "Name"
+//	v.IsNullString()(value2) // Output: nil, false
 //
 //	value3 := 0
-//	v.IsString()(value3) // Output: [error message], true
+//	v.IsNullString()(value3) // Output: [error message], true
+//	v.IsNullString("error")(value3) // Output: "error", true
 func IsNullString(
 	errorMessage ...string,
 ) Validator {
@@ -32,16 +33,13 @@ func IsNullString(
 			return nil, true
 		}
 
-		if _, ok := value.(string); !ok {
-			if message == "" {
-				message = fmt.Sprintf(
-					"The value is not a string or null: value is %T.",
-					value,
-				)
-			}
-			return &message, true
+		if message == "" {
+			message = fmt.Sprintf(
+				"The value is not a string or null: value is %T.",
+				value,
+			)
 		}
 
-		return nil, false
+		return IsString(errorMessage...)(value)
 	}
 }
