@@ -13,22 +13,22 @@ import "fmt"
 // Usage examples:
 //
 //	value := "message"
-//	v.StartNotWith("es")(value) // Output: nil, false
+//	v.StartsNotWith("es")(value) // Output: nil, false
 //
 //	value := "send message"
-//	v.StartNotWith("send")(value) // Output: [error message], false
-//	v.StartNotWith("send", "error")(value) // Output: "error", false
-func StartNotWith(
-	startNotWith string,
+//	v.StartsNotWith("send")(value) // Output: [error message], false
+//	v.StartsNotWith("send", "error")(value) // Output: "error", false
+func StartsNotWith(
+	startsNotWith string,
 	errorMessage ...string,
 ) Validator {
-	message := fmt.Sprintf("The value cannot start with: %s.", startNotWith)
+	message := fmt.Sprintf("The value cannot start with: %s.", startsNotWith)
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
 	}
 
 	return func(value interface{}) (*string, bool) {
-		result, _ := StarWith(startNotWith)(value)
+		result, _ := StartsWith(startsNotWith)(value)
 		if result == nil {
 			return &message, false
 		}
