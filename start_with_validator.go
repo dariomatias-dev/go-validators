@@ -5,6 +5,22 @@ import (
 	"strings"
 )
 
+// Checks if the value starts with a given sequence.
+//
+// Configuration parameters:
+//   - startWith(string): character sequence that must initiate the value
+//   - errorMessage (string): custom error message (optional)
+//
+// Input value (string): value to be validated
+//
+// Usage examples:
+//
+//	value := "message"
+//	v.StarWith("mes")(value) // Output: nil, false
+//
+//	value := "send message"
+//	v.StarWith("end")(value) // Output: [error message], false
+//	v.StarWith("end", "error")(value) // Output: "error", false
 func StarWith(
 	startWith string,
 	errorMessage ...string,
