@@ -98,7 +98,7 @@ Validators{
 	errors = ValidateMap(validations)(data)
 	if errors == nil {
 		t.Error(
-			generateErrorMessage(errors, "[error message(s)]"),
+			generateErrorMessage(errors, "[ error message(s) ]"),
 		)
 	}
 
@@ -108,7 +108,7 @@ Validators{
 	errors = ValidateMap(validations)(data)
 	if errors == nil {
 		t.Error(
-			generateErrorMessage(errors, "[error message(s)]"),
+			generateErrorMessage(errors, "[ error message(s) ]"),
 		)
 	}
 
@@ -117,7 +117,7 @@ Validators{
 	errors = ValidateMap(validations)(user)
 	if errors == nil {
 		t.Error(
-			generateErrorMessage(errors, "[error message(s)]"),
+			generateErrorMessage(errors, "[ error message(s) ]"),
 		)
 	}
 
@@ -127,7 +127,7 @@ Validators{
 	errors = ValidateMap(validations)(user)
 	if errors == nil {
 		t.Error(
-			generateErrorMessage(errors, "[error message(s)]"),
+			generateErrorMessage(errors, "[ error message(s) ]"),
 		)
 	}
 }

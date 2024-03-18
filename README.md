@@ -100,7 +100,7 @@ if len(*errors) != 0 {
 
 // Error
 value = 2
-errors = validations(value) // Output: [ error messages ]
+errors = validations(value) // Output: [ error message(s) ]
 
 if len(*errors) != 0 {
     fmt.Println(*errors)
@@ -148,7 +148,31 @@ if errors != nil {
 
 // Error
 data["name"] = "Na"
-errors = validateMap(data) // Output: { [error messages] }
+errors = validateMap(data) // Output: {"name": [ error message ]}
+if errors != nil {
+    fmt.Println(*errors)
+    return
+}
+
+
+/// Using struct
+
+user := User{
+    Name:  "Name",
+    Age:   18,
+    Email: "exampleemail@gmail.com",
+}
+
+// Success
+errors := validateMap(data) // Output: nil
+if errors != nil {
+    fmt.Println(*errors)
+    return
+}
+
+// Error
+user.Email = "emailexample"
+errors := validateMap(data) // {"email": [ "Invalid email" ]}
 if errors != nil {
     fmt.Println(*errors)
     return
@@ -246,6 +270,18 @@ if errors != nil {
         </td>
     </tr>
     <tr>
+        <td>Email</td>
+        <td>Value</td>
+        <td>
+            Minimum value*</br>
+            Error messages</br>
+            <ul>
+                <li>Invalid email</li>
+                <li>Value is not string</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
         <td>Min</td>
         <td>Value</td>
         <td>
@@ -314,4 +350,4 @@ if errors != nil {
 
 </br>
 
-**All entries marked with (*) are mandatory.**
+**All entries marked with (\*) are mandatory.**
