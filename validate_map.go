@@ -2,12 +2,12 @@ package validators
 
 import "encoding/json"
 
-// Applies all validations to the respective fields
+// Applies all validations to the respective fields.
 //
 // Configuration parameters:
-//   - fieldsValidations (Validators): validators for each field
+//   - fieldsValidations (Validators): validators for each field.
 //
-// Input value (map[string]any): Map to be validated
+// Input value (map[string]any): Map to be validated.
 //
 // Usage examples:
 //

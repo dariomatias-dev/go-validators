@@ -7,15 +7,15 @@ import (
 	arraytype "github.com/dariomatias-dev/go-validators/array_type"
 )
 
-// Checks if the value is a valid array
+// Checks if the value is a valid array.
 //
 // Configuration parameters:
-//   - typeOfValues (string): type of array values
-//   - arraySettings (Array): array settings
-//   - fieldValidators ([]Validator): validators that must be applied to each value in the array
-//   - errorMessage (string): custom error message (optional)
+//   - typeOfValues (string): type of array values.
+//   - arraySettings (Array): array settings.
+//   - fieldValidators ([]Validator): validators that must be applied to each value in the array.
+//   - errorMessage (string): custom error message (optional).
 //
-// Input value ([]any): value to be validated
+// Input value ([]any): value to be validated.
 //
 // Usage examples:
 //

@@ -1,12 +1,12 @@
 package validators
 
-// Checks if the value is a valid array or nil
+// Checks if the value is a valid array or nil.
 //
 // Configuration parameters:
-//   - typeOfValues (string): type of array values
-//   - arraySettings (Array): array settings
-//   - fieldValidators ([]Validator): validators that must be applied to each value in the array
-//   - errorMessage (string): custom error message (optional)
+//   - typeOfValues (string): type of array values.
+//   - arraySettings (Array): array settings.
+//   - fieldValidators ([]Validator): validators that must be applied to each value in the array.
+//   - errorMessage (string): custom error message (optional).
 //
 // Input value ([]any): value to be validated
 //

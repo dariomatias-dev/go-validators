@@ -4,9 +4,9 @@ package validators
 //
 // Configuration parameters:
 //   - endsNotWith(string): character sequence that the value should not end with.
-//   - errorMessage (string): custom error message (optional)
+//   - errorMessage (string): custom error message (optional).
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
 //
 // Usage examples:
 //

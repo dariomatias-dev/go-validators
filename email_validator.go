@@ -5,15 +5,15 @@ import (
 	"net/mail"
 )
 
-// Checks if the value is a validated email
+// Checks if the value is a validated email.
 //
 // Configuration parameters:
 //
 // - errorMessages (optional):
-//   - Invalid email
-//   - value is not string
+//   - Invalid email.
+//   - value is not string.
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
 //
 // Usage examples:
 //

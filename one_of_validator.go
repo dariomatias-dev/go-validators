@@ -5,10 +5,10 @@ import "strings"
 // Checks if the value is within certain options.
 //
 // Configuration parameters:
-//   - options([]string): value options
-//   - errorMessage (string): custom error message (optional)
+//   - options([]string): value options.
+//   - errorMessage (string): custom error message (optional).
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
 //
 // Usage examples:
 //

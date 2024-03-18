@@ -1,10 +1,10 @@
 package validators
 
-// Applies all given validators to the passed value
+// Applies all given validators to the passed value.
 //
 // Configuration parameters:
-//   - value (any): value to be validated
-//   - validations ([]Validator): validators
+//   - value (any): value to be validated.
+//   - validations ([]Validator): validators.
 //
 // Usage examples:
 //

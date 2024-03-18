@@ -4,13 +4,13 @@ import (
 	"regexp"
 )
 
-// Checks if the value meets the given regex
+// Checks if the value meets the given regex.
 //
 // Configuration parameters:
-//   - regex (string): regex that will be used to validate value
-//   - errorMessage (string): custom error message
+//   - regex (string): regex that will be used to validate value.
+//   - errorMessage (string): custom error message.
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
 //
 // Usage examples:
 //

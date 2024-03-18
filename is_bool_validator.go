@@ -5,9 +5,9 @@ import "fmt"
 // Checks if the value is a boolean.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional)
+//   - errorMessage (string): custom error message (optional).
 //
-// Input value (any): Value to be validated
+// Input value (any): Value to be validated.
 //
 // Usage examples:
 //

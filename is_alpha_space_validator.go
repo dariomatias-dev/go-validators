@@ -12,9 +12,9 @@ var (
 // Checks if the value contains only letters and spaces.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional)
+//   - errorMessage (string): custom error message (optional).
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
 //
 // Usage examples:
 //

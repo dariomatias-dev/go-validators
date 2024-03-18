@@ -2,12 +2,14 @@ package validators
 
 import "net/url"
 
-// Checks if the value is a valid URL
+// Checks if the value is a valid URL.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message
+//   - errorMessage (string): custom error message.
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
+//
+// Usage examples:
 //
 //	value := "golang.org"
 //	v.URL()(value) // Output: nil, false

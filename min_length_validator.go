@@ -5,10 +5,10 @@ import "fmt"
 // Checks if a string has the specified minimum length.
 //
 // Configuration parameters:
-//   - minLength (int): minimum length that the string must have
-//   - errorMessage (string): custom error message (optional)
+//   - minLength (int): minimum length that the string must have.
+//   - errorMessage (string): custom error message (optional).
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
 //
 // Usage examples:
 //

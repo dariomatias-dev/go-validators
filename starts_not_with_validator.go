@@ -6,9 +6,9 @@ import "fmt"
 //
 // Configuration parameters:
 //   - startWith(string): character sequence that the value should not start with.
-//   - errorMessage (string): custom error message (optional)
+//   - errorMessage (string): custom error message (optional).
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
 //
 // Usage examples:
 //

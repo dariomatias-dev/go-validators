@@ -9,12 +9,12 @@ var (
 	specialCharacteresRegex = regexp.MustCompile(`[^a-zA-Z0-9\s]`)
 )
 
-// Checks whether the value contains lowercase and uppercase letters, numbers and special characters
+// Checks whether the value contains lowercase and uppercase letters, numbers and special characters.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message
+//   - errorMessage (string): custom error message.
 //
-// Input value (string): value to be validated
+// Input value (string): value to be validated.
 //
 // Usage examples:
 //
