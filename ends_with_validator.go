@@ -23,11 +23,11 @@ import (
 //	v.EndsWith("end", "error")(value) // Output: "error", false
 func EndsWith(
 	endsWith string,
-	errorMessages ...string,
+	errorMessage ...string,
 ) Validator {
 	message := fmt.Sprintf("The value must end with: %s", endsWith)
-	if len(errorMessages) != 0 {
-		message = errorMessages[0]
+	if len(errorMessage) != 0 {
+		message = errorMessage[0]
 	}
 
 	return func(value interface{}) (*string, bool) {

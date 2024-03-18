@@ -17,11 +17,11 @@ package validators
 //	v.EndsNotWith("age", "error")(value) // Output: "error", false
 func EndsNotWith(
 	endsNotWith string,
-	errorMessages ...string,
+	errorMessage ...string,
 ) Validator {
 	message := "The value cannot end with"
-	if len(errorMessages) != 0 {
-		message = errorMessages[0]
+	if len(errorMessage) != 0 {
+		message = errorMessage[0]
 	}
 
 	return func(value interface{}) (*string, bool) {
