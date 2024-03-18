@@ -8,7 +8,7 @@ import (
 // Checks if the value starts with a given sequence.
 //
 // Configuration parameters:
-//   - startWith(string): character sequence that must initiate the value
+//   - startWith(string): character sequence that the value must start with
 //   - errorMessage (string): custom error message (optional)
 //
 // Input value (string): value to be validated
