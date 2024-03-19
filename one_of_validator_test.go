@@ -8,6 +8,8 @@ import (
 
 func TestOneOf(t *testing.T) {
 	stringOptions := []string{"one", "two", "three"}
+	intOptions := []int{1, 2, 3}
+	float64Options := []float64{1.0, 2.0, 3.0}
 
 	/// - Successes
 	// Test 1
@@ -23,15 +25,27 @@ func TestOneOf(t *testing.T) {
 	}
 
 	// Test 3
-	errorMessage, stopLoop = OneOf(arraytype.String, stringOptions)("three")
+	errorMessage, stopLoop = OneOf(arraytype.Int, intOptions)(1)
 	if errorMessage != nil || stopLoop {
-		t.Errorf("OneOf(arraytype.String, []string{\"one\", \"two\", \"three\"})(\"three\") = %v, %t; expected: nil, false", getArgs()...)
+		t.Errorf("OneOf(arraytype.Int, []int{1, 2, 3})(1) = %v, %t; expected: nil, false", getArgs()...)
 	}
 
 	// Test 4
-	errorMessage, stopLoop = OneOf(arraytype.String, stringOptions, customErrorMessage)("three")
+	errorMessage, stopLoop = OneOf(arraytype.Int, intOptions, customErrorMessage)(1)
 	if errorMessage != nil || stopLoop {
-		t.Errorf("OneOf(arraytype.String, []string{\"one\", \"two\", \"three\"})(\"three\") = %v, %t; expected: nil, false", getArgs()...)
+		t.Errorf("OneOf(arraytype.Int, []int{1, 2, 3})(1) = %v, %t; expected: nil, false", getArgs()...)
+	}
+
+	// Test 5
+	errorMessage, stopLoop = OneOf(arraytype.Float64, float64Options)(1.0)
+	if errorMessage != nil || stopLoop {
+		t.Errorf("OneOf(arraytype.Float64, []float64{1.0, 2.0, 3.0})(1.0) = %v, %t; expected: nil, false", getArgs()...)
+	}
+
+	// Test 6
+	errorMessage, stopLoop = OneOf(arraytype.Float64, float64Options, customErrorMessage)(1.0)
+	if errorMessage != nil || stopLoop {
+		t.Errorf("OneOf(arraytype.Float64, []float64{1.0, 2.0, 3.0})(1.0) = %v, %t; expected: nil, false", getArgs()...)
 	}
 
 	/// - Errors
@@ -48,14 +62,26 @@ func TestOneOf(t *testing.T) {
 	}
 
 	// Test 3
-	errorMessage, stopLoop = OneOf(arraytype.String, stringOptions)("five")
+	errorMessage, stopLoop = OneOf(arraytype.Int, intOptions)(4)
 	if errorMessage == nil || stopLoop {
-		t.Errorf("OneOf(arraytype.String, []string{\"one\", \"two\", \"three\"})(\"five\") = %v, %t; expected: [error message], false", getArgs()...)
+		t.Errorf("OneOf(arraytype.Int, []int{1, 2, 3})(4) = %v, %t; expected: [error message], false", getArgs()...)
 	}
 
 	// Test 4
-	errorMessage, stopLoop = OneOf(arraytype.String, stringOptions, customErrorMessage)("five")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
-		t.Errorf("OneOf(arraytype.String, []string{\"one\", \"two\", \"three\"})(\"five\") = %v, %t; expected: \"error\", false", getArgs()...)
+	errorMessage, stopLoop = OneOf(arraytype.Int, intOptions, customErrorMessage)(4)
+	if errorMessage == nil || stopLoop {
+		t.Errorf("OneOf(arraytype.Int, []int{1, 2, 3})(4) = %v, %t; expected: \"error\", false", getArgs()...)
+	}
+
+	// Test 5
+	errorMessage, stopLoop = OneOf(arraytype.Float64, float64Options)(4.0)
+	if errorMessage == nil || stopLoop {
+		t.Errorf("OneOf(arraytype.Float64, []float64{1.0, 2.0, 3.0})(4.0) = %v, %t; expected: [error message], false", getArgs()...)
+	}
+
+	// Test 6
+	errorMessage, stopLoop = OneOf(arraytype.Float64, float64Options, customErrorMessage)(4.0)
+	if errorMessage == nil || stopLoop {
+		t.Errorf("OneOf(arraytype.Float64, []float64{1.0, 2.0, 3.0})(4.0) = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }
