@@ -195,9 +195,7 @@ if errors != nil {
     <tr>
         <td>IsOptional</td>
         <td>Presence</td>
-        <td>
-            None
-        </td>
+        <td>None</td>
     </tr>
     <tr>
         <td>IsString</td>
@@ -228,10 +226,12 @@ if errors != nil {
         <td>IsArray</td>
         <td>Type</td>
         <td>
-            Type of values* </br>
-            Array settings* </br>
-            Field validators* </br>
-            Error message </br>
+            <ul>
+                <li>Type of values*</li>
+                <li>Array settings*</li>
+                <li>Field validators*</li>
+                <li>Error message</li>
+            </ul>
         </td>
     </tr>
     <tr>
@@ -263,21 +263,25 @@ if errors != nil {
         <td>IsNullArray</td>
         <td>Type</td>
         <td>
-            Type of values* </br>
-            Array settings* </br>
-            Field validators* </br>
-            Error message </br>
+            <ul>
+                <li>Type of values*</li>
+                <li>Array settings*</li>
+                <li>Field validators*</li>
+                <li>Error message</li>
+            </ul>
         </td>
     </tr>
     <tr>
         <td>Email</td>
         <td>Value</td>
         <td>
-            Minimum value*</br>
-            Error messages</br>
             <ul>
-                <li>Invalid email</li>
-                <li>Value is not string</li>
+                <li>Minimum value*</li>
+                <li>Error messages</li>
+                <ul>
+                    <li>Invalid email</li>
+                    <li>Value is not string</li>
+                </ul>
             </ul>
         </td>
     </tr>
@@ -285,32 +289,40 @@ if errors != nil {
         <td>Min</td>
         <td>Value</td>
         <td>
-            Minimum value* </br>
-            Error message </br>
+            <ul>
+                <li>Minimum value*</li>
+                <li>Error message</li>
+            </ul>
         </td>
     </tr>
     <tr>
         <td>Max</td>
         <td>Value</td>
         <td>
-            Maximum value* </br>
-            Error message </br>
+            <ul>
+                <li>Maximum value*</li>
+                <li>Error message</li>
+            </ul>
         </td>
     </tr>
     <tr>
         <td>MinLength</td>
         <td>Value</td>
         <td>
-            Minimum size* </br>
-            Error message </br>
+            <ul>
+                <li>Minimum size*</li>
+                <li>Error message</li>
+            </ul>
         </td>
     </tr>
     <tr>
         <td>MaxLength</td>
         <td>Value</td>
         <td>
-            Maximum size* </br>
-            Error message </br>
+            <ul>
+                <li>Maximum size*</li>
+                <li>Error message</li>
+            </ul>
         </td>
     </tr>
     <tr>
@@ -324,17 +336,65 @@ if errors != nil {
         <td>Error message</td>
     </tr>
     <tr>
-        <td>Regex</td>
+        <td>OneOf</td>
         <td>Value</td>
         <td>
-            Regex* </br>
-            Error message* </br>
+            <ul>
+                <li>Array type*</li>
+                <li>Possible options*</li>
+                <li>Error message</li>
+            </ul>
         </td>
     </tr>
     <tr>
-        <td>Custom</td>
+        <td>StartsWith</td>
         <td>Value</td>
-        <td>Custom validator*</td>
+        <td>
+            <ul>
+                <li>Starts with*</li>
+                <li>Error message</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>StartsNotWith</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>Starts not with*</li>
+                <li>Error message</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>EndsWith</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>Ends with*</li>
+                <li>Error message</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>EndsNotWith</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>Ends not with*</li>
+                <li>Error message</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Regex</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>Regex*</li>
+                <li>Error message</li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>Password</td>
@@ -344,7 +404,12 @@ if errors != nil {
     <tr>
         <td>URL</td>
         <td>Value</td>
-        <td>Error message</td>
+        <td>Error message</td
+    </tr>
+    <tr>
+        <td>Custom</td>
+        <td>Value</td>
+        <td>Custom validator*</td>
     </tr>
 </table>
 
