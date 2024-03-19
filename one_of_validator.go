@@ -30,6 +30,8 @@ func OneOf(
 	options any,
 	errorMessage ...string,
 ) Validator {
+	optionsLen := 0
+
 	message := ""
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
@@ -39,24 +41,16 @@ func OneOf(
 		case arraytype.String:
 			message += strings.Join(options.([]string), " | ")
 		case arraytype.Int:
-			for i, option := range options.([]int) {
-				if i == 0 {
-					message += fmt.Sprintf("%d | ", option)
-				} else if len(options.([]int))-1 == i {
-					message += fmt.Sprintf("%d", option)
-				} else {
-					message += fmt.Sprintf("%d | ", option)
-				}
+			intOptions := options.([]int)
+			optionsLen = len(intOptions)
+			for i, option := range intOptions {
+				addOptionsToTheMessage(i, &message, optionsLen, option)
 			}
 		case arraytype.Float64:
-			for i, option := range options.([]float64) {
-				if i == 0 {
-					message += fmt.Sprintf("%f | ", option)
-				} else if len(options.([]float64))-1 == i {
-					message += fmt.Sprintf("%f", option)
-				} else {
-					message += fmt.Sprintf("%f | ", option)
-				}
+			float64Options := options.([]float64)
+			optionsLen = len(float64Options)
+			for i, option := range float64Options {
+				addOptionsToTheMessage(i, &message, optionsLen, option)
 			}
 		}
 		message += "."
@@ -91,5 +85,20 @@ func OneOf(
 		}
 
 		return &message, false
+	}
+}
+
+func addOptionsToTheMessage(
+	i int,
+	message *string,
+	optionsLen int,
+	option interface{},
+) {
+	if i == 0 {
+		*message += fmt.Sprintf("%d | ", option)
+	} else if optionsLen-1 == i {
+		*message += fmt.Sprintf("%d", option)
+	} else {
+		*message += fmt.Sprintf("%d | ", option)
 	}
 }
