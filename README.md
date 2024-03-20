@@ -416,3 +416,9 @@ if errors != nil {
 </br>
 
 **All entries marked with (\*) are mandatory.**
+
+# Donations
+
+Help maintain the project with donations.
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/dariomatias)
