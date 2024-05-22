@@ -1,6 +1,11 @@
 package validators
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"reflect"
+)
 
 // Applies all validations to the respective fields.
 //
@@ -46,6 +51,8 @@ func ValidateMap(
 	var value map[string]interface{}
 
 	return func(data any) *map[string][]string {
+		validateWithReflect(data)
+
 		switch v := data.(type) {
 		case map[string]interface{}:
 			value = v
@@ -71,5 +78,24 @@ func ValidateMap(
 
 		return &errorMessages
 	}
+}
 
+func validateWithReflect(s any) error {
+	structType := reflect.TypeOf(s)
+	structValue := reflect.ValueOf(s)
+
+	if structValue.Kind() != reflect.Struct {
+		return errors.New("expected a struct")
+	}
+
+	for i := 0; i < structType.NumField(); i++ {
+		fieldType := structType.Field(i)
+		// fieldValue := structValue.Field(i)
+
+		validatesTag := fieldType.Tag.Get("validates")
+
+		fmt.Println(validatesTag)
+	}
+
+	return nil
 }
