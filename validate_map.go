@@ -108,29 +108,90 @@ func validateWithReflect(s any) error {
 			}
 			optionsLen := len(options)
 
-			switch validateTag {
-			case "required":
-				fmt.Println("validation required")
-			case "minLength":
-				customErrorMessage := ""
-				if optionsLen > 1 {
-					customErrorMessage = options[1]
-				}
+			errorMessage, stopLoop, err := selectValidation(
+				validateTag,
+				fieldValue,
+				options,
+				optionsLen,
+			)
 
-				min, _ := strconv.Atoi(options[0])
-				validation := MinLength(min, customErrorMessage)
-				errorMessage, stopLoop := validation(fieldValue.String())
-
-				if errorMessage == nil {
-					fmt.Println(errorMessage, stopLoop)
-				} else {
-					fmt.Println(*errorMessage, stopLoop)
-				}
-			default:
-				return errors.New("invalid validation")
-			}
+			fmt.Println(errorMessage, stopLoop, err)
 		}
 	}
 
 	return nil
+}
+
+func selectValidation(
+	validateTag string,
+	fieldValue reflect.Value,
+	options []string,
+	optionsLen int,
+) (*string, bool, error) {
+	customErrorMessage := ""
+	setCustomErrorMessage := setErrorMessage(
+		&customErrorMessage,
+		options,
+		optionsLen,
+	)
+
+	switch validateTag {
+	case "required":
+		setCustomErrorMessage(1)
+
+		validation := IsRequired(customErrorMessage)
+
+		return applyValidation(validation, fieldValue)
+	case "min":
+		setCustomErrorMessage(2)
+
+		min, _ := strconv.Atoi(options[0])
+		validation := Min(min, customErrorMessage)
+
+		return applyValidation(validation, fieldValue.String())
+	case "max":
+		setCustomErrorMessage(2)
+
+		max, _ := strconv.Atoi(options[0])
+		validation := Max(max, customErrorMessage)
+
+		return applyValidation(validation, fieldValue.String())
+	case "minLength":
+		setCustomErrorMessage(2)
+
+		minLength, _ := strconv.Atoi(options[0])
+		validation := MinLength(minLength, customErrorMessage)
+
+		return applyValidation(validation, fieldValue.String())
+	case "maxLength":
+		setCustomErrorMessage(2)
+
+		maxLength, _ := strconv.Atoi(options[0])
+		validation := MaxLength(maxLength, customErrorMessage)
+
+		return applyValidation(validation, fieldValue.String())
+	default:
+		return nil, false, errors.New("invalid validation")
+	}
+}
+
+func setErrorMessage(
+	errorMessage *string,
+	options []string,
+	optionsLen int,
+) func(errorMessagePosition int) {
+	return func(errorMessagePosition int) {
+		if optionsLen == errorMessagePosition {
+			*errorMessage = options[errorMessagePosition-1]
+		}
+	}
+}
+
+func applyValidation(
+	validator Validator,
+	value any,
+) (*string, bool, error) {
+	errorMessage, stopLoop := validator(value)
+
+	return errorMessage, stopLoop, nil
 }
