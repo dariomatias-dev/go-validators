@@ -3,8 +3,8 @@ package validators
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"reflect"
+	"strings"
 )
 
 // Applies all validations to the respective fields.
@@ -93,8 +93,23 @@ func validateWithReflect(s any) error {
 		// fieldValue := structValue.Field(i)
 
 		validatesTag := fieldType.Tag.Get("validates")
+		validates := strings.Split(validatesTag, ";")
 
-		fmt.Println(validatesTag)
+		for _, validate := range validates {
+			validate := strings.Split(validate, "=")
+
+			validateTag := validate[0]
+			// optionsLen := len(validate)
+			// var options []string
+			// if optionsLen == 2 {
+			// 	options = strings.Split(validate[1], ",")
+			// }
+
+			switch validateTag {
+			default:
+				return errors.New("invalid validation")
+			}
+		}
 	}
 
 	return nil
