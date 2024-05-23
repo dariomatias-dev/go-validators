@@ -3,7 +3,9 @@ package validators
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"reflect"
+	"strconv"
 	"strings"
 )
 
@@ -16,34 +18,34 @@ import (
 //
 // Usage examples:
 //
-//	data := map[string]interface{}{
-//		"name":  "Name",
-//		"age":   18,
-//		"email": "emailexample@gmail.com",
-//	}
+//		data := map[string]interface{}{
+//			"name":  "Name",
+//			"age":   18,
+//			"email": "emailexample@gmail.com",
+//		}
 //
-//	validations := v.Validators{
-//		"name": []v.Validator{
-//			v.IsString(),
-//			v.MinLength(3),
-//			v.MaxLength(20),
-//		},
-//		"age": []v.Validator{
-//			v.IsInt(),
-//			v.Min(18),
-//			v.Max(100),
-//		},
-//		"email": []v.Validator{
-//			v.Email(),
-//		},
-//	}
+//		validations := v.Validators{
+//			"name": []v.Validator{
+//				v.IsString(),
+//				v.MinLength(3),
+//				v.MaxLength(20),
+//			},
+//			"age": []v.Validator{
+//				v.IsInt(),
+//				v.Min(18),
+//				v.Max(100),
+//			},
+//			"email": []v.Validator{
+//				v.Email(),
+//			},
+//		}
 //
-//  validateMap := v.ValidateMap(validations)
+//	 validateMap := v.ValidateMap(validations)
 //
-//  validateMap(data) // Output: nil
+//	 validateMap(data) // Output: nil
 //
-//  data["name"] = "Na"
-//  validateMap(data) // Output: { [error messages] }
+//	 data["name"] = "Na"
+//	 validateMap(data) // Output: { [error messages] }
 func ValidateMap(
 	fieldsValidations Validators,
 ) func(data any) *map[string][]string {
@@ -89,8 +91,9 @@ func validateWithReflect(s any) error {
 	}
 
 	for i := 0; i < structType.NumField(); i++ {
+
 		fieldType := structType.Field(i)
-		// fieldValue := structValue.Field(i)
+		fieldValue := structValue.Field(i)
 
 		validatesTag := fieldType.Tag.Get("validates")
 		validates := strings.Split(validatesTag, ";")
@@ -99,13 +102,30 @@ func validateWithReflect(s any) error {
 			validate := strings.Split(validate, "=")
 
 			validateTag := validate[0]
-			// optionsLen := len(validate)
-			// var options []string
-			// if optionsLen == 2 {
-			// 	options = strings.Split(validate[1], ",")
-			// }
+			var options []string
+			if len(validate) > 1 {
+				options = strings.Split(validate[1], ",")
+			}
+			optionsLen := len(options)
 
 			switch validateTag {
+			case "required":
+				fmt.Println("validation required")
+			case "minLength":
+				customErrorMessage := ""
+				if optionsLen > 1 {
+					customErrorMessage = options[1]
+				}
+
+				min, _ := strconv.Atoi(options[0])
+				validation := MinLength(min, customErrorMessage)
+				errorMessage, stopLoop := validation(fieldValue.String())
+
+				if errorMessage == nil {
+					fmt.Println(errorMessage, stopLoop)
+				} else {
+					fmt.Println(*errorMessage, stopLoop)
+				}
 			default:
 				return errors.New("invalid validation")
 			}
