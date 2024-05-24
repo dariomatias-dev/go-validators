@@ -27,6 +27,11 @@ func Validate(s any) error {
 		fieldValue := structValue.Field(i)
 
 		validatesTag := fieldType.Tag.Get("validates")
+
+		if validatesTag == "" {
+			return nil
+		}
+
 		validates := strings.Split(validatesTag, ";")
 
 		err := applyValidations(
@@ -97,10 +102,40 @@ func selectValidation(
 	)
 
 	switch validateTag {
-	case "required":
+	case "isRequired":
 		setErrCustomMessage(1)
 
 		validation := IsRequired(errCustomMessage)
+
+		return validation(fieldValue.Interface())
+	case "isString":
+		setErrCustomMessage(2)
+
+		validation := IsString(errCustomMessage)
+
+		return validation(fieldValue.Interface())
+	case "isNumber":
+		setErrCustomMessage(2)
+
+		validation := IsNumber(errCustomMessage)
+
+		return validation(fieldValue.Interface())
+	case "isInt":
+		setErrCustomMessage(2)
+
+		validation := IsInt(errCustomMessage)
+
+		return validation(fieldValue.Interface())
+	case "isFloat":
+		setErrCustomMessage(2)
+
+		validation := IsFloat(errCustomMessage)
+
+		return validation(fieldValue.Interface())
+	case "isBool":
+		setErrCustomMessage(2)
+
+		validation := IsBool(errCustomMessage)
 
 		return validation(fieldValue.Interface())
 	case "min":
