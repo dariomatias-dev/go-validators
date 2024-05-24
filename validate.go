@@ -3,6 +3,7 @@ package validators
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"reflect"
 	"strconv"
 	"strings"
@@ -38,13 +39,17 @@ func Validate(
 
 		validates := strings.Split(validatesTag, ";")
 
-		err := applyValidations(
+		messages, err := applyValidations(
 			validates,
 			value,
 		)
 
 		if err != nil {
-			errorMessages[fieldType.Name] = err
+			return err
+		}
+
+		if messages != nil {
+			errorMessages[fieldType.Name] = messages
 		}
 	}
 
@@ -60,7 +65,7 @@ func Validate(
 func applyValidations(
 	validates []string,
 	value any,
-) []string {
+) ([]string, error) {
 	var errorMessages []string
 
 	for _, validate := range validates {
@@ -81,7 +86,11 @@ func applyValidations(
 		)
 
 		if abortValidation {
-			return errorMessages
+			if strings.Contains(err.Error(), invalidValidator) {
+				return nil, err
+			} else {
+				return errorMessages, nil
+			}
 		}
 
 		if err != nil {
@@ -89,7 +98,7 @@ func applyValidations(
 		}
 	}
 
-	return errorMessages
+	return errorMessages, nil
 }
 
 func selectValidation(
@@ -155,7 +164,9 @@ func selectValidation(
 		maxLength, _ := strconv.Atoi(options[0])
 		validation = MaxLength(maxLength, errCustomMessage)
 	default:
-		return errors.New(invalidValidator), false
+		return fmt.Errorf(
+			fmt.Sprintf("%s: %s", invalidValidator, validateTag),
+		), true
 	}
 
 	return validation(value)
