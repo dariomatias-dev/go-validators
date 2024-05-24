@@ -1,6 +1,7 @@
 package validators
 
 import (
+	"errors"
 	"regexp"
 )
 
@@ -29,9 +30,9 @@ func Regex(
 	message := errorMessage
 	re := regexp.MustCompile(regex)
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if !re.MatchString(value.(string)) {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

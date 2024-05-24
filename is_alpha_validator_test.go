@@ -25,7 +25,7 @@ func TestIsAlpha(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsAlpha(customErrorMessage)("abcDEFáÉ123!@#")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("IsAlpha(\"error\")(\"abcDEFáÉ123!@#\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

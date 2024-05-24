@@ -25,7 +25,7 @@ func TestIsBool(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsBool(customErrorMessage)(nil)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsBool(\"error\")(nil) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -37,7 +37,7 @@ func TestIsBool(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = IsBool(customErrorMessage)(0)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsBool(\"error\")(0) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

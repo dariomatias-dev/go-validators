@@ -1,12 +1,17 @@
 package validators
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 var (
-	errorMessage        *string
+	errorMessage        error
 	stopLoop            bool
 	customErrorMessage  = "error"
 	customErrorMessage2 = "error2"
+	customError = errors.New(customErrorMessage)
+	customError2 = errors.New(customErrorMessage2)
 )
 
 func getArgs() []interface{} {
@@ -16,7 +21,7 @@ func getArgs() []interface{} {
 				return nil
 			}
 
-			return fmt.Sprintf("\"%s\"", *errorMessage)
+			return fmt.Sprintf("\"%s\"", errorMessage)
 		}(),
 		stopLoop,
 	}

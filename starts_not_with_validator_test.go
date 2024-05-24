@@ -37,7 +37,7 @@ func TestStartsNotWith(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = StartsNotWith("mes", customErrorMessage)("message")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("StartsNotWith(\"mes\", \"error\")(\"message\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestStartsNotWith(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = StartsNotWith("send", customErrorMessage)("send message")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("StartsNotWith(\"send\", \"error\")(\"send message\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

@@ -1,6 +1,9 @@
 package validators
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Checks if the value does not start with a certain sequence.
 //
@@ -27,10 +30,10 @@ func StartsNotWith(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		result, _ := StartsWith(startsNotWith)(value)
 		if result == nil {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

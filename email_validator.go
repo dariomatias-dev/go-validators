@@ -1,6 +1,7 @@
 package validators
 
 import (
+	"errors"
 	"fmt"
 	"net/mail"
 )
@@ -33,7 +34,7 @@ func Email(
 		message = errorMessages[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if _, ok := value.(string); !ok {
 			if errorMessageLen > 1 {
 				message = errorMessages[1]
@@ -41,12 +42,12 @@ func Email(
 				message = fmt.Sprintf("The value is not a string: value is %T.", value)
 			}
 
-			return &message, false
+			return errors.New(message), false
 		}
 
 		_, err := mail.ParseAddress(value.(string))
 		if err != nil {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

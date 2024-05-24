@@ -1,6 +1,9 @@
 package validators
 
-import "net/url"
+import (
+	"errors"
+	"net/url"
+)
 
 // Checks if the value is a valid URL.
 //
@@ -25,9 +28,9 @@ func URL(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if _, err := url.ParseRequestURI(value.(string)); err != nil {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

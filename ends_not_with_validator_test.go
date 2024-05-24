@@ -37,7 +37,7 @@ func TestEndsNotWith(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = EndsNotWith("age", customErrorMessage)("message")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("EndsNotWith(\"mes\", \"error\")(\"message\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestEndsNotWith(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = EndsNotWith("message", customErrorMessage)("send message")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("EndsNotWith(\"message\", \"error\")(\"send message\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

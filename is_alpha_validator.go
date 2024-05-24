@@ -1,6 +1,9 @@
 package validators
 
-import "regexp"
+import (
+	"errors"
+	"regexp"
+)
 
 var (
 	alphaRegex = regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ]+$`)
@@ -31,9 +34,9 @@ func IsAlpha(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if !alphaRegex.MatchString(value.(string)) {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

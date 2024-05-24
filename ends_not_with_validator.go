@@ -1,5 +1,7 @@
 package validators
 
+import "errors"
+
 // Checks if the value does not end with a certain sequence.
 //
 // Configuration parameters:
@@ -24,10 +26,10 @@ func EndsNotWith(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		result, _ := EndsWith(endsNotWith)(value)
 		if result == nil {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

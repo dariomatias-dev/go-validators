@@ -37,7 +37,7 @@ func TestStarstWith(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = StartsWith("es", customErrorMessage)("message")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("StartsWith(\"es\", \"error\")(\"message\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestStarstWith(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = StartsWith("end", customErrorMessage)("send message")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("StartsWith(\"end\", \"error\")(\"send message\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

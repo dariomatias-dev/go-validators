@@ -25,7 +25,7 @@ func TestPassword(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = Password(customErrorMessage)("a")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Password(\"error\")(\"a\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -37,7 +37,7 @@ func TestPassword(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = Password(customErrorMessage)("aA")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Password(\"error\")(\"aA\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestPassword(t *testing.T) {
 
 	// Test 6
 	errorMessage, stopLoop = Password(customErrorMessage)("aA1")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Password(\"error\")(\"aA1\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

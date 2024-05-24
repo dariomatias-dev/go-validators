@@ -1,6 +1,9 @@
 package validators
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Checks if the value is less than the specified minimum value.
 //
@@ -30,7 +33,7 @@ func Min(
 	val := 0.0
 	minValue := convertToFloat64(min)
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if message == "" {
 			message = fmt.Sprintf(
 				"The minimum value is %v, but it received %v.",
@@ -42,7 +45,7 @@ func Min(
 		val = convertToFloat64(value)
 
 		if val < minValue {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

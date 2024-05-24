@@ -60,7 +60,7 @@ func TestURL(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = URL(customErrorMessage)("www.example.com")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("URL(\"error\")(\"www.example.com\") == %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

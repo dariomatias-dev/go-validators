@@ -37,7 +37,7 @@ func TestIsNumber(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsNumber(customErrorMessage)("")
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsNumber(\"error\")(\"\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

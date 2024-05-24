@@ -1,11 +1,14 @@
 package validators
 
-import "strings"
+import (
+	"errors"
+	"strings"
+)
 
 // Checks if the value was provided.
 //
 // Configuration parameters:
-//  - errorMessage (string): custom error message (optional).
+//   - errorMessage (string): custom error message (optional).
 //
 // Input value (any): value to be validated.
 //
@@ -24,11 +27,11 @@ func IsRequired(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		stringValue, isString := value.(string)
 
 		if value == nil || isString && strings.TrimSpace(stringValue) == "" {
-			return &message, true
+			return errors.New(message), true
 		}
 
 		return nil, false

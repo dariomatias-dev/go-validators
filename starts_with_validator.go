@@ -1,6 +1,7 @@
 package validators
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -30,9 +31,9 @@ func StartsWith(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if !strings.HasPrefix(value.(string), startWith) {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

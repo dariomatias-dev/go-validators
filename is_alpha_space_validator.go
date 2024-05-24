@@ -1,6 +1,7 @@
 package validators
 
 import (
+	"errors"
 	"regexp"
 	"strings"
 )
@@ -36,11 +37,11 @@ func IsAlphaSpace(
 
 	var val string
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		val = value.(string)
 		if !alphaSpaceRegex.MatchString(val) ||
 			strings.TrimSpace(val) == "" {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

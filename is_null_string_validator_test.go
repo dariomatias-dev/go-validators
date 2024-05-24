@@ -37,7 +37,7 @@ func TestIsNullString(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsNullString(customErrorMessage)(0)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsNullString(\"error\")(0) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

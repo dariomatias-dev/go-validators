@@ -25,7 +25,7 @@ func TestIsFloat(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsFloat(customErrorMessage)(nil)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsFloat(\"error\")(nil) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -37,7 +37,7 @@ func TestIsFloat(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = IsFloat(customErrorMessage)("")
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsFloat(\"error\")(\"\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestIsFloat(t *testing.T) {
 
 	// Test 6
 	errorMessage, stopLoop = IsFloat(customErrorMessage)(1)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsFloat(\"error\")(1) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

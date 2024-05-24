@@ -49,7 +49,7 @@ func TestIsNullNumber(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsNullNumber(customErrorMessage)("")
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsNullNumber(\"error\")(\"\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

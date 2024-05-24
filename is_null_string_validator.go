@@ -28,7 +28,7 @@ func IsNullString(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if value == nil {
 			return nil, true
 		}

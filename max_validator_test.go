@@ -37,7 +37,7 @@ func TestMax(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = Max(1, customErrorMessage)(2)
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Max(1, \"error\")(2) = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestMax(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = Max(1.1, customErrorMessage)(1.2)
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Max(1.1, \"error\")(1.2) = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

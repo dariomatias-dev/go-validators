@@ -25,7 +25,7 @@ func TestIsInt(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsInt(customErrorMessage)(nil)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsInt(\"error\")(nil) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -37,7 +37,7 @@ func TestIsInt(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = IsInt(customErrorMessage)("")
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsInt(\"error\")(\"\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestIsInt(t *testing.T) {
 
 	// Test 6
 	errorMessage, stopLoop = IsInt(customErrorMessage)(1.1)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsInt(\"error\")(1.1) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

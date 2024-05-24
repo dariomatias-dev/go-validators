@@ -1,6 +1,9 @@
 package validators
 
-import "regexp"
+import (
+	"errors"
+	"regexp"
+)
 
 var (
 	smallLettersRegex       = regexp.MustCompile("[a-z]")
@@ -32,14 +35,14 @@ func Password(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		password := value.(string)
 
 		if !smallLettersRegex.MatchString(password) ||
 			!capitalLettersRegex.MatchString(password) ||
 			!numberRegex.MatchString(password) ||
 			!specialCharacteresRegex.MatchString(password) {
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

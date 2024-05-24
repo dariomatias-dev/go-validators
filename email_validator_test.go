@@ -1,6 +1,8 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestEmail(t *testing.T) {
 	/// - Successes
@@ -37,7 +39,7 @@ func TestEmail(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = Email(customErrorMessage)("aA")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Email(\"error\")(\"aA\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -49,13 +51,13 @@ func TestEmail(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = Email("", customErrorMessage2)(nil)
-	if errorMessage == nil || *errorMessage != customErrorMessage2 || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Email(\"\", \"error2\")(nil) = %v, %t; expected: \"error2\", true", getArgs()...)
 	}
 
 	// Test 5
 	errorMessage, stopLoop = Email(customErrorMessage, customErrorMessage2)(nil)
-	if errorMessage == nil || *errorMessage != customErrorMessage2 || stopLoop {
+	if errorMessage == nil || errorMessage != customError2 || stopLoop {
 		t.Errorf("Email(\"error\", \"error2\")(nil) = %v, %t; expected: \"error2\", true", getArgs()...)
 	}
 
@@ -67,7 +69,7 @@ func TestEmail(t *testing.T) {
 
 	// Test 7
 	errorMessage, stopLoop = Email(customErrorMessage)("emailexamplegmail")
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Email(\"error\")(\"emailexamplegmail.com\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

@@ -25,7 +25,7 @@ func TestIsString(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsString(customErrorMessage)(nil)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsString(\"error\")(nil) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -37,7 +37,7 @@ func TestIsString(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = IsString(customErrorMessage)(0)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsString(\"error\")(0) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

@@ -1,6 +1,9 @@
 package validators
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Checks if a string has the specified maximum length.
 //
@@ -27,7 +30,7 @@ func MaxLength(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		val, _ := value.(string)
 		if len(val) > maxLength.(int) {
 			if message == "" {
@@ -38,7 +41,7 @@ func MaxLength(
 				)
 			}
 
-			return &message, false
+			return errors.New(message), false
 		}
 
 		return nil, false

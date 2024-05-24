@@ -1,6 +1,9 @@
 package validators
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Checks if the value is a number or null.
 //
@@ -31,7 +34,7 @@ func IsFloat(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if _, ok := value.(float64); !ok {
 			if message == "" {
 				message = fmt.Sprintf(
@@ -40,7 +43,7 @@ func IsFloat(
 				)
 			}
 
-			return &message, true
+			return errors.New(message), true
 		}
 
 		return nil, false

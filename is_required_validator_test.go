@@ -37,7 +37,7 @@ func TestIsRequired(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsRequired(customErrorMessage)(nil)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsRequired(\"error\")(nil) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestIsRequired(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = IsRequired(customErrorMessage)("")
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsRequired(\"error\")(\"\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -61,7 +61,7 @@ func TestIsRequired(t *testing.T) {
 
 	// Test 6
 	errorMessage, stopLoop = IsRequired(customErrorMessage)("  ")
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsRequired(\"error\")(\"  \") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

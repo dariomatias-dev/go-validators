@@ -37,7 +37,7 @@ func TestIsNullInt(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = IsNullInt(customErrorMessage)(1.1)
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsNullInt(\"error\")(1.1) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestIsNullInt(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = IsNullInt(customErrorMessage)("")
-	if errorMessage == nil || *errorMessage != customErrorMessage || !stopLoop {
+	if errorMessage == nil || errorMessage != customError || !stopLoop {
 		t.Errorf("IsNullInt(\"error\")(\"\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

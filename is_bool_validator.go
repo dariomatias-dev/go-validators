@@ -1,6 +1,9 @@
 package validators
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Checks if the value is a boolean.
 //
@@ -28,7 +31,7 @@ func IsBool(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (*string, bool) {
+	return func(value interface{}) (error, bool) {
 		if _, ok := value.(bool); !ok {
 			if message == "" {
 				message = fmt.Sprintf(
@@ -37,7 +40,7 @@ func IsBool(
 				)
 			}
 
-			return &message, true
+			return errors.New(message), true
 		}
 
 		return nil, false

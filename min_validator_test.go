@@ -37,7 +37,7 @@ func TestMin(t *testing.T) {
 
 	// Test 2
 	errorMessage, stopLoop = Min(1, customErrorMessage)(0)
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Min(1, \"error\")(0) = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -49,7 +49,7 @@ func TestMin(t *testing.T) {
 
 	// Test 4
 	errorMessage, stopLoop = Min(1.2, customErrorMessage)(1.1)
-	if errorMessage == nil || *errorMessage != customErrorMessage || stopLoop {
+	if errorMessage == nil || errorMessage != customError || stopLoop {
 		t.Errorf("Min(1.2, \"error\")(1.1) = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }
