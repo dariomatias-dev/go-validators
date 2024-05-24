@@ -12,10 +12,12 @@ const (
 	invalidValidator = "invalid validator"
 )
 
-func Validate(s any) error {
+func Validate(
+	s any,
+) error {
 	structType := reflect.TypeOf(s)
 	structValue := reflect.ValueOf(s)
-
+	
 	if structValue.Kind() != reflect.Struct {
 		return errors.New("expected a struct")
 	}
@@ -25,6 +27,8 @@ func Validate(s any) error {
 	for i := 0; i < structType.NumField(); i++ {
 		fieldType := structType.Field(i)
 		fieldValue := structValue.Field(i)
+
+		value := convertValue(fieldValue)
 
 		validatesTag := fieldType.Tag.Get("validates")
 
@@ -36,7 +40,7 @@ func Validate(s any) error {
 
 		err := applyValidations(
 			validates,
-			fieldValue,
+			value,
 		)
 
 		if err != nil {
@@ -55,7 +59,7 @@ func Validate(s any) error {
 
 func applyValidations(
 	validates []string,
-	fieldValue reflect.Value,
+	value any,
 ) []string {
 	var errorMessages []string
 
@@ -71,7 +75,7 @@ func applyValidations(
 
 		err, stopLoop := selectValidation(
 			validateTag,
-			fieldValue,
+			value,
 			options,
 			optionsLen,
 		)
@@ -90,7 +94,7 @@ func applyValidations(
 
 func selectValidation(
 	validateTag string,
-	fieldValue reflect.Value,
+	value any,
 	options []string,
 	optionsLen int,
 ) (error, bool) {
@@ -101,74 +105,60 @@ func selectValidation(
 		optionsLen,
 	)
 
+	var validation Validator
+
 	switch validateTag {
 	case "isRequired":
 		setErrCustomMessage(1)
 
-		validation := IsRequired(errCustomMessage)
-
-		return validation(fieldValue.Interface())
+		validation = IsRequired(errCustomMessage)
 	case "isString":
 		setErrCustomMessage(2)
 
-		validation := IsString(errCustomMessage)
-
-		return validation(fieldValue.Interface())
+		validation = IsString(errCustomMessage)
 	case "isNumber":
 		setErrCustomMessage(2)
 
-		validation := IsNumber(errCustomMessage)
-
-		return validation(fieldValue.Interface())
+		validation = IsNumber(errCustomMessage)
 	case "isInt":
 		setErrCustomMessage(2)
 
-		validation := IsInt(errCustomMessage)
-
-		return validation(fieldValue.Interface())
+		validation = IsInt(errCustomMessage)
 	case "isFloat":
 		setErrCustomMessage(2)
 
-		validation := IsFloat(errCustomMessage)
-
-		return validation(fieldValue.Interface())
+		validation = IsFloat(errCustomMessage)
 	case "isBool":
 		setErrCustomMessage(2)
 
-		validation := IsBool(errCustomMessage)
-
-		return validation(fieldValue.Interface())
+		validation = IsBool(errCustomMessage)
 	case "min":
 		setErrCustomMessage(2)
 
 		min, _ := strconv.Atoi(options[0])
-		validation := Min(min, errCustomMessage)
+		validation = Min(min, errCustomMessage)
 
-		return validation(convertToNumber(fieldValue))
+		return validation(value)
 	case "max":
 		setErrCustomMessage(2)
 
 		max, _ := strconv.Atoi(options[0])
-		validation := Max(max, errCustomMessage)
-
-		return validation(convertToNumber(fieldValue))
+		validation = Max(max, errCustomMessage)
 	case "minLength":
 		setErrCustomMessage(2)
 
 		minLength, _ := strconv.Atoi(options[0])
-		validation := MinLength(minLength, errCustomMessage)
-
-		return validation(fieldValue.String())
+		validation = MinLength(minLength, errCustomMessage)
 	case "maxLength":
 		setErrCustomMessage(2)
 
 		maxLength, _ := strconv.Atoi(options[0])
-		validation := MaxLength(maxLength, errCustomMessage)
-
-		return validation(fieldValue.String())
+		validation = MaxLength(maxLength, errCustomMessage)
 	default:
 		return errors.New(invalidValidator), false
 	}
+
+	return validation(value)
 }
 
 func setErrorMessage(
@@ -183,13 +173,19 @@ func setErrorMessage(
 	}
 }
 
-func convertToNumber(
+func convertValue(
 	fieldValue reflect.Value,
 ) any {
 	switch fieldValue.Kind() {
+	case reflect.String:
+		return fieldValue.String()
 	case reflect.Float32, reflect.Float64:
 		return fieldValue.Float()
-	default:
+	case reflect.Int, reflect.Int16, reflect.Int32, reflect.Int64:
 		return fieldValue.Int()
+	case reflect.Bool:
+		return fieldValue.Bool()
 	}
+
+	return nil
 }
