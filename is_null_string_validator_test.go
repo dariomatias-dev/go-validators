@@ -11,7 +11,7 @@ func TestIsNullString(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = IsNullString(customErrorMessage)(nil)
+	err, stopLoop = IsNullString(errCustomMessage)(nil)
 	if err != nil || !stopLoop {
 		t.Errorf("IsNullString(\"error\")(nil) = %v, %t; expected: nil, true", getArgs()...)
 	}
@@ -23,7 +23,7 @@ func TestIsNullString(t *testing.T) {
 	}
 
 	// Test 4
-	err, stopLoop = IsNullString(customErrorMessage)("aA")
+	err, stopLoop = IsNullString(errCustomMessage)("aA")
 	if err != nil || stopLoop {
 		t.Errorf("IsNullString(\"error\")(\"aA\") = %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -36,8 +36,8 @@ func TestIsNullString(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = IsNullString(customErrorMessage)(0)
-	if err == nil || err.Error() != customError.Error() || !stopLoop {
+	err, stopLoop = IsNullString(errCustomMessage)(0)
+	if err == nil || err.Error() != errCustom.Error() || !stopLoop {
 		t.Errorf("IsNullString(\"error\")(0) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

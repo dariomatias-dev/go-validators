@@ -11,7 +11,7 @@ func TestEndsWith(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = EndsWith("age", customErrorMessage)("message")
+	err, stopLoop = EndsWith("age", errCustomMessage)("message")
 	if err != nil || stopLoop {
 		t.Errorf("EndsWith(\"age\", \"error\")(\"message\") = %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -23,7 +23,7 @@ func TestEndsWith(t *testing.T) {
 	}
 
 	// Test 4
-	err, stopLoop = EndsWith("message", customErrorMessage)("send message")
+	err, stopLoop = EndsWith("message", errCustomMessage)("send message")
 	if err != nil || stopLoop {
 		t.Errorf("EndsWith(\"message\", \"error\")(\"send message\") = %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -36,8 +36,8 @@ func TestEndsWith(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = EndsWith("mes", customErrorMessage)("message")
-	if err == nil || err.Error() != customError.Error() || stopLoop {
+	err, stopLoop = EndsWith("mes", errCustomMessage)("message")
+	if err == nil || err.Error() != errCustom.Error() || stopLoop {
 		t.Errorf("EndsWith(\"mes\", \"error\")(\"message\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -48,8 +48,8 @@ func TestEndsWith(t *testing.T) {
 	}
 
 	// Test 4
-	err, stopLoop = EndsWith("send", customErrorMessage)("send message")
-	if err == nil || err.Error() != customError.Error() || stopLoop {
+	err, stopLoop = EndsWith("send", errCustomMessage)("send message")
+	if err == nil || err.Error() != errCustom.Error() || stopLoop {
 		t.Errorf("EndsWith(\"send\", \"error\")(\"send message\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

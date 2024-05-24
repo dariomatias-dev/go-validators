@@ -10,7 +10,7 @@ func TestURL(t *testing.T) {
 	}
 
 	// Test 1
-	err, stopLoop = URL(customErrorMessage)("https://example.com")
+	err, stopLoop = URL(errCustomMessage)("https://example.com")
 	if err != nil || stopLoop {
 		t.Errorf("URL(\"error\")(\"https://example.com\") == %v, %t; expected: \"error\", false", getArgs()...)
 	}
@@ -22,7 +22,7 @@ func TestURL(t *testing.T) {
 	}
 
 	// Test 3
-	err, stopLoop = URL(customErrorMessage)("http://127.0.0.1:8080")
+	err, stopLoop = URL(errCustomMessage)("http://127.0.0.1:8080")
 	if err != nil || stopLoop {
 		t.Errorf("URL(\"error\")(\"http://127.0.0.1:8080\") == %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -34,7 +34,7 @@ func TestURL(t *testing.T) {
 	}
 
 	// Test 5
-	err, stopLoop = URL(customErrorMessage)("http://localhost:8080")
+	err, stopLoop = URL(errCustomMessage)("http://localhost:8080")
 	if err != nil || stopLoop {
 		t.Errorf("URL(\"error\")(\"http://localhost:8080\") == %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -46,7 +46,7 @@ func TestURL(t *testing.T) {
 	}
 
 	// Test 7
-	err, stopLoop = URL(customErrorMessage)("ftp://ftp.example.com/file.txt")
+	err, stopLoop = URL(errCustomMessage)("ftp://ftp.example.com/file.txt")
 	if err != nil || stopLoop {
 		t.Errorf("URL(\"error\")(\"ftp://ftp.example.com/file.txt\") == %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -59,8 +59,8 @@ func TestURL(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = URL(customErrorMessage)("www.example.com")
-	if err == nil || err.Error() != customError.Error() || stopLoop {
+	err, stopLoop = URL(errCustomMessage)("www.example.com")
+	if err == nil || err.Error() != errCustom.Error() || stopLoop {
 		t.Errorf("URL(\"error\")(\"www.example.com\") == %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

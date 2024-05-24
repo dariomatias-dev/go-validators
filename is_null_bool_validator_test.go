@@ -11,7 +11,7 @@ func TestIsNullBool(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = IsNullBool(customErrorMessage)(nil)
+	err, stopLoop = IsNullBool(errCustomMessage)(nil)
 	if err != nil || !stopLoop {
 		t.Errorf("IsNullBool(\"error\")(nil) = %v, %t; expected: nil, true", getArgs()...)
 	}
@@ -23,7 +23,7 @@ func TestIsNullBool(t *testing.T) {
 	}
 
 	// Test 4
-	err, stopLoop = IsNullBool(customErrorMessage)(true)
+	err, stopLoop = IsNullBool(errCustomMessage)(true)
 	if err != nil || stopLoop {
 		t.Errorf("IsNullBool(\"error\")(true) = %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -36,8 +36,8 @@ func TestIsNullBool(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = IsNullBool(customErrorMessage)(0)
-	if err == nil || err.Error() != customError.Error() || !stopLoop {
+	err, stopLoop = IsNullBool(errCustomMessage)(0)
+	if err == nil || err.Error() != errCustom.Error() || !stopLoop {
 		t.Errorf("IsNullBool(\"error\")(0) = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }

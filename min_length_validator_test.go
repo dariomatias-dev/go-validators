@@ -13,7 +13,7 @@ func TestMinLength(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = MinLength(5, customErrorMessage)("aAbBcC")
+	err, stopLoop = MinLength(5, errCustomMessage)("aAbBcC")
 	if err != nil || stopLoop {
 		t.Errorf("MinLength(5, \"error\")(\"aAbBcC\") = %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -26,8 +26,8 @@ func TestMinLength(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = MinLength(5, customErrorMessage)("")
-	if err == nil || err.Error() != customError.Error() || stopLoop {
+	err, stopLoop = MinLength(5, errCustomMessage)("")
+	if err == nil || err.Error() != errCustom.Error() || stopLoop {
 		t.Errorf("MinLength(5, \"error\")(\"\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
@@ -38,8 +38,8 @@ func TestMinLength(t *testing.T) {
 	}
 
 	// Test 4
-	err, stopLoop = MinLength(5, customErrorMessage)("aA")
-	if err == nil || err.Error() != customError.Error() || stopLoop {
+	err, stopLoop = MinLength(5, errCustomMessage)("aA")
+	if err == nil || err.Error() != errCustom.Error() || stopLoop {
 		t.Errorf("MinLength(5, \"error\")(\"aA\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

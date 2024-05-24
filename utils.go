@@ -6,12 +6,12 @@ import (
 )
 
 var (
-	err        error
-	stopLoop            bool
-	customErrorMessage  = "error"
-	customErrorMessage2 = "error2"
-	customError = errors.New(customErrorMessage)
-	customError2 = errors.New(customErrorMessage2)
+	err               error
+	stopLoop          bool
+	errCustomMessage  = "error"
+	errCustomMessage2 = "error2"
+	errCustom         = errors.New(errCustomMessage)
+	errCustom2        = errors.New(errCustomMessage2)
 )
 
 func getArgs() []interface{} {

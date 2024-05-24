@@ -1,8 +1,8 @@
 package validators
 
 import (
+	"encoding/json"
 	"errors"
-	"fmt"
 	"reflect"
 	"strconv"
 	"strings"
@@ -20,36 +20,67 @@ func Validate(s any) error {
 		return errors.New("expected a struct")
 	}
 
-	for i := 0; i < structType.NumField(); i++ {
+	errorMessages := make(map[string]any)
 
+	for i := 0; i < structType.NumField(); i++ {
 		fieldType := structType.Field(i)
 		fieldValue := structValue.Field(i)
 
 		validatesTag := fieldType.Tag.Get("validates")
 		validates := strings.Split(validatesTag, ";")
 
-		for _, validate := range validates {
-			validate := strings.Split(validate, "=")
+		err := applyValidations(
+			validates,
+			fieldValue,
+		)
 
-			validateTag := validate[0]
-			var options []string
-			if len(validate) > 1 {
-				options = strings.Split(validate[1], ",")
-			}
-			optionsLen := len(options)
-
-			err, stopLoop := selectValidation(
-				validateTag,
-				fieldValue,
-				options,
-				optionsLen,
-			)
-
-			fmt.Println(err, stopLoop)
+		if err != nil {
+			errorMessages[fieldType.Name] = err
 		}
 	}
 
+	if len(errorMessages) != 0 {
+		result, _ := json.Marshal(errorMessages)
+
+		return errors.New(string(result))
+	}
+
 	return nil
+}
+
+func applyValidations(
+	validates []string,
+	fieldValue reflect.Value,
+) []string {
+	var errorMessages []string
+
+	for _, validate := range validates {
+		validate := strings.Split(validate, "=")
+
+		validateTag := validate[0]
+		var options []string
+		if len(validate) > 1 {
+			options = strings.Split(validate[1], ",")
+		}
+		optionsLen := len(options)
+
+		err, stopLoop := selectValidation(
+			validateTag,
+			fieldValue,
+			options,
+			optionsLen,
+		)
+
+		if stopLoop {
+			return errorMessages
+		}
+
+		if err != nil {
+			errorMessages = append(errorMessages, err.Error())
+		}
+	}
+
+	return errorMessages
 }
 
 func selectValidation(
@@ -58,48 +89,48 @@ func selectValidation(
 	options []string,
 	optionsLen int,
 ) (error, bool) {
-	customErrorMessage := ""
-	setCustomErrorMessage := setErrorMessage(
-		&customErrorMessage,
+	errCustomMessage := ""
+	setErrCustomMessage := setErrorMessage(
+		&errCustomMessage,
 		options,
 		optionsLen,
 	)
 
 	switch validateTag {
 	case "required":
-		setCustomErrorMessage(1)
+		setErrCustomMessage(1)
 
-		validation := IsRequired(customErrorMessage)
+		validation := IsRequired(errCustomMessage)
 
-		return validation(fieldValue)
+		return validation(fieldValue.Interface())
 	case "min":
-		setCustomErrorMessage(2)
+		setErrCustomMessage(2)
 
 		min, _ := strconv.Atoi(options[0])
-		validation := Min(min, customErrorMessage)
+		validation := Min(min, errCustomMessage)
 
-		return validation(fieldValue)
+		return validation(convertToNumber(fieldValue))
 	case "max":
-		setCustomErrorMessage(2)
+		setErrCustomMessage(2)
 
 		max, _ := strconv.Atoi(options[0])
-		validation := Max(max, customErrorMessage)
+		validation := Max(max, errCustomMessage)
 
-		return validation(fieldValue)
+		return validation(convertToNumber(fieldValue))
 	case "minLength":
-		setCustomErrorMessage(2)
+		setErrCustomMessage(2)
 
 		minLength, _ := strconv.Atoi(options[0])
-		validation := MinLength(minLength, customErrorMessage)
+		validation := MinLength(minLength, errCustomMessage)
 
-		return validation(fieldValue)
+		return validation(fieldValue.String())
 	case "maxLength":
-		setCustomErrorMessage(2)
+		setErrCustomMessage(2)
 
 		maxLength, _ := strconv.Atoi(options[0])
-		validation := MaxLength(maxLength, customErrorMessage)
+		validation := MaxLength(maxLength, errCustomMessage)
 
-		return validation(fieldValue)
+		return validation(fieldValue.String())
 	default:
 		return errors.New(invalidValidator), false
 	}
@@ -114,5 +145,16 @@ func setErrorMessage(
 		if optionsLen == errorMessagePosition {
 			*errorMessage = options[errorMessagePosition-1]
 		}
+	}
+}
+
+func convertToNumber(
+	fieldValue reflect.Value,
+) any {
+	switch fieldValue.Kind() {
+	case reflect.Float32, reflect.Float64:
+		return fieldValue.Float()
+	default:
+		return fieldValue.Int()
 	}
 }

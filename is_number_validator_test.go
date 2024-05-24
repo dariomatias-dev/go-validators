@@ -11,7 +11,7 @@ func TestIsNumber(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = IsNumber(customErrorMessage)(1)
+	err, stopLoop = IsNumber(errCustomMessage)(1)
 	if err != nil || stopLoop {
 		t.Errorf("IsNumber(\"error\")(1) = %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -23,7 +23,7 @@ func TestIsNumber(t *testing.T) {
 	}
 
 	// Test 4
-	err, stopLoop = IsNumber(customErrorMessage)(1.1)
+	err, stopLoop = IsNumber(errCustomMessage)(1.1)
 	if err != nil || stopLoop {
 		t.Errorf("IsNumber(\"error\")(1.1) = %v, %t; expected: nil, false", getArgs()...)
 	}
@@ -36,8 +36,8 @@ func TestIsNumber(t *testing.T) {
 	}
 
 	// Test 2
-	err, stopLoop = IsNumber(customErrorMessage)("")
-	if err == nil || err.Error() != customError.Error() || !stopLoop {
+	err, stopLoop = IsNumber(errCustomMessage)("")
+	if err == nil || err.Error() != errCustom.Error() || !stopLoop {
 		t.Errorf("IsNumber(\"error\")(\"\") = %v, %t; expected: \"error\", true", getArgs()...)
 	}
 }
