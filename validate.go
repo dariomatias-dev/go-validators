@@ -45,7 +45,7 @@ func Validate(s any) error {
 				optionsLen,
 			)
 
-			fmt.Println(errorMessage, stopLoop, err)
+			fmt.Println(err, stopLoop)
 		}
 	}
 

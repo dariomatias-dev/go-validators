@@ -5,51 +5,51 @@ import "testing"
 func TestPassword(t *testing.T) {
 	/// - Successes
 	// Test 1
-	errorMessage, stopLoop = Password()("aA1!")
-	if errorMessage != nil || stopLoop {
+	err, stopLoop = Password()("aA1!")
+	if err != nil || stopLoop {
 		t.Errorf("Password()(\"aA1!\") = %v, %t; expected: nil, false", getArgs()...)
 	}
 
 	// Test 2
-	errorMessage, stopLoop = Password(customErrorMessage)("aA1!")
-	if errorMessage != nil || stopLoop {
+	err, stopLoop = Password(customErrorMessage)("aA1!")
+	if err != nil || stopLoop {
 		t.Errorf("Password(\"error\")(\"aA1!\") = %v, %t; expected: nil, false", getArgs()...)
 	}
 
 	/// - Errors
 	// Test 1
-	errorMessage, stopLoop = Password()("a")
-	if errorMessage == nil || stopLoop {
+	err, stopLoop = Password()("a")
+	if err == nil || stopLoop {
 		t.Errorf("Password()(\"a\") = %v, %t; expected: \"[error message]\", false", getArgs()...)
 	}
 
 	// Test 2
-	errorMessage, stopLoop = Password(customErrorMessage)("a")
-	if errorMessage == nil || errorMessage != customError || stopLoop {
+	err, stopLoop = Password(customErrorMessage)("a")
+	if err == nil || err.Error() != customError.Error() || stopLoop {
 		t.Errorf("Password(\"error\")(\"a\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
 	// Test 3
-	errorMessage, stopLoop = Password()("aA")
-	if errorMessage == nil || stopLoop {
+	err, stopLoop = Password()("aA")
+	if err == nil || stopLoop {
 		t.Errorf("Password()(\"aA\") = %v, %t; expected: \"[error message]\", false", getArgs()...)
 	}
 
 	// Test 4
-	errorMessage, stopLoop = Password(customErrorMessage)("aA")
-	if errorMessage == nil || errorMessage != customError || stopLoop {
+	err, stopLoop = Password(customErrorMessage)("aA")
+	if err == nil || err.Error() != customError.Error() || stopLoop {
 		t.Errorf("Password(\"error\")(\"aA\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 
 	// Test 5
-	errorMessage, stopLoop = Password()("aA1")
-	if errorMessage == nil || stopLoop {
+	err, stopLoop = Password()("aA1")
+	if err == nil || stopLoop {
 		t.Errorf("Password()(\"aA1\") = %v, %t; expected: \"[error message]\", false", getArgs()...)
 	}
 
 	// Test 6
-	errorMessage, stopLoop = Password(customErrorMessage)("aA1")
-	if errorMessage == nil || errorMessage != customError || stopLoop {
+	err, stopLoop = Password(customErrorMessage)("aA1")
+	if err == nil || err.Error() != customError.Error() || stopLoop {
 		t.Errorf("Password(\"error\")(\"aA1\") = %v, %t; expected: \"error\", false", getArgs()...)
 	}
 }

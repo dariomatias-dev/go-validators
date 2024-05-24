@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	errorMessage        error
+	err        error
 	stopLoop            bool
 	customErrorMessage  = "error"
 	customErrorMessage2 = "error2"
@@ -17,11 +17,11 @@ var (
 func getArgs() []interface{} {
 	return []interface{}{
 		func() interface{} {
-			if errorMessage == nil {
+			if err == nil {
 				return nil
 			}
 
-			return fmt.Sprintf("\"%s\"", errorMessage)
+			return fmt.Sprintf("\"%s\"", err.Error())
 		}(),
 		stopLoop,
 	}
