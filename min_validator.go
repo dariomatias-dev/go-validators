@@ -22,7 +22,7 @@ import (
 //	v.Min(5)(value) // Output: [error message], false
 //	v.Min(5, "error")(value) // Output: "error", false
 func Min(
-	min interface{},
+	min any,
 	errorMessage ...string,
 ) Validator {
 	message := ""
@@ -33,7 +33,7 @@ func Min(
 	val := 0.0
 	minValue := convertToFloat64(min)
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if message == "" {
 			message = fmt.Sprintf(
 				"The minimum value is %v, but it received %v.",

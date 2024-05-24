@@ -115,7 +115,7 @@ Each key of the map is validated separately with its own sets of validators.
 **Examples:**
 
 ```go
-data := map[string]interface{}{
+data := map[string]any{
     "name":  "Name",
     "age":   18,
     "email": "emailexample@gmail.com",

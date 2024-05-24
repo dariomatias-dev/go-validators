@@ -22,7 +22,7 @@ import (
 //	v.Max(5)(value) // Output: [error message], false
 //	v.Max(5, "error")(value) // Output: "error", false
 func Max(
-	max interface{},
+	max any,
 	errorMessage ...string,
 ) Validator {
 	message := ""
@@ -33,7 +33,7 @@ func Max(
 	val := 0.0
 	maxValue := convertToFloat64(max)
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if message == "" {
 			message = fmt.Sprintf(
 				"The maximum value is %v, but it received %v.",

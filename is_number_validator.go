@@ -34,7 +34,7 @@ func IsNumber(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		_, isInt := value.(int)
 		_, isFloat := value.(float64)
 		if !isInt && !isFloat {

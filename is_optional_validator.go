@@ -15,7 +15,7 @@ package validators
 //	value1 := "Name"
 //	v.IsOptional()(value1) // Output: nil, false
 func IsOptional() Validator {
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if value == nil {
 			return nil, true
 		}

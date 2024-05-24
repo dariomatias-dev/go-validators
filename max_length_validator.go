@@ -22,7 +22,7 @@ import (
 //	v.MaxLength(5)(value) // Output: [error message], false
 //	v.MaxLength(5, "error")(value) // Output: "error", false
 func MaxLength(
-	maxLength interface{},
+	maxLength any,
 	errorMessage ...string,
 ) Validator {
 	message := ""
@@ -30,7 +30,7 @@ func MaxLength(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		val, _ := value.(string)
 		if len(val) > maxLength.(int) {
 			if message == "" {

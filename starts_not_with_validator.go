@@ -30,7 +30,7 @@ func StartsNotWith(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		result, _ := StartsWith(startsNotWith)(value)
 		if result == nil {
 			return errors.New(message), false

@@ -8,11 +8,11 @@ func TestRegex(t *testing.T) {
 
 	/// - Successes
 	// Test 1
-	err, stopLoop = Regex(
+	err, abortValidation = Regex(
 		numbersPattern,
 		"Invalid value",
 	)("0123")
-	if err != nil || stopLoop {
+	if err != nil || abortValidation {
 		t.Errorf(`
 Regex(
 	"^[0-9]+$",
@@ -25,11 +25,11 @@ Regex(
 
 	// Test 2
 	lettersPattern = "^[a-zA-Z]+$"
-	err, stopLoop = Regex(
+	err, abortValidation = Regex(
 		lettersPattern,
 		"Invalid value",
 	)("aAbB")
-	if err != nil || stopLoop {
+	if err != nil || abortValidation {
 		t.Errorf(`
 Regex(
 	"^[a-zA-Z]+$",
@@ -42,11 +42,11 @@ Regex(
 
 	/// - Errors
 	// Test 1
-	err, stopLoop = Regex(
+	err, abortValidation = Regex(
 		numbersPattern,
 		"Invalid value",
 	)("aA01")
-	if err == nil || stopLoop {
+	if err == nil || abortValidation {
 		t.Errorf(`
 Regex(
 	"^[0-9]+$",
@@ -58,11 +58,11 @@ Regex(
 	}
 
 	// Test 2
-	err, stopLoop = Regex(
+	err, abortValidation = Regex(
 		lettersPattern,
 		"Invalid value",
 	)("aA01")
-	if err == nil || stopLoop {
+	if err == nil || abortValidation {
 		t.Errorf(`
 Regex(
 	"^[a-zA-Z]+$",

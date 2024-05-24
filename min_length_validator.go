@@ -22,7 +22,7 @@ import (
 //	v.MinLength(3)(value) // Output: [error message], false
 //	v.MinLength(3, "error")(value) // Output: "error", false
 func MinLength(
-	minLength interface{},
+	minLength any,
 	errorMessage ...string,
 ) Validator {
 	message := ""
@@ -30,7 +30,7 @@ func MinLength(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		val, _ := value.(string)
 		if len(val) < minLength.(int) {
 			if message == "" {

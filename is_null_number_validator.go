@@ -31,7 +31,7 @@ func IsNullNumber(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if value == nil {
 			return nil, true
 		}

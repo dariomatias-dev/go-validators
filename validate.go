@@ -17,7 +17,7 @@ func Validate(
 ) error {
 	structType := reflect.TypeOf(s)
 	structValue := reflect.ValueOf(s)
-	
+
 	if structValue.Kind() != reflect.Struct {
 		return errors.New("expected a struct")
 	}
@@ -73,14 +73,14 @@ func applyValidations(
 		}
 		optionsLen := len(options)
 
-		err, stopLoop := selectValidation(
+		err, abortValidation := selectValidation(
 			validateTag,
 			value,
 			options,
 			optionsLen,
 		)
 
-		if stopLoop {
+		if abortValidation {
 			return errorMessages
 		}
 

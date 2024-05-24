@@ -34,7 +34,7 @@ func Email(
 		message = errorMessages[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if _, ok := value.(string); !ok {
 			if errorMessageLen > 1 {
 				message = errorMessages[1]

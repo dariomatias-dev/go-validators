@@ -30,7 +30,7 @@ func Regex(
 	message := errorMessage
 	re := regexp.MustCompile(regex)
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if !re.MatchString(value.(string)) {
 			return errors.New(message), false
 		}

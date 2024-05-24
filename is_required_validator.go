@@ -27,7 +27,7 @@ func IsRequired(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		stringValue, isString := value.(string)
 
 		if value == nil || isString && strings.TrimSpace(stringValue) == "" {

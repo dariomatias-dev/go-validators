@@ -31,7 +31,7 @@ func StartsWith(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if !strings.HasPrefix(value.(string), startWith) {
 			return errors.New(message), false
 		}

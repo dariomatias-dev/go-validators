@@ -37,7 +37,7 @@ func IsAlphaSpace(
 
 	var val string
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		val = value.(string)
 		if !alphaSpaceRegex.MatchString(val) ||
 			strings.TrimSpace(val) == "" {

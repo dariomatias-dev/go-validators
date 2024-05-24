@@ -7,27 +7,27 @@ import (
 
 var (
 	err               error
-	stopLoop          bool
+	abortValidation   bool
 	errCustomMessage  = "error"
 	errCustomMessage2 = "error2"
 	errCustom         = errors.New(errCustomMessage)
 	errCustom2        = errors.New(errCustomMessage2)
 )
 
-func getArgs() []interface{} {
-	return []interface{}{
-		func() interface{} {
+func getArgs() []any {
+	return []any{
+		func() any {
 			if err == nil {
 				return nil
 			}
 
 			return fmt.Sprintf("\"%s\"", err.Error())
 		}(),
-		stopLoop,
+		abortValidation,
 	}
 }
 
-func convertToFloat64(value interface{}) float64 {
+func convertToFloat64(value any) float64 {
 	switch value := value.(type) {
 	case int:
 		return float64(value)

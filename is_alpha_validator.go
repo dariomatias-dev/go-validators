@@ -34,7 +34,7 @@ func IsAlpha(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if !alphaRegex.MatchString(value.(string)) {
 			return errors.New(message), false
 		}

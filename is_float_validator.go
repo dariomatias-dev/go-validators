@@ -34,7 +34,7 @@ func IsFloat(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if _, ok := value.(float64); !ok {
 			if message == "" {
 				message = fmt.Sprintf(

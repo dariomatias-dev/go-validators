@@ -28,7 +28,7 @@ func URL(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		if _, err := url.ParseRequestURI(value.(string)); err != nil {
 			return errors.New(message), false
 		}

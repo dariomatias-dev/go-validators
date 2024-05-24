@@ -35,7 +35,7 @@ func Password(
 		message = errorMessage[0]
 	}
 
-	return func(value interface{}) (error, bool) {
+	return func(value any) (error, bool) {
 		password := value.(string)
 
 		if !smallLettersRegex.MatchString(password) ||
