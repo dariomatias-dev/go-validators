@@ -14,6 +14,15 @@ var (
 	errCustom2        = errors.New(errCustomMessage2)
 )
 
+func setError(
+	message string,
+) string {
+	return fmt.Sprintf(
+		message,
+		getArgs()...,
+	)
+}
+
 func getArgs() []any {
 	return []any{
 		func() any {
