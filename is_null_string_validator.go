@@ -40,6 +40,6 @@ func IsNullString(
 			)
 		}
 
-		return IsString(errorMessage...)(value)
+		return IsString(message)(value)
 	}
 }

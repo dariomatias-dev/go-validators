@@ -217,6 +217,46 @@ func selectValidation(
 		} else {
 			validation = IsBool()
 		}
+	case "isNullString":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = IsNullString(errCustomMessage)
+		} else {
+			validation = IsNullString()
+		}
+	case "isNullNumber":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = IsNullNumber(errCustomMessage)
+		} else {
+			validation = IsNullNumber()
+		}
+	case "isNullInt":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = IsNullInt(errCustomMessage)
+		} else {
+			validation = IsNullInt()
+		}
+	case "isNullFloat":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = IsNullFloat(errCustomMessage)
+		} else {
+			validation = IsNullFloat()
+		}
+	case "isNullBool":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = IsNullBool(errCustomMessage)
+		} else {
+			validation = IsNullBool()
+		}
 	case "min":
 		setErrCustomMessage(2)
 
