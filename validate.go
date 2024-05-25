@@ -15,21 +15,47 @@ const (
 
 func Validate(
 	s any,
+	data *string,
 ) error {
 	structType := reflect.TypeOf(s)
 	structValue := reflect.ValueOf(s)
 
-	if structValue.Kind() != reflect.Struct {
-		return errors.New("expected a struct")
+	var jsonData map[string]any
+
+	isStructValidation := true
+	if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct && data != nil {
+		isStructValidation = false
+
+		json.Unmarshal([]byte(*data), &jsonData)
+	} else if data != nil || structValue.Kind() != reflect.Struct {
+		return errors.New("invalid input: expected a struct or a pointer to a struct and a JSON object")
 	}
 
 	errorMessages := make(map[string]any)
 
-	for i := 0; i < structType.NumField(); i++ {
-		fieldType := structType.Field(i)
-		fieldValue := structValue.Field(i)
+	var numberOfFields int
+	if isStructValidation {
+		numberOfFields = structType.NumField()
+	} else {
+		numberOfFields = structValue.Elem().NumField()
+	}
 
-		value := convertValue(fieldValue)
+	for i := 0; i < numberOfFields; i++ {
+		var fieldType reflect.StructField
+		if isStructValidation {
+			fieldType = structType.Field(i)
+		} else {
+			fieldType = structType.Elem().Field(i)
+		}
+
+		var value any
+		if isStructValidation {
+			value = convertValue(
+				structValue.Field(i),
+			)
+		} else {
+			value = jsonData[fieldType.Tag.Get("json")]
+		}
 
 		validatesTag := fieldType.Tag.Get("validates")
 
@@ -85,16 +111,16 @@ func applyValidations(
 			optionsLen,
 		)
 
+		if err != nil {
+			errorMessages = append(errorMessages, err.Error())
+		}
+
 		if abortValidation {
 			if strings.Contains(err.Error(), invalidValidator) {
 				return nil, err
 			} else {
 				return errorMessages, nil
 			}
-		}
-
-		if err != nil {
-			errorMessages = append(errorMessages, err.Error())
 		}
 	}
 
@@ -107,7 +133,8 @@ func selectValidation(
 	options []string,
 	optionsLen int,
 ) (error, bool) {
-	errCustomMessage := ""
+	var errCustomMessage string
+
 	setErrCustomMessage := setErrorMessage(
 		&errCustomMessage,
 		options,
@@ -120,49 +147,91 @@ func selectValidation(
 	case "isRequired":
 		setErrCustomMessage(1)
 
-		validation = IsRequired(errCustomMessage)
+		if errCustomMessage != "" {
+			validation = IsRequired(errCustomMessage)
+		} else {
+			validation = IsRequired()
+		}
 	case "isString":
 		setErrCustomMessage(2)
 
-		validation = IsString(errCustomMessage)
+		if errCustomMessage != "" {
+			validation = IsString(errCustomMessage)
+		} else {
+			validation = IsString()
+		}
 	case "isNumber":
 		setErrCustomMessage(2)
 
-		validation = IsNumber(errCustomMessage)
+		if errCustomMessage != "" {
+			validation = IsNumber(errCustomMessage)
+		} else {
+			validation = IsNumber()
+		}
 	case "isInt":
 		setErrCustomMessage(2)
 
-		validation = IsInt(errCustomMessage)
+		if errCustomMessage != "" {
+			validation = IsInt(errCustomMessage)
+		} else {
+			validation = IsInt()
+		}
 	case "isFloat":
 		setErrCustomMessage(2)
 
-		validation = IsFloat(errCustomMessage)
+		if errCustomMessage != "" {
+			validation = IsFloat(errCustomMessage)
+		} else {
+			validation = IsFloat()
+		}
 	case "isBool":
 		setErrCustomMessage(2)
 
-		validation = IsBool(errCustomMessage)
+		if errCustomMessage != "" {
+			validation = IsBool(errCustomMessage)
+		} else {
+			validation = IsBool()
+		}
 	case "min":
 		setErrCustomMessage(2)
 
 		min, _ := strconv.Atoi(options[0])
-		validation = Min(min, errCustomMessage)
 
-		return validation(value)
+		if errCustomMessage != "" {
+			validation = Min(min, errCustomMessage)
+		} else {
+			validation = Min(min)
+		}
 	case "max":
 		setErrCustomMessage(2)
 
 		max, _ := strconv.Atoi(options[0])
-		validation = Max(max, errCustomMessage)
+
+		if errCustomMessage != "" {
+			validation = Max(max, errCustomMessage)
+		} else {
+			validation = Max(max)
+		}
 	case "minLength":
 		setErrCustomMessage(2)
 
 		minLength, _ := strconv.Atoi(options[0])
-		validation = MinLength(minLength, errCustomMessage)
+
+		if errCustomMessage != "" {
+			validation = MinLength(minLength, errCustomMessage)
+		} else {
+			validation = MinLength(minLength)
+		}
 	case "maxLength":
 		setErrCustomMessage(2)
 
 		maxLength, _ := strconv.Atoi(options[0])
-		validation = MaxLength(maxLength, errCustomMessage)
+
+		if errCustomMessage != "" {
+			validation = MaxLength(maxLength, errCustomMessage)
+		} else {
+			validation = MaxLength(maxLength)
+		}
 	default:
 		return fmt.Errorf(
 			fmt.Sprintf("%s: %s", invalidValidator, validateTag),
@@ -179,7 +248,10 @@ func setErrorMessage(
 ) func(errorMessagePosition int) {
 	return func(errorMessagePosition int) {
 		if optionsLen == errorMessagePosition {
-			*errorMessage = options[errorMessagePosition-1]
+			message := options[errorMessagePosition-1]
+			if message != "" {
+				*errorMessage = message
+			}
 		}
 	}
 }
