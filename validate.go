@@ -51,7 +51,6 @@ func validateinternal(
 	isStructValidation bool,
 	jsonData map[string]any,
 ) error {
-
 	errorMessages := make(map[string]any)
 
 	var numberOfFields int
@@ -69,6 +68,18 @@ func validateinternal(
 			fieldType = structType.Elem().Field(i)
 		}
 
+		if structValue.Field(i).Kind() == reflect.Struct {
+			err := Validate(structValue.Field(i).Interface(), nil)
+
+			if err != nil{
+				var errorMessage map[string]any
+				json.Unmarshal([]byte(err.Error()), &errorMessage)
+				errorMessages[fieldType.Name] = errorMessage
+			}
+
+			continue
+		}
+
 		var value any
 		if isStructValidation {
 			value = convertValue(
@@ -81,7 +92,7 @@ func validateinternal(
 		validatesTag := fieldType.Tag.Get("validates")
 
 		if validatesTag == "" {
-			return nil
+			continue
 		}
 
 		validates := strings.Split(validatesTag, ";")
