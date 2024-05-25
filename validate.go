@@ -31,6 +31,27 @@ func Validate(
 		return errors.New("invalid input: expected a struct or a pointer to a struct and a JSON object")
 	}
 
+	err := validateinternal(
+		structType,
+		structValue,
+		isStructValidation,
+		jsonData,
+	)
+
+	if err == nil && !isStructValidation {
+		json.Unmarshal([]byte(*data), s)
+	}
+
+	return err
+}
+
+func validateinternal(
+	structType reflect.Type,
+	structValue reflect.Value,
+	isStructValidation bool,
+	jsonData map[string]any,
+) error {
+
 	errorMessages := make(map[string]any)
 
 	var numberOfFields int
