@@ -137,7 +137,9 @@ func applyValidations(
 		}
 
 		if abortValidation {
-			if strings.Contains(err.Error(), invalidValidator) {
+			if err == nil {
+				break
+			} else if strings.Contains(err.Error(), invalidValidator) {
 				return nil, err
 			} else {
 				return errorMessages, nil
@@ -173,6 +175,8 @@ func selectValidation(
 		} else {
 			validation = IsRequired()
 		}
+	case "isOptional":
+		validation = IsOptional()
 	case "isString":
 		setErrCustomMessage(2)
 

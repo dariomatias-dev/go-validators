@@ -36,7 +36,14 @@ func IsInt(
 
 	return func(value any) (error, bool) {
 		valueFloat, isFloat := value.(float64)
-		_, isInt := value.(int)
+
+		isInt := false
+
+		switch value.(type) {
+		case int, int8, int16, int32, int64:
+			isInt = true
+		}
+
 		if isFloat && float64(int(valueFloat)) == valueFloat || isInt {
 			return nil, false
 		}
