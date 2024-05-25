@@ -1,7 +1,5 @@
 package validators
 
-import "fmt"
-
 // Checks if the value is a number or null.
 //
 // Configuration parameters:
@@ -26,23 +24,9 @@ import "fmt"
 func IsNullNumber(
 	errorMessage ...string,
 ) Validator {
-	message := ""
-	if len(errorMessage) != 0 {
-		message = errorMessage[0]
-	}
-
-	return func(value any) (error, bool) {
-		if value == nil {
-			return nil, true
-		}
-
-		if message == "" {
-			message = fmt.Sprintf(
-				"The value is not a number or null: value is %T.",
-				value,
-			)
-		}
-
-		return IsNumber(message)(value)
-	}
+	return isNullValidator(
+		IsNumber,
+		"The value is not a number or null: value is %T.",
+		errorMessage,
+	)
 }

@@ -6,7 +6,7 @@ import (
 )
 
 type User struct {
-	Name  string `json:"name" validates:"isNullString"`
+	Name  string `json:"name" validates:"isOptional;isNullString"`
 	Age   int64  `json:"age" validates:"isRequired;isInt;min=5"`
 	Email string `json:"email" validates:"minLength=5"`
 }
@@ -21,7 +21,7 @@ func TestValidate(t *testing.T) {
 	user := &User{}
 
 	data := `{
-		"name":  0,
+		"name": false,
 		"age": 19,
 		"email": "matiasdario75@gmail.com"
 	}`
