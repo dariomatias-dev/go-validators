@@ -21,61 +21,70 @@ func Validate(
 	structValue := reflect.ValueOf(s)
 
 	var jsonData map[string]any
+	var err error
 
-	isStructValidation := true
-	if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct && data != nil {
-		isStructValidation = false
+	if structValue.Kind() == reflect.Struct && data == nil {
+		err = validateInternalStruct(structType, structValue)
 
+		return err
+	} else if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct && data != nil {
 		json.Unmarshal([]byte(*data), &jsonData)
-	} else if data != nil || structValue.Kind() != reflect.Struct {
+
+		err = validateInternalJson(structType, jsonData)
+
+		if err == nil {
+			json.Unmarshal([]byte(*data), s)
+		}
+
+		return err
+	} else {
 		return errors.New("invalid input: expected a struct or a pointer to a struct and a JSON object")
 	}
-
-	err := validateinternal(
-		structType,
-		structValue,
-		isStructValidation,
-		jsonData,
-	)
-
-	if err == nil && !isStructValidation {
-		json.Unmarshal([]byte(*data), s)
-	}
-
-	return err
 }
 
-func validateinternal(
+func validateInternalStruct(
 	structType reflect.Type,
 	structValue reflect.Value,
-	isStructValidation bool,
+) error {
+	numberOfFields := structType.NumField()
+
+	return validateInternalT(numberOfFields, func(index int) (fieldType reflect.StructField, value any) {
+		fieldType = structType.Field(index)
+
+		value = convertValue(
+			structValue.Field(index),
+		)
+
+		return fieldType, value
+	})
+}
+
+func validateInternalJson(
+	structType reflect.Type,
 	jsonData map[string]any,
+) error {
+	numberOfFields := structType.Elem().NumField()
+
+	return validateInternalT(numberOfFields, func(index int) (fieldType reflect.StructField, value any) {
+		fieldType = structType.Elem().Field(index)
+
+		value = jsonData[fieldType.Tag.Get("json")]
+
+		return fieldType, value
+	})
+}
+
+func validateInternalT(
+	numberOfFields int,
+	validate func(index int) (
+		fieldType reflect.StructField,
+		value any,
+	),
 ) error {
 	errorMessages := make(map[string]any)
 
-	var numberOfFields int
-	if isStructValidation {
-		numberOfFields = structType.NumField()
-	} else {
-		numberOfFields = structValue.Elem().NumField()
-	}
-
 	for i := 0; i < numberOfFields; i++ {
-		var fieldType reflect.StructField
-		if isStructValidation {
-			fieldType = structType.Field(i)
-		} else {
-			fieldType = structType.Elem().Field(i)
-		}
-
-		var value any
-		if isStructValidation {
-			value = convertValue(
-				structValue.Field(i),
-			)
-		} else {
-			value = jsonData[fieldType.Tag.Get("json")]
-		}
+		fieldType, value := validate(i)
 
 		validatesTag := fieldType.Tag.Get("validates")
 
