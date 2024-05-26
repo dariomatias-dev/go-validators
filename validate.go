@@ -57,6 +57,13 @@ func validateInternalStruct(
 			err error,
 		) {
 			fieldType = structType.Field(index)
+			fieldValue := structValue.Field(index)
+
+			if fieldValue.Kind() == reflect.Struct {
+				err := validateInternalStruct(fieldType.Type, fieldValue)
+
+				return fieldType, value, true, err
+			}
 
 			value = convertValue(
 				structValue.Field(index),
