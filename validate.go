@@ -48,43 +48,87 @@ func validateInternalStruct(
 ) error {
 	numberOfFields := structType.NumField()
 
-	return validateInternalT(numberOfFields, func(index int) (fieldType reflect.StructField, value any) {
-		fieldType = structType.Field(index)
+	return validateInternal(
+		numberOfFields,
+		func(index int) (
+			fieldType reflect.StructField,
+			value any,
+			keepProcessing bool,
+			err error,
+		) {
+			fieldType = structType.Field(index)
 
-		value = convertValue(
-			structValue.Field(index),
-		)
+			value = convertValue(
+				structValue.Field(index),
+			)
 
-		return fieldType, value
-	})
+			return fieldType, value, false, nil
+		},
+	)
 }
 
 func validateInternalJson(
 	structType reflect.Type,
 	jsonData map[string]any,
 ) error {
-	numberOfFields := structType.Elem().NumField()
+	var numberOfFields int
+	var getField func(i int) reflect.StructField
+	if structType.Kind() == reflect.Struct {
+		numberOfFields = structType.NumField()
+		getField = structType.Field
+	} else {
+		numberOfFields = structType.Elem().NumField()
+		getField = structType.Elem().Field
+	}
 
-	return validateInternalT(numberOfFields, func(index int) (fieldType reflect.StructField, value any) {
-		fieldType = structType.Elem().Field(index)
+	return validateInternal(
+		numberOfFields,
+		func(index int) (
+			fieldType reflect.StructField,
+			value any,
+			keepProcessing bool,
+			err error,
+		) {
+			fieldType = getField(index)
 
-		value = jsonData[fieldType.Tag.Get("json")]
+			value = jsonData[fieldType.Tag.Get("json")]
 
-		return fieldType, value
-	})
+			switch v := value.(type) {
+			case map[string]any:
+				return fieldType, value, true, validateInternalJson(
+					fieldType.Type,
+					v,
+				)
+			}
+
+			return fieldType, value, false, nil
+		},
+	)
 }
 
-func validateInternalT(
+func validateInternal(
 	numberOfFields int,
 	validate func(index int) (
 		fieldType reflect.StructField,
 		value any,
+		keepProcessing bool,
+		err error,
 	),
 ) error {
 	errorMessages := make(map[string]any)
 
 	for i := 0; i < numberOfFields; i++ {
-		fieldType, value := validate(i)
+		fieldType, value, keepProcessing, err := validate(i)
+
+		if keepProcessing {
+			if err != nil {
+				var errorMessage map[string]any
+				json.Unmarshal([]byte(err.Error()), &errorMessage)
+				errorMessages[fieldType.Name] = errorMessage
+			}
+
+			continue
+		}
 
 		validatesTag := fieldType.Tag.Get("validates")
 
