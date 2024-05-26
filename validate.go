@@ -68,18 +68,6 @@ func validateinternal(
 			fieldType = structType.Elem().Field(i)
 		}
 
-		if structValue.Field(i).Kind() == reflect.Struct {
-			err := Validate(structValue.Field(i).Interface(), nil)
-
-			if err != nil{
-				var errorMessage map[string]any
-				json.Unmarshal([]byte(err.Error()), &errorMessage)
-				errorMessages[fieldType.Name] = errorMessage
-			}
-
-			continue
-		}
-
 		var value any
 		if isStructValidation {
 			value = convertValue(
