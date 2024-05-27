@@ -21,12 +21,12 @@ func Validate(
 	structValue := reflect.ValueOf(s)
 
 	var jsonData map[string]any
-	var err error
+	var err map[string]any
 
 	if structValue.Kind() == reflect.Struct && data == nil {
 		err = validateInternalStruct(structType, structValue)
 
-		return err
+		return convertToError(err)
 	} else if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct && data != nil {
 		json.Unmarshal([]byte(*data), &jsonData)
 
@@ -36,16 +36,24 @@ func Validate(
 			json.Unmarshal([]byte(*data), s)
 		}
 
-		return err
+		return convertToError(err)
 	} else {
 		return errors.New("invalid input: expected a struct or a pointer to a struct and a JSON object")
 	}
 }
 
+func convertToError(
+	errorMessages map[string]any,
+) error {
+	err, _ := json.Marshal(errorMessages)
+
+	return errors.New(string(err))
+}
+
 func validateInternalStruct(
 	structType reflect.Type,
 	structValue reflect.Value,
-) error {
+) map[string]any {
 	numberOfFields := structType.NumField()
 
 	return validateInternal(
@@ -54,7 +62,7 @@ func validateInternalStruct(
 			fieldType reflect.StructField,
 			value any,
 			keepProcessing bool,
-			err error,
+			err map[string]any,
 		) {
 			fieldType = structType.Field(index)
 			fieldValue := structValue.Field(index)
@@ -77,7 +85,7 @@ func validateInternalStruct(
 func validateInternalJson(
 	structType reflect.Type,
 	jsonData map[string]any,
-) error {
+) map[string]any {
 	var numberOfFields int
 	var getField func(i int) reflect.StructField
 	if structType.Kind() == reflect.Struct {
@@ -94,7 +102,7 @@ func validateInternalJson(
 			fieldType reflect.StructField,
 			value any,
 			keepProcessing bool,
-			err error,
+			err map[string]any,
 		) {
 			fieldType = getField(index)
 
@@ -108,7 +116,7 @@ func validateInternalJson(
 				)
 			case []any:
 				if fieldType.Type.Elem().Kind() == reflect.Struct {
-					errorMessages := make(map[int]any)
+					errorMessages := make(map[string]any)
 
 					for i := range len(v) {
 						mapData, isMap := v[i].(map[string]any)
@@ -119,17 +127,15 @@ func validateInternalJson(
 							)
 
 							if errorMessage != nil {
-								errorMessages[i] = errorMessage
+								errorMessages[fmt.Sprintf("%v", i)] = errorMessage
 							}
 						} else {
-							errorMessages[i] = errors.New("invalid value")
+							errorMessages[fmt.Sprintf("%v", i)] = "invalid value"
 							break
 						}
 					}
 
-					err, _ := json.Marshal(errorMessages)
-
-					return fieldType, value, true, errors.New(string(err))
+					return fieldType, value, true, errorMessages
 				}
 			}
 
@@ -144,18 +150,16 @@ func validateInternal(
 		fieldType reflect.StructField,
 		value any,
 		keepProcessing bool,
-		err error,
+		err map[string]any,
 	),
-) error {
+) map[string]any {
 	errorMessages := make(map[string]any)
 
 	for i := 0; i < numberOfFields; i++ {
-		fieldType, value, keepProcessing, err := validate(i)
+		fieldType, value, keepProcessing, errorMessage := validate(i)
 
 		if keepProcessing {
-			if err != nil {
-				var errorMessage map[string]any
-				json.Unmarshal([]byte(err.Error()), &errorMessage)
+			if errorMessage != nil {
 				errorMessages[fieldType.Name] = errorMessage
 			}
 
@@ -176,7 +180,9 @@ func validateInternal(
 		)
 
 		if err != nil {
-			return err
+			return map[string]any{
+				"error": err,
+			}
 		}
 
 		if messages != nil {
@@ -185,9 +191,7 @@ func validateInternal(
 	}
 
 	if len(errorMessages) != 0 {
-		result, _ := json.Marshal(errorMessages)
-
-		return errors.New(string(result))
+		return errorMessages
 	}
 
 	return nil
