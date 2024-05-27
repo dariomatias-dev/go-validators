@@ -106,6 +106,31 @@ func validateInternalJson(
 					fieldType.Type,
 					v,
 				)
+			case []any:
+				if fieldType.Type.Elem().Kind() == reflect.Struct {
+					errorMessages := make(map[int]any)
+
+					for i := range len(v) {
+						mapData, isMap := v[i].(map[string]any)
+						if isMap {
+							errorMessage := validateInternalJson(
+								fieldType.Type.Elem(),
+								mapData,
+							)
+
+							if errorMessage != nil {
+								errorMessages[i] = errorMessage
+							}
+						} else {
+							errorMessages[i] = errors.New("invalid value")
+							break
+						}
+					}
+
+					err, _ := json.Marshal(errorMessages)
+
+					return fieldType, value, true, errors.New(string(err))
+				}
 			}
 
 			return fieldType, value, false, nil
