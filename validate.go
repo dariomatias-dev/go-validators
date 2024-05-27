@@ -124,7 +124,7 @@ func validateInternalJson(
 		) {
 			fieldType = getField(index)
 
-			value = jsonData[fieldType.Tag.Get("json")]
+			value = jsonData[getFieldName(fieldType)]
 
 			switch v := value.(type) {
 			case map[string]any:
@@ -177,8 +177,8 @@ func validateInternal(
 		fieldType, value, keepProcessing, errorMessage := validate(i)
 
 		if keepProcessing {
-			if errorMessage != nil {
-				errorMessages[fieldType.Name] = errorMessage
+			if len(errorMessage) != 0 {
+				errorMessages[(getFieldName(fieldType))] = errorMessage
 			}
 
 			continue
@@ -204,7 +204,7 @@ func validateInternal(
 		}
 
 		if messages != nil {
-			errorMessages[fieldType.Name] = messages
+			errorMessages[getFieldName(fieldType)] = messages
 		}
 	}
 
@@ -213,6 +213,17 @@ func validateInternal(
 	}
 
 	return nil
+}
+
+func getFieldName(
+	fieldType reflect.StructField,
+) string {
+	fieldNameByTag := fieldType.Tag.Get("json")
+	if fieldNameByTag == "" {
+		return fieldType.Name
+	} else {
+		return fieldNameByTag
+	}
 }
 
 func applyValidations(
