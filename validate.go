@@ -13,6 +13,8 @@ const (
 	invalidValidator = "invalid validator"
 )
 
+type errMsgGroupType = map[string]any
+
 func Validate(
 	s any,
 	data *string,
@@ -21,31 +23,31 @@ func Validate(
 	structValue := reflect.ValueOf(s)
 
 	var jsonData map[string]any
-	var err map[string]any
+	var errMsgGroup errMsgGroupType
 
 	if structValue.Kind() == reflect.Struct && data == nil {
-		err = validateInternalStruct(structType, structValue)
+		errMsgGroup = validateInternalStruct(structType, structValue)
 
-		return convertToError(err)
+		return convertToErr(errMsgGroup)
 	} else if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct && data != nil {
 		json.Unmarshal([]byte(*data), &jsonData)
 
-		err = validateInternalJson(structType, jsonData)
+		errMsgGroup = validateInternalJson(structType, jsonData)
 
 		if err == nil {
 			json.Unmarshal([]byte(*data), s)
 		}
 
-		return convertToError(err)
+		return convertToErr(errMsgGroup)
 	} else {
 		return errors.New("invalid input: expected a struct or a pointer to a struct and a JSON object")
 	}
 }
 
-func convertToError(
-	errorMessages map[string]any,
+func convertToErr(
+	errMsgGroup errMsgGroupType,
 ) error {
-	err, _ := json.Marshal(errorMessages)
+	err, _ := json.Marshal(errMsgGroup)
 
 	return errors.New(string(err))
 }
@@ -53,7 +55,7 @@ func convertToError(
 func validateInternalStruct(
 	structType reflect.Type,
 	structValue reflect.Value,
-) map[string]any {
+) errMsgGroupType {
 	numberOfFields := structType.NumField()
 
 	return validateInternal(
@@ -62,33 +64,36 @@ func validateInternalStruct(
 			fieldType reflect.StructField,
 			value any,
 			keepProcessing bool,
-			err map[string]any,
+			fieldErrMsgGroup errMsgGroupType,
 		) {
 			fieldType = structType.Field(index)
 			fieldValue := structValue.Field(index)
 
 			if fieldValue.Kind() == reflect.Struct {
-				err := validateInternalStruct(fieldType.Type, fieldValue)
+				fieldErrMsgGroup := validateInternalStruct(
+					fieldType.Type,
+					fieldValue,
+				)
 
-				return fieldType, value, true, err
+				return fieldType, value, true, fieldErrMsgGroup
 			}
 
 			if fieldValue.Kind() == reflect.Slice && fieldValue.Type().Elem().Kind() == reflect.Struct {
 				arrayType := fieldType.Type.Elem()
-				errorMessages := make(map[string]any)
+				errMsgGroup := make(errMsgGroupType)
 
 				for i := range fieldValue.Len() {
-					errorMessage := validateInternalStruct(
+					fieldErrMsgGroup := validateInternalStruct(
 						arrayType,
 						fieldValue.Index(i),
 					)
 
-					if errorMessage != nil {
-						errorMessages[fmt.Sprintf("%v", i)] = errorMessage
+					if fieldErrMsgGroup != nil {
+						errMsgGroup[fmt.Sprintf("%v", i)] = fieldErrMsgGroup
 					}
 				}
 
-				return fieldType, value, true, errorMessages
+				return fieldType, value, true, errMsgGroup
 			}
 
 			value = convertValue(
@@ -102,8 +107,8 @@ func validateInternalStruct(
 
 func validateInternalJson(
 	structType reflect.Type,
-	jsonData map[string]any,
-) map[string]any {
+	jsonData errMsgGroupType,
+) errMsgGroupType {
 	var numberOfFields int
 	var getField func(i int) reflect.StructField
 	if structType.Kind() == reflect.Struct {
@@ -120,7 +125,7 @@ func validateInternalJson(
 			fieldType reflect.StructField,
 			value any,
 			keepProcessing bool,
-			err map[string]any,
+			fieldErrMsgGroup errMsgGroupType,
 		) {
 			fieldType = getField(index)
 
@@ -134,26 +139,26 @@ func validateInternalJson(
 				)
 			case []any:
 				if fieldType.Type.Elem().Kind() == reflect.Struct {
-					errorMessages := make(map[string]any)
+					errMsgGroup := make(errMsgGroupType)
 
 					for i := range len(v) {
 						mapData, isMap := v[i].(map[string]any)
 						if isMap {
-							errorMessage := validateInternalJson(
+							fieldErrMsgGroup := validateInternalJson(
 								fieldType.Type.Elem(),
 								mapData,
 							)
 
-							if errorMessage != nil {
-								errorMessages[fmt.Sprintf("%v", i)] = errorMessage
+							if fieldErrMsgGroup != nil {
+								errMsgGroup[fmt.Sprintf("%v", i)] = fieldErrMsgGroup
 							}
 						} else {
-							errorMessages[fmt.Sprintf("%v", i)] = "invalid value"
+							errMsgGroup[fmt.Sprintf("%v", i)] = "invalid value"
 							break
 						}
 					}
 
-					return fieldType, value, true, errorMessages
+					return fieldType, value, true, errMsgGroup
 				}
 			}
 
@@ -168,17 +173,17 @@ func validateInternal(
 		fieldType reflect.StructField,
 		value any,
 		keepProcessing bool,
-		err map[string]any,
+		fieldErrMsgGroup errMsgGroupType,
 	),
-) map[string]any {
-	errorMessages := make(map[string]any)
+) errMsgGroupType {
+	errMsgGroup := make(errMsgGroupType)
 
 	for i := 0; i < numberOfFields; i++ {
-		fieldType, value, keepProcessing, errorMessage := validate(i)
+		fieldType, value, keepProcessing, fieldErrMsgGroup := validate(i)
 
 		if keepProcessing {
-			if len(errorMessage) != 0 {
-				errorMessages[(getFieldName(fieldType))] = errorMessage
+			if len(fieldErrMsgGroup) != 0 {
+				errMsgGroup[getFieldName(fieldType)] = fieldErrMsgGroup
 			}
 
 			continue
@@ -192,7 +197,7 @@ func validateInternal(
 
 		validates := strings.Split(validatesTag, ";")
 
-		messages, err := applyValidations(
+		errMsg, err := applyValidations(
 			validates,
 			value,
 		)
@@ -203,13 +208,13 @@ func validateInternal(
 			}
 		}
 
-		if messages != nil {
-			errorMessages[getFieldName(fieldType)] = messages
+		if errMsg != nil {
+			errMsgGroup[getFieldName(fieldType)] = errMsg
 		}
 	}
 
-	if len(errorMessages) != 0 {
-		return errorMessages
+	if len(errMsgGroup) != 0 {
+		return errMsgGroup
 	}
 
 	return nil
@@ -230,7 +235,7 @@ func applyValidations(
 	validates []string,
 	value any,
 ) ([]string, error) {
-	var errorMessages []string
+	var errMsg []string
 
 	for _, validate := range validates {
 		validate := strings.Split(validate, "=")
@@ -250,7 +255,7 @@ func applyValidations(
 		)
 
 		if err != nil {
-			errorMessages = append(errorMessages, err.Error())
+			errMsg = append(errMsg, err.Error())
 		}
 
 		if abortValidation {
@@ -259,12 +264,12 @@ func applyValidations(
 			} else if strings.Contains(err.Error(), invalidValidator) {
 				return nil, err
 			} else {
-				return errorMessages, nil
+				return errMsg, nil
 			}
 		}
 	}
 
-	return errorMessages, nil
+	return errMsg, nil
 }
 
 func selectValidation(
@@ -275,7 +280,7 @@ func selectValidation(
 ) (error, bool) {
 	var errCustomMessage string
 
-	setErrCustomMessage := setErrorMessage(
+	setErrCustomMessage := setErrMsg(
 		&errCustomMessage,
 		options,
 		optionsLen,
@@ -423,16 +428,16 @@ func selectValidation(
 	return validation(value)
 }
 
-func setErrorMessage(
-	errorMessage *string,
+func setErrMsg(
+	errMsg *string,
 	options []string,
 	optionsLen int,
-) func(errorMessagePosition int) {
-	return func(errorMessagePosition int) {
-		if optionsLen == errorMessagePosition {
-			message := options[errorMessagePosition-1]
+) func(errMsgPosition int) {
+	return func(errMsgPosition int) {
+		if optionsLen == errMsgPosition {
+			message := options[errMsgPosition-1]
 			if message != "" {
-				*errorMessage = message
+				*errMsg = message
 			}
 		}
 	}
