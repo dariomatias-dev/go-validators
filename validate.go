@@ -73,6 +73,24 @@ func validateInternalStruct(
 				return fieldType, value, true, err
 			}
 
+			if fieldValue.Kind() == reflect.Slice && fieldValue.Type().Elem().Kind() == reflect.Struct {
+				arrayType := fieldType.Type.Elem()
+				errorMessages := make(map[string]any)
+
+				for i := range fieldValue.Len() {
+					errorMessage := validateInternalStruct(
+						arrayType,
+						fieldValue.Index(i),
+					)
+
+					if errorMessage != nil {
+						errorMessages[fmt.Sprintf("%v", i)] = errorMessage
+					}
+				}
+
+				return fieldType, value, true, errorMessages
+			}
+
 			value = convertValue(
 				structValue.Field(index),
 			)

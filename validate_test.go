@@ -19,39 +19,53 @@ type Product struct {
 }
 
 func TestValidate(t *testing.T) {
-	// user := User{
-	// 	Name:  "Dário Matias",
-	// 	Age:   19,
-	// 	Email: "matiasdario75@gmail.com",
-	// 	Product: Product{
-	// 		Id:   "56789",
-	// 		Name: "Smartphone",
-	// 	},
-	// }
-
-	user := &User{}
-
-	data := `{
-		"name": "Dário Matias",
-		"age": 19,
-		"email": "matiasdario75@gmail.com",
-		"products": [
+	user := User{
+		Name:  "Dário Matias",
+		Age:   19,
+		Email: "matiasdario75@gmail.com",
+		Product: Product{
+			Id:   "56789",
+			Name: "Smartphone",
+		},
+		Products: []Product{
 			{
-				"id": "56789",
-				"name": "sma"
+				Id:   "6547346739",
+				Name: "Not",
 			},
 			{
-				"id": "56789",
-				"name": "Smartphone"
+				Id:   "0275949305",
+				Name: "Smartphone",
 			},
-			1.0
-		]
-	}`
+		},
+	}
 
-	fmt.Println(
-		Validate(user, &data),
-	)
+	// user := &User{}
+
+	// data := `{
+	// 	"name": "Dário Matias",
+	// 	"age": 19,
+	// 	"email": "matiasdario75@gmail.com",
+	//  "product": {
+	//  	"id": "56789",
+	//  	"name": "Smartphone"
+	//  },
+	// 	"products": [
+	// 		{
+	// 			"id": "6547346739",
+	// 			"name": "Notebook"
+	// 		},
+	// 		{
+	// 			"id": "Notebook",
+	// 			"name": "Smartphone"
+	// 		},
+	// 		1.0
+	// 	]
+	// }`
+
 	// fmt.Println(
-	// 	Validate(user, nil),
+	// 	Validate(user, &data),
 	// )
+	fmt.Println(
+		Validate(user, nil),
+	)
 }
