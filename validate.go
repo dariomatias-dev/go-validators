@@ -419,6 +419,82 @@ func selectValidation(
 		} else {
 			validation = MaxLength(maxLength)
 		}
+	case "email":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = Email(errCustomMessage)
+		} else {
+			validation = Email()
+		}
+	case "isAlpha":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = IsAlpha(errCustomMessage)
+		} else {
+			validation = IsAlpha()
+		}
+	case "isAlphaSpace":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = IsAlphaSpace(errCustomMessage)
+		} else {
+			validation = IsAlphaSpace()
+		}
+	case "startsWith":
+		setErrCustomMessage(2)
+
+		startsWith := options[0]
+
+		if errCustomMessage != "" {
+			validation = StartsWith(startsWith, errCustomMessage)
+		} else {
+			validation = StartsWith(startsWith)
+		}
+	case "startsNotWith":
+		setErrCustomMessage(2)
+
+		startsNotWith := options[0]
+
+		if errCustomMessage != "" {
+			validation = StartsNotWith(startsNotWith, errCustomMessage)
+		} else {
+			validation = StartsNotWith(startsNotWith)
+		}
+	case "endsWith":
+		setErrCustomMessage(2)
+
+		endsWith := options[0]
+
+		if errCustomMessage != "" {
+			validation = EndsWith(endsWith, errCustomMessage)
+		} else {
+			validation = EndsWith(endsWith)
+		}
+	case "endsNotWith":
+		setErrCustomMessage(2)
+
+		endsNotWith := options[0]
+
+		if errCustomMessage != "" {
+			validation = EndsNotWith(endsNotWith, errCustomMessage)
+		} else {
+			validation = EndsNotWith(endsNotWith)
+		}
+	case "regex":
+		setErrCustomMessage(2)
+
+		validation = Regex(options[0], errCustomMessage)
+	case "password":
+		setErrCustomMessage(1)
+
+		validation = Password(errCustomMessage)
+	case "url":
+		setErrCustomMessage(1)
+
+		validation = URL(errCustomMessage)
 	default:
 		return fmt.Errorf(
 			fmt.Sprintf("%s: %s", invalidValidator, validateTag),
