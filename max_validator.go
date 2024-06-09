@@ -25,15 +25,18 @@ func Max(
 	max any,
 	errorMessage ...string,
 ) Validator {
-	message := ""
-	if len(errorMessage) != 0 {
-		message = errorMessage[0]
-	}
+	var message string
 
 	val := 0.0
 	maxValue := convertToFloat64(max)
 
 	return func(value any) (error, bool) {
+		if len(errorMessage) != 0 {
+			message = errorMessage[0]
+		} else {
+			message = ""
+		}
+
 		if message == "" {
 			message = fmt.Sprintf(
 				"The maximum value is %v, but it received %v.",
