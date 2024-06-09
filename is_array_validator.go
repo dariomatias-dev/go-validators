@@ -10,6 +10,7 @@ import (
 // Checks if the value is a valid array.
 //
 // Configuration parameters:
+//   - validators ([]Validator): validators that will be applied to each value in the array.
 //   - errorMessage (string): custom error message (optional).
 //
 // Input value ([]any): value to be validated.
@@ -36,6 +37,13 @@ import (
 //			IsString(),
 //		},
 //	)(value3) // Output: [error message], true
+//
+//	value4 := nil
+//	IsNullArray(
+//		[]Validator{
+//			IsString(),
+//		},
+//	)(value4) // Output: [error message], true
 func IsArray(
 	validators []Validator,
 	errorMessage ...string,
@@ -50,7 +58,7 @@ func IsArray(
 		if value == nil {
 			if !hasErrorMessage {
 				message = getDefaultErrorMessage(
-					"nil",
+					"null",
 				)
 			}
 
@@ -106,7 +114,7 @@ func getDefaultErrorMessage(
 	valueType string,
 ) string {
 	return fmt.Sprintf(
-		"The value is not an array or slice: value is %s",
+		"The value is not an array: value is %s",
 		valueType,
 	)
 }
