@@ -44,6 +44,44 @@ IsArray(
 		)
 	}
 
+	// Test 3
+	err, abortValidation = IsArray(
+		[]Validator{
+			IsString(),
+		},
+	)([]string{"Item1", "Item2"})
+
+	if err != nil || abortValidation {
+		t.Errorf(
+			`
+IsArray(
+	[]Validator{
+		IsString(),
+	},
+)([]string{"Item1", "Item2"}) = %v, %t; expected: nil, false`,
+			getArgs()...,
+		)
+	}
+
+	// Test 4
+	err, abortValidation = IsArray(
+		[]Validator{
+			IsString(),
+		},
+	)([1]string{""})
+
+	if err != nil || abortValidation {
+		t.Errorf(
+			`
+IsArray(
+	[]Validator{
+		IsString(),
+	},
+)([2]string{"Item1", "Item2"}) = %v, %t; expected: nil, false`,
+			getArgs()...,
+		)
+	}
+
 	/// - Errors
 	// Test 1
 	err, abortValidation = IsArray(
@@ -59,7 +97,7 @@ IsArray(
 	[]Validator{
 		IsString(),
 	},
-)(nil) = %v, %t; expected: \"[error message]\", true`,
+)(nil) = %v, %t; expected: "[error message]", true`,
 			getArgs()...,
 		)
 	}
@@ -80,7 +118,7 @@ IsArray(
 		IsString(),
 	},
 	"error",
-)(nil) = %v, %t; expected: \"error\", true`,
+)(nil) = %v, %t; expected: "error", true`,
 			getArgs()...,
 		)
 	}
@@ -99,7 +137,7 @@ IsArray(
 	[]Validator{
 		IsString(),
 	},
-)(\"\") = %v, %t; expected: \"[error message]\", true`,
+)("") = %v, %t; expected: "[error message]", true`,
 			getArgs()...,
 		)
 	}
@@ -120,7 +158,27 @@ IsArray(
 		IsString(),
 	},
 	"error",
-)(\"\") = %v, %t; expected: \"error\", true`,
+)("") = %v, %t; expected: "error", true`,
+			getArgs()...,
+		)
+	}
+
+	// Test 5
+	err, abortValidation = IsArray(
+		[]Validator{
+			IsString(),
+			MaxLength(3),
+		},
+	)([]string{"Item1", "Item2"})
+
+	if err == nil || !abortValidation {
+		t.Errorf(
+			`
+IsArray(
+	[]Validator{
+		IsString(),
+	},
+)([]string{"Item1", "Item2"}) = %v, %t; expected: "[error message]", true`,
 			getArgs()...,
 		)
 	}
