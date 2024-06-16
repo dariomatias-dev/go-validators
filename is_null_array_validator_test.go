@@ -63,6 +63,27 @@ IsNullArray(
 		)
 	}
 
+	// Test 4
+	err, abortValidation = IsNullArray(
+		[]Validator{
+			IsString(),
+			MaxLength(5),
+		},
+	)([]string{"Item1", "Item2"})
+
+	if err != nil || abortValidation {
+		t.Errorf(
+			`
+IsNullArray(
+	[]Validator{
+		IsString(),
+		MaxLength(5),
+	},
+)([]string{"Item1", "Item2"}) = %v, %t; expected: nil, false`,
+			getArgs()...,
+		)
+	}
+
 	/// - Errors
 	// Test 1
 	err, abortValidation = IsNullArray(
@@ -100,6 +121,27 @@ IsNullArray(
 	},
 	"error",
 )(\"\") = %v, %t; expected: \"error\", true`,
+			getArgs()...,
+		)
+	}
+
+	// Test 3
+	err, abortValidation = IsNullArray(
+		[]Validator{
+			IsString(),
+			MaxLength(3),
+		},
+	)([]string{"Item1", "Item2"})
+
+	if err == nil || !abortValidation {
+		t.Errorf(
+			`
+IsNullArray(
+	[]Validator{
+		IsString(),
+		MaxLength(3),
+	},
+)([]string{"Item1", "Item2"}) = %v, %t; expected: "[error message]", true`,
 			getArgs()...,
 		)
 	}

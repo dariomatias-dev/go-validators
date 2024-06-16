@@ -67,8 +67,9 @@ IsArray(
 	err, abortValidation = IsArray(
 		[]Validator{
 			IsString(),
+			MaxLength(5),
 		},
-	)([1]string{""})
+	)([]string{"Item1", "Item2"})
 
 	if err != nil || abortValidation {
 		t.Errorf(
@@ -76,8 +77,9 @@ IsArray(
 IsArray(
 	[]Validator{
 		IsString(),
+		MaxLength(5),
 	},
-)([2]string{"Item1", "Item2"}) = %v, %t; expected: nil, false`,
+)([]string{"Item1", "Item2"}) = %v, %t; expected: nil, false`,
 			getArgs()...,
 		)
 	}
@@ -177,6 +179,7 @@ IsArray(
 IsArray(
 	[]Validator{
 		IsString(),
+		MaxLength(3),
 	},
 )([]string{"Item1", "Item2"}) = %v, %t; expected: "[error message]", true`,
 			getArgs()...,
