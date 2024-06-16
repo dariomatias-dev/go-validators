@@ -3,6 +3,7 @@ package validators
 import (
 	"errors"
 	"fmt"
+	"reflect"
 )
 
 // Checks if a string has the specified minimum length.
@@ -34,13 +35,25 @@ func MinLength(
 			message = ""
 		}
 
-		val, _ := value.(string)
-		if len(val) < minLength.(int) {
+		val, isString := value.(string)
+		var valueLen int
+		if !isString {
+			reflectValue := reflect.ValueOf(value)
+
+			switch reflectValue.Kind() {
+			case reflect.Array, reflect.Slice:
+				valueLen = reflectValue.Len()
+			}
+		} else {
+			valueLen = len(val)
+		}
+
+		if valueLen < minLength.(int) {
 			if message == "" {
 				message = fmt.Sprintf(
 					"The minimum size is %v, but it received %v.",
 					minLength,
-					len(val),
+					valueLen,
 				)
 			}
 
