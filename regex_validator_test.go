@@ -1,6 +1,8 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestRegex(t *testing.T) {
 	numbersPattern := "^[0-9]+$"

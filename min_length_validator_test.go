@@ -72,26 +72,26 @@ func TestMinLength(t *testing.T) {
 	}
 
 	// Test 3
-	err, abortValidation = MinLength(5)([0]int{})
-	if err == nil || abortValidation {
-		t.Errorf(setError("MinLength(5)([0]int{}) = %v, %t; expected: \"[error message]\", false"))
-	}
-
-	// Test 4
-	err, abortValidation = MinLength(5, errCustomMessage)([0]int{})
-	if err == nil || err.Error() != errCustom.Error() || abortValidation {
-		t.Errorf(setError("MinLength(5, \"error\")([0]int{}) = %v, %t; expected: \"error\", false"))
-	}
-
-	// Test 5
 	err, abortValidation = MinLength(5)([]int{0, 1, 2, 3})
 	if err == nil || abortValidation {
 		t.Errorf(setError("MinLength(5)([]int{0, 1, 2, 3}) = %v, %t; expected: \"[error message]\", false"))
 	}
 
-	// Test 6
+	// Test 4
 	err, abortValidation = MinLength(5, errCustomMessage)([]int{0, 1, 2, 3})
 	if err == nil || err.Error() != errCustom.Error() || abortValidation {
 		t.Errorf(setError("MinLength(5, \"error\")([]int{0, 1, 2, 3}) = %v, %t; expected: \"error\", false"))
+	}
+
+	// Test 5
+	err, abortValidation = MinLength(5)([4]int{0, 1, 2, 3})
+	if err == nil || abortValidation {
+		t.Errorf(setError("MinLength(5)([4]int{0, 1, 2, 3}) = %v, %t; expected: \"[error message]\", false"))
+	}
+
+	// Test 6
+	err, abortValidation = MinLength(5, errCustomMessage)([4]int{0, 1, 2, 3})
+	if err == nil || err.Error() != errCustom.Error() || abortValidation {
+		t.Errorf(setError("MinLength(5, \"error\")([4]int{0, 1, 2, 3}) = %v, %t; expected: \"error\", false"))
 	}
 }

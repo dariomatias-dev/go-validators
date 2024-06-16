@@ -1,6 +1,8 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestIsFloat(t *testing.T) {
 	/// - Successes

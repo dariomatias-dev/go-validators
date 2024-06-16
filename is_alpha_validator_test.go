@@ -1,6 +1,8 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestIsAlpha(t *testing.T) {
 	/// - Succcesses

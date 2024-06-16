@@ -1,6 +1,8 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestIsNullNumber(t *testing.T) {
 	/// - Successes

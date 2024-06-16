@@ -1,6 +1,8 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestMaxLength(t *testing.T) {
 	/// - Successes

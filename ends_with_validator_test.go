@@ -1,6 +1,8 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestEndsWith(t *testing.T) {
 	/// - Successes
