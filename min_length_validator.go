@@ -12,14 +12,31 @@ import (
 //   - minLength (int): minimum length that the string must have.
 //   - errorMessage (string): custom error message (optional).
 //
-// Input value (string): value to be validated.
+// Input value (string | slice | array): value to be validated.
 //
 // Usage examples:
+//
+// String
 //
 //	value := "Name"
 //	v.MinLength(3)(value) // Output: nil, false
 //
-//	value = "Na"
+//	v.MinLength(5)(value) // Output: [error message], false
+//	v.MinLength(5, "error")(value) // Output: "error", false
+//
+// Slice
+//
+//	value := []string{"Name", "is"}
+//	v.MinLength(1)(value) // Output: nil, false
+//
+//	v.MinLength(3)(value) // Output: [error message], false
+//	v.MinLength(3, "error")(value) // Output: "error", false
+//
+// Array
+//
+//	value := [2]string{"Name", "is"}
+//	v.MinLength(1)(value) // Output: nil, false
+//
 //	v.MinLength(3)(value) // Output: [error message], false
 //	v.MinLength(3, "error")(value) // Output: "error", false
 func MinLength(
