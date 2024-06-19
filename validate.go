@@ -236,29 +236,39 @@ func applyValidations(
 	value any,
 ) ([]string, error) {
 	var errMsg []string
+	var options []string
 
-	for _, validate := range validates {
+	for i, validate := range validates {
 		validate := strings.Split(validate, "=")
 
 		validateTag := validate[0]
-		var options []string
-		if len(validate) > 1 {
+		if validateTag == "isArray" {
+			options = append(options, validates[i+1:]...)
+		} else if len(validate) > 1 {
 			options = strings.Split(validate[1], ",")
 		}
 		optionsLen := len(options)
 
-		err, abortValidation := selectValidation(
+		validator, selectValidationErr := selectValidation(
 			validateTag,
-			value,
 			options,
 			optionsLen,
 		)
 
-		if err != nil {
+		var err error
+		var abortValidation bool
+
+		if validator != nil {
+			err, abortValidation = (*validator)(value)
+		}
+
+		if selectValidationErr != nil {
+			errMsg = append(errMsg, selectValidationErr.Error())
+		} else if err != nil {
 			errMsg = append(errMsg, err.Error())
 		}
 
-		if abortValidation {
+		if selectValidationErr != nil || abortValidation {
 			if err == nil {
 				break
 			} else if strings.Contains(err.Error(), invalidValidator) {
@@ -267,6 +277,12 @@ func applyValidations(
 				return errMsg, nil
 			}
 		}
+
+		if validateTag == "isArray" {
+			break
+		}
+
+		options = []string{}
 	}
 
 	return errMsg, nil
@@ -274,10 +290,9 @@ func applyValidations(
 
 func selectValidation(
 	validateTag string,
-	value any,
 	options []string,
 	optionsLen int,
-) (error, bool) {
+) (*Validator, error) {
 	var errCustomMessage string
 
 	setErrCustomMessage := setErrMsg(
@@ -289,6 +304,36 @@ func selectValidation(
 	var validation Validator
 
 	switch validateTag {
+	case "isArray":
+		var validations []Validator
+
+		for _, option := range options {
+			validate := strings.Split(option, "=")
+
+			var validateOptions []string
+			if len(validate) > 1 {
+				validateOptions = strings.Split(validate[1], ",")
+			}
+			validateOptionsLen := len(validateOptions)
+
+			validator, err := selectValidation(
+				validate[0],
+				validateOptions,
+				validateOptionsLen,
+			)
+
+			if err != nil {
+				return nil, err
+			}
+
+			validations = append(validations, *validator)
+		}
+
+		if errCustomMessage != "" {
+			validation = IsArray(validations, errCustomMessage)
+		} else {
+			validation = IsArray(validations)
+		}
 	case "isRequired":
 		setErrCustomMessage(1)
 
@@ -496,12 +541,12 @@ func selectValidation(
 
 		validation = URL(errCustomMessage)
 	default:
-		return fmt.Errorf(
+		return nil, fmt.Errorf(
 			fmt.Sprintf("%s: %s", invalidValidator, validateTag),
-		), true
+		)
 	}
 
-	return validation(value)
+	return &validation, nil
 }
 
 func setErrMsg(
@@ -531,6 +576,8 @@ func convertValue(
 		return fieldValue.Int()
 	case reflect.Bool:
 		return fieldValue.Bool()
+	case reflect.Slice:
+		return fieldValue.Interface().([]int)
 	}
 
 	return nil
