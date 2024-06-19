@@ -234,15 +234,16 @@ func getFieldName(
 func applyValidations(
 	validates []string,
 	value any,
-) ([]string, error) {
-	var errMsg []string
+) ([]any, error) {
+	var errMsg []any
 	var options []string
 
 	for i, validate := range validates {
 		validate := strings.Split(validate, "=")
 
 		validateTag := validate[0]
-		if validateTag == "isArray" {
+		validateTagIsArrayType := validateTag == "isArray"
+		if validateTagIsArrayType {
 			options = append(options, validates[i+1:]...)
 		} else if len(validate) > 1 {
 			options = strings.Split(validate[1], ",")
@@ -265,7 +266,14 @@ func applyValidations(
 		if selectValidationErr != nil {
 			errMsg = append(errMsg, selectValidationErr.Error())
 		} else if err != nil {
-			errMsg = append(errMsg, err.Error())
+			if validateTagIsArrayType {
+				var arrayErr map[string]any
+				json.Unmarshal([]byte(err.Error()), &arrayErr)
+
+				errMsg = append(errMsg, arrayErr)
+			} else {
+				errMsg = append(errMsg, err.Error())
+			}
 		}
 
 		if selectValidationErr != nil || abortValidation {
@@ -278,7 +286,7 @@ func applyValidations(
 			}
 		}
 
-		if validateTag == "isArray" {
+		if validateTagIsArrayType {
 			break
 		}
 
@@ -305,34 +313,16 @@ func selectValidation(
 
 	switch validateTag {
 	case "isArray":
-		var validations []Validator
+		validations, err := getArrayFieldValidations(options)
 
-		for _, option := range options {
-			validate := strings.Split(option, "=")
-
-			var validateOptions []string
-			if len(validate) > 1 {
-				validateOptions = strings.Split(validate[1], ",")
-			}
-			validateOptionsLen := len(validateOptions)
-
-			validator, err := selectValidation(
-				validate[0],
-				validateOptions,
-				validateOptionsLen,
-			)
-
-			if err != nil {
-				return nil, err
-			}
-
-			validations = append(validations, *validator)
+		if err != nil {
+			return nil, err
 		}
 
 		if errCustomMessage != "" {
-			validation = IsArray(validations, errCustomMessage)
+			validation = IsArray(*validations, errCustomMessage)
 		} else {
-			validation = IsArray(validations)
+			validation = IsArray(*validations)
 		}
 	case "isRequired":
 		setErrCustomMessage(1)
@@ -562,6 +552,36 @@ func setErrMsg(
 			}
 		}
 	}
+}
+
+func getArrayFieldValidations(
+	options []string,
+) (*[]Validator, error) {
+	var validations []Validator
+
+	for _, option := range options {
+		validate := strings.Split(option, "=")
+
+		var validateOptions []string
+		if len(validate) > 1 {
+			validateOptions = strings.Split(validate[1], ",")
+		}
+		validateOptionsLen := len(validateOptions)
+
+		validator, err := selectValidation(
+			validate[0],
+			validateOptions,
+			validateOptionsLen,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		validations = append(validations, *validator)
+	}
+
+	return &validations, nil
 }
 
 func convertValue(
