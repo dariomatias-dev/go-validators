@@ -22,17 +22,17 @@ func Validate(
 	structType := reflect.TypeOf(s)
 	structValue := reflect.ValueOf(s)
 
-	var jsonData map[string]any
 	var errMsgGroup errMsgGroupType
 
 	if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct {
+		var jsonData map[string]any
 		json.Unmarshal([]byte(data), &jsonData)
 
 		errMsgGroup = validateJson(structType, jsonData)
 
 		if len(errMsgGroup) == 0 {
 			json.Unmarshal([]byte(data), s)
-			
+
 			return nil
 		}
 
@@ -46,7 +46,7 @@ func Validate(
 
 func validateJson(
 	structType reflect.Type,
-	jsonData errMsgGroupType,
+	jsonData map[string]any,
 ) errMsgGroupType {
 	var numberOfFields int
 	var getField func(i int) reflect.StructField
