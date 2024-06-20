@@ -46,6 +46,10 @@ func MinLength(
 	var message string
 
 	return func(value any) (error, bool) {
+		if value == nil {
+			return nil, false
+		}
+
 		if len(errorMessage) != 0 {
 			message = errorMessage[0]
 		} else {

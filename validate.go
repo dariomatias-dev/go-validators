@@ -242,7 +242,7 @@ func applyValidations(
 		validate := strings.Split(validate, "=")
 
 		validateTag := validate[0]
-		validateTagIsArrayType := validateTag == "isArray"
+		validateTagIsArrayType := validateTag == "isArray" || validateTag == "isNullArray"
 		if validateTagIsArrayType {
 			options = append(options, validates[i+1:]...)
 		} else if len(validate) > 1 {
@@ -268,9 +268,13 @@ func applyValidations(
 		} else if err != nil {
 			if validateTagIsArrayType {
 				var arrayErr map[string]any
-				json.Unmarshal([]byte(err.Error()), &arrayErr)
+				isJSONString := json.Unmarshal([]byte(err.Error()), &arrayErr)
+				if isJSONString == nil {
+					errMsg = append(errMsg, arrayErr)
+				} else {
+					errMsg = append(errMsg, err.Error())
+				}
 
-				errMsg = append(errMsg, arrayErr)
 			} else {
 				errMsg = append(errMsg, err.Error())
 			}
@@ -323,6 +327,18 @@ func selectValidation(
 			validation = IsArray(*validations, errCustomMessage)
 		} else {
 			validation = IsArray(*validations)
+		}
+	case "isNullArray":
+		validations, err := getArrayFieldValidations(options)
+
+		if err != nil {
+			return nil, err
+		}
+
+		if errCustomMessage != "" {
+			validation = IsNullArray(*validations, errCustomMessage)
+		} else {
+			validation = IsNullArray(*validations)
 		}
 	case "isRequired":
 		setErrCustomMessage(1)

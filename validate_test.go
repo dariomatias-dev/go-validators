@@ -11,7 +11,7 @@ type User struct {
 	Email string `json:"email" validates:"isRequired"`
 	// Product  Product   `json:"product" validates:"isRequired"`
 	// Products []Product `json:"products" validates:"isRequired"`
-	Ids []int `json:"ids" validates:"minLength=2;isArray;isRequired=Error message;min=2"`
+	Ids *[]int `json:"ids" validates:"minLength=2;isNullArray=Error Message;isRequired=Error message;min=2"`
 }
 
 type Product struct {
@@ -24,7 +24,8 @@ func TestValidate(t *testing.T) {
 		Name:  "Dário Matias",
 		Age:   19,
 		Email: "matiasdario75@gmail.com",
-		Ids:   []int{2, 4, 3, 5},
+		Ids:   nil,
+		// Ids:   []int{2, 3, 3},
 		// Product: Product{
 		// 	Id:   "56789",
 		// 	Name: "Smartphone",

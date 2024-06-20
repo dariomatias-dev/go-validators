@@ -49,6 +49,10 @@ func MaxLength(
 	}
 
 	return func(value any) (error, bool) {
+		if value == nil {
+			return nil, false
+		}
+
 		val, isString := value.(string)
 
 		var valueLen int
