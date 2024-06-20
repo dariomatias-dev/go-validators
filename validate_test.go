@@ -20,46 +20,16 @@ type Product struct {
 }
 
 func TestValidate(t *testing.T) {
-	user := User{
-		Name:  "Dário Matias",
-		Age:   19,
-		Email: "matiasdario75@gmail.com",
-		Ids:   nil,
-		// Ids:   []int{2, 3, 3},
-		// Product: Product{
-		// 	Id:   "56789",
-		// 	Name: "Smartphone",
-		// },
-		// Products: []Product{
-		// 	{
-		// 		Id:   "6547346739",
-		// 		Name: "Not",
-		// 	},
-		// 	{
-		// 		Id:   "0275949305",
-		// 		Name: "Smartphone",
-		// 	},
-		// },
-	}
+	user := &User{}
 
-	// user := &User{}
+	data := `{
+		"name": "Dário Matias",
+		"age": 19,
+		"email": "matiasdario75@gmail.com",
+		"ids": [0, 7, 3, 10]
+	}`
 
-	// data := `{
-	// 	"name": "Dário Matias",
-	// 	"age": 19,
-	// 	"email": "matiasdario75@gmail.com",
-	// 	"products": [
-	// 		{
-	// 			"id": "6547346739",
-	// 			"name": "Notebook"
-	// 		}
-	// 	]
-	// }`
-
-	// fmt.Println(
-	// 	Validate(user, &data),
-	// )
 	fmt.Println(
-		Validate(user, nil),
+		Validate(user, &data),
 	)
 }

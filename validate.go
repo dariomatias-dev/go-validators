@@ -25,87 +25,24 @@ func Validate(
 	var jsonData map[string]any
 	var errMsgGroup errMsgGroupType
 
-	if structValue.Kind() == reflect.Struct && data == nil {
-		errMsgGroup = validateInternalStruct(structType, structValue)
-
-		return convertToErr(errMsgGroup)
-	} else if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct && data != nil {
+	if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct && data != nil {
 		json.Unmarshal([]byte(*data), &jsonData)
 
-		errMsgGroup = validateInternalJson(structType, jsonData)
+		errMsgGroup = validateJson(structType, jsonData)
 
 		if err == nil {
 			json.Unmarshal([]byte(*data), s)
 		}
 
-		return convertToErr(errMsgGroup)
+		err, _ := json.Marshal(errMsgGroup)
+
+		return errors.New(string(err))
 	} else {
-		return errors.New("invalid input: expected a struct or a pointer to a struct and a JSON object")
+		return errors.New("invalid input: expected a pointer to a struct and a JSON")
 	}
 }
 
-func convertToErr(
-	errMsgGroup errMsgGroupType,
-) error {
-	err, _ := json.Marshal(errMsgGroup)
-
-	return errors.New(string(err))
-}
-
-func validateInternalStruct(
-	structType reflect.Type,
-	structValue reflect.Value,
-) errMsgGroupType {
-	numberOfFields := structType.NumField()
-
-	return validateInternal(
-		numberOfFields,
-		func(index int) (
-			fieldType reflect.StructField,
-			value any,
-			keepProcessing bool,
-			fieldErrMsgGroup errMsgGroupType,
-		) {
-			fieldType = structType.Field(index)
-			fieldValue := structValue.Field(index)
-
-			if fieldValue.Kind() == reflect.Struct {
-				fieldErrMsgGroup := validateInternalStruct(
-					fieldType.Type,
-					fieldValue,
-				)
-
-				return fieldType, value, true, fieldErrMsgGroup
-			}
-
-			if fieldValue.Kind() == reflect.Slice && fieldValue.Type().Elem().Kind() == reflect.Struct {
-				arrayType := fieldType.Type.Elem()
-				errMsgGroup := make(errMsgGroupType)
-
-				for i := range fieldValue.Len() {
-					fieldErrMsgGroup := validateInternalStruct(
-						arrayType,
-						fieldValue.Index(i),
-					)
-
-					if fieldErrMsgGroup != nil {
-						errMsgGroup[fmt.Sprintf("%v", i)] = fieldErrMsgGroup
-					}
-				}
-
-				return fieldType, value, true, errMsgGroup
-			}
-
-			value = convertValue(
-				structValue.Field(index),
-			)
-
-			return fieldType, value, false, nil
-		},
-	)
-}
-
-func validateInternalJson(
+func validateJson(
 	structType reflect.Type,
 	jsonData errMsgGroupType,
 ) errMsgGroupType {
@@ -133,7 +70,7 @@ func validateInternalJson(
 
 			switch v := value.(type) {
 			case map[string]any:
-				return fieldType, value, true, validateInternalJson(
+				return fieldType, value, true, validateJson(
 					fieldType.Type,
 					v,
 				)
@@ -144,7 +81,7 @@ func validateInternalJson(
 					for i := range len(v) {
 						mapData, isMap := v[i].(map[string]any)
 						if isMap {
-							fieldErrMsgGroup := validateInternalJson(
+							fieldErrMsgGroup := validateJson(
 								fieldType.Type.Elem(),
 								mapData,
 							)
@@ -598,23 +535,4 @@ func getArrayFieldValidations(
 	}
 
 	return &validations, nil
-}
-
-func convertValue(
-	fieldValue reflect.Value,
-) any {
-	switch fieldValue.Kind() {
-	case reflect.String:
-		return fieldValue.String()
-	case reflect.Float32, reflect.Float64:
-		return fieldValue.Float()
-	case reflect.Int, reflect.Int16, reflect.Int32, reflect.Int64:
-		return fieldValue.Int()
-	case reflect.Bool:
-		return fieldValue.Bool()
-	case reflect.Slice:
-		return fieldValue.Interface().([]int)
-	}
-
-	return nil
 }
