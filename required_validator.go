@@ -15,11 +15,11 @@ import (
 // Usage examples:
 //
 //	value1 := "Name"
-//	v.IsRequired()(value1) // Output: nil, false
+//	v.Required()(value1) // Output: nil, false
 //
 //	value2 := nil
-//	v.IsRequired()(value2) // Output: [error message], true
-func IsRequired(
+//	v.Required()(value2) // Output: [error message], true
+func Required(
 	errorMessage ...string,
 ) Validator {
 	message := "Required field"

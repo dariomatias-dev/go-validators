@@ -17,7 +17,7 @@ type errMsgGroupType = map[string]any
 
 func Validate(
 	s any,
-	data *string,
+	data string,
 ) error {
 	structType := reflect.TypeOf(s)
 	structValue := reflect.ValueOf(s)
@@ -25,13 +25,15 @@ func Validate(
 	var jsonData map[string]any
 	var errMsgGroup errMsgGroupType
 
-	if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct && data != nil {
-		json.Unmarshal([]byte(*data), &jsonData)
+	if structValue.Kind() == reflect.Ptr && structValue.Elem().Kind() == reflect.Struct {
+		json.Unmarshal([]byte(data), &jsonData)
 
 		errMsgGroup = validateJson(structType, jsonData)
 
-		if err == nil {
-			json.Unmarshal([]byte(*data), s)
+		if len(errMsgGroup) == 0 {
+			json.Unmarshal([]byte(data), s)
+			
+			return nil
 		}
 
 		err, _ := json.Marshal(errMsgGroup)
@@ -127,6 +129,11 @@ func validateInternal(
 		}
 
 		validatesTag := fieldType.Tag.Get("validates")
+		if validatesTag == "" {
+			return map[string]any{
+				"Error": "The [validates] tag is missing. Please use the [validates] tag to define the field validators.",
+			}
+		}
 
 		if validatesTag == "" {
 			continue
@@ -277,16 +284,16 @@ func selectValidation(
 		} else {
 			validation = IsNullArray(*validations)
 		}
-	case "isRequired":
+	case "required":
 		setErrCustomMessage(1)
 
 		if errCustomMessage != "" {
-			validation = IsRequired(errCustomMessage)
+			validation = Required(errCustomMessage)
 		} else {
-			validation = IsRequired()
+			validation = Required()
 		}
-	case "isOptional":
-		validation = IsOptional()
+	case "optional":
+		validation = Optional()
 	case "isString":
 		setErrCustomMessage(2)
 

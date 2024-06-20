@@ -10,11 +10,11 @@ package validators
 // Usage examples:
 //
 //	value2 := nil
-//	v.IsOptional()(value2) // Output: nil, true
+//	v.Optional()(value2) // Output: nil, true
 //
 //	value1 := "Name"
-//	v.IsOptional()(value1) // Output: nil, false
-func IsOptional() Validator {
+//	v.Optional()(value1) // Output: nil, false
+func Optional() Validator {
 	return func(value any) (error, bool) {
 		if value == nil {
 			return nil, true
