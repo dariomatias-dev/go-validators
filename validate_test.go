@@ -62,6 +62,4 @@ func TestValidate(t *testing.T) {
 			fmt.Sprintf("received: %s; expected: nil", err.Error()),
 		)
 	}
-
-	fmt.Println(err)
 }

@@ -292,8 +292,6 @@ func selectValidation(
 		} else {
 			validation = Required()
 		}
-	case "optional":
-		validation = Optional()
 	case "isString":
 		setErrCustomMessage(2)
 
