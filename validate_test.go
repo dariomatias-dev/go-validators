@@ -24,6 +24,10 @@ type FieldValidations struct {
 	IsBoolean      bool     `json:"isBoolean"      validates:"required;isBool"`
 	IsNullBoolean1 *bool    `json:"isNullBoolean1" validates:"isNullBool"`
 	IsNullBoolean2 *bool    `json:"isNullBoolean2" validates:"isNullBool"`
+	StartsWith     string   `json:"startsWith"     validates:"required;startsWith=na"`
+	StartsNotWith  string   `json:"startsNotWith"  validates:"required;startsNotWith=ne"`
+	EndsWith       string   `json:"endsWith"       validates:"required;endsWith=me"`
+	EndsNotWith    string   `json:"endsNotWith"    validates:"required;endsNotWith=ma"`
 }
 
 const values = `{
@@ -39,7 +43,11 @@ const values = `{
 	"isFloat":        3.3,
 	"isNullFloat2":   3.3,
 	"isBoolean":      true,
-	"isNullBoolean2": true
+	"isNullBoolean2": true,
+	"startsWith":     "name",
+	"startsNotWith":  "name",
+	"endsWith":       "name",
+	"endsNotWith":    "name"
 }`
 
 func TestValidate(t *testing.T) {

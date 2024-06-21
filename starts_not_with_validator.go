@@ -25,7 +25,7 @@ func StartsNotWith(
 	startsNotWith string,
 	errorMessage ...string,
 ) Validator {
-	message := fmt.Sprintf("The value cannot start with: %s.", startsNotWith)
+	message := fmt.Sprintf("The value must not start with: %s.", startsNotWith)
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
 	}

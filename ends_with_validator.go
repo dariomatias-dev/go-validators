@@ -26,7 +26,7 @@ func EndsWith(
 	endsWith string,
 	errorMessage ...string,
 ) Validator {
-	message := fmt.Sprintf("The value must end with: %s", endsWith)
+	message := fmt.Sprintf("The value must end with: %s.", endsWith)
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
 	}

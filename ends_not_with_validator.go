@@ -1,6 +1,9 @@
 package validators
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 // Checks if the value does not end with a certain sequence.
 //
@@ -21,7 +24,7 @@ func EndsNotWith(
 	endsNotWith string,
 	errorMessage ...string,
 ) Validator {
-	message := "The value cannot end with"
+	message := fmt.Sprintf("The value must not end with: %s.", endsNotWith)
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
 	}
