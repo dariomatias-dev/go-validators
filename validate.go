@@ -293,7 +293,7 @@ func selectValidation(
 			validation = Required()
 		}
 	case "isString":
-		setErrCustomMessage(2)
+		setErrCustomMessage(1)
 
 		if errCustomMessage != "" {
 			validation = IsString(errCustomMessage)
@@ -301,7 +301,7 @@ func selectValidation(
 			validation = IsString()
 		}
 	case "isNumber":
-		setErrCustomMessage(2)
+		setErrCustomMessage(1)
 
 		if errCustomMessage != "" {
 			validation = IsNumber(errCustomMessage)
@@ -309,7 +309,7 @@ func selectValidation(
 			validation = IsNumber()
 		}
 	case "isInt":
-		setErrCustomMessage(2)
+		setErrCustomMessage(1)
 
 		if errCustomMessage != "" {
 			validation = IsInt(errCustomMessage)
@@ -317,7 +317,7 @@ func selectValidation(
 			validation = IsInt()
 		}
 	case "isFloat":
-		setErrCustomMessage(2)
+		setErrCustomMessage(1)
 
 		if errCustomMessage != "" {
 			validation = IsFloat(errCustomMessage)
@@ -325,7 +325,7 @@ func selectValidation(
 			validation = IsFloat()
 		}
 	case "isBool":
-		setErrCustomMessage(2)
+		setErrCustomMessage(1)
 
 		if errCustomMessage != "" {
 			validation = IsBool(errCustomMessage)

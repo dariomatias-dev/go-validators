@@ -25,15 +25,26 @@ func setError(
 
 func getArgs() []any {
 	return []any{
-		func() any {
-			if err == nil {
-				return nil
-			}
-
-			return fmt.Sprintf("\"%s\"", err.Error())
-		}(),
+		getErrMessage(),
 		abortValidation,
 	}
+}
+
+func setValidateError(
+	message string,
+) string {
+	return fmt.Sprintf(
+		message,
+		getErrMessage(),
+	)
+}
+
+func getErrMessage() any {
+	if err == nil {
+		return nil
+	}
+
+	return fmt.Sprintf("\"%s\"", err.Error())
 }
 
 func convertToFloat64(value any) float64 {

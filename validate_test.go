@@ -2,6 +2,7 @@ package validators
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -78,5 +79,82 @@ func TestValidate(t *testing.T) {
 		t.Errorf(
 			fmt.Sprintf("received: %s; expected: nil", err.Error()),
 		)
+	}
+
+	/// - Errors
+	/// Required
+	// Test 1
+	type RequiredStruct1 struct {
+		Value string `json:"value" validates:"required"`
+	}
+	requiredStruct1 := RequiredStruct1{}
+	json := `{}`
+	err = Validate(&requiredStruct1, json)
+
+	if err == nil {
+		t.Errorf("Required - received: nil; expected: \"[error message]\"")
+	}
+
+	// Test 2
+	type RequiredStruct2 struct {
+		Value string `json:"value" validates:"required=error"`
+	}
+	requiredStruct2 := RequiredStruct2{}
+	err = Validate(&requiredStruct2, json)
+
+	if err == nil || !strings.Contains(err.Error(), errCustomMessage) {
+		t.Errorf(setValidateError("Required - received: %v; expected: \"error\""))
+	}
+
+	/// IsString
+	// Test 1
+	type IsStringStruct1 struct {
+		Value string `json:"value" validates:"isString"`
+	}
+	isStringStruct1 := IsStringStruct1{}
+	json = `{
+		"value": 0,
+	}`
+	err = Validate(&isStringStruct1, json)
+
+	if err == nil {
+		t.Errorf("IsString - received: nil; expected: \"[error message]\"")
+	}
+
+	// Test 2
+	type IsStringStruct2 struct {
+		Value string `json:"value" validates:"isString=error"`
+	}
+	isStringStruct2 := IsStringStruct2{}
+	err = Validate(&isStringStruct2, json)
+
+	if err == nil || !strings.Contains(err.Error(), errCustomMessage) {
+		t.Errorf(setValidateError("IsString - received: %v; expected: \"error\""))
+	}
+
+	/// IsInt
+	// Test 1
+	type IsIntStruct1 struct {
+		Value string `json:"value" validates:"isInt"`
+	}
+	isIntStruct1 := IsIntStruct1{}
+	json = `{
+		"value": "name",
+	}`
+	err = Validate(&isIntStruct1, json)
+
+	if err == nil {
+		t.Errorf("IsInt - received: nil; expected: \"[error message]\"")
+	}
+
+	// Test 2
+	type IsIntStruct2 struct {
+		Value string `json:"value" validates:"isInt=error"`
+	}
+	isIntStruct2 := IsIntStruct2{}
+	err = Validate(&isIntStruct2, json)
+
+	if err == nil || !strings.Contains(err.Error(), errCustomMessage) {
+		t.Errorf(setValidateError("IsInt - received: %v; expected: \"error\""))
 	}
 }
