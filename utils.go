@@ -3,6 +3,7 @@ package validators
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 var (
@@ -30,11 +31,25 @@ func getArgs() []any {
 	}
 }
 
-func setValidateError(
-	message string,
+func getInvalidErrorCustom() bool {
+	return err == nil || !strings.Contains(err.Error(), errCustomMessage)
+}
+
+func setValidateErrorDefault(
+	validateName string,
 ) string {
 	return fmt.Sprintf(
-		message,
+		"%s - received: nil; expected: \"[error message]\"",
+		validateName,
+	)
+}
+
+func setValidateErrorCustom(
+	validateName string,
+) string {
+	return fmt.Sprintf(
+		"%s - received: %v; expected: \"error\"",
+		validateName,
 		getErrMessage(),
 	)
 }

@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"strings"
 	"testing"
 )
 
@@ -73,7 +72,7 @@ func TestValidate(t *testing.T) {
 	// Test 1
 	fieldValidations := FieldValidations{}
 
-	err := Validate(&fieldValidations, values)
+	err = Validate(&fieldValidations, values)
 
 	if err != nil {
 		t.Errorf(
@@ -92,7 +91,7 @@ func TestValidate(t *testing.T) {
 	err = Validate(&requiredStruct1, json)
 
 	if err == nil {
-		t.Errorf("Required - received: nil; expected: \"[error message]\"")
+		t.Errorf(setValidateErrorDefault("Required"))
 	}
 
 	// Test 2
@@ -102,8 +101,8 @@ func TestValidate(t *testing.T) {
 	requiredStruct2 := RequiredStruct2{}
 	err = Validate(&requiredStruct2, json)
 
-	if err == nil || !strings.Contains(err.Error(), errCustomMessage) {
-		t.Errorf(setValidateError("Required - received: %v; expected: \"error\""))
+	if getInvalidErrorCustom() {
+		t.Errorf(setValidateErrorCustom("Required"))
 	}
 
 	/// IsString
@@ -113,12 +112,12 @@ func TestValidate(t *testing.T) {
 	}
 	isStringStruct1 := IsStringStruct1{}
 	json = `{
-		"value": 0,
+		"value": 0
 	}`
 	err = Validate(&isStringStruct1, json)
 
 	if err == nil {
-		t.Errorf("IsString - received: nil; expected: \"[error message]\"")
+		t.Errorf(setValidateErrorDefault("IsString"))
 	}
 
 	// Test 2
@@ -128,8 +127,8 @@ func TestValidate(t *testing.T) {
 	isStringStruct2 := IsStringStruct2{}
 	err = Validate(&isStringStruct2, json)
 
-	if err == nil || !strings.Contains(err.Error(), errCustomMessage) {
-		t.Errorf(setValidateError("IsString - received: %v; expected: \"error\""))
+	if getInvalidErrorCustom() {
+		t.Errorf(setValidateErrorCustom("IsString"))
 	}
 
 	/// IsInt
@@ -139,12 +138,12 @@ func TestValidate(t *testing.T) {
 	}
 	isIntStruct1 := IsIntStruct1{}
 	json = `{
-		"value": "name",
+		"value": "name"
 	}`
 	err = Validate(&isIntStruct1, json)
 
 	if err == nil {
-		t.Errorf("IsInt - received: nil; expected: \"[error message]\"")
+		t.Errorf(setValidateErrorDefault("IsInt"))
 	}
 
 	// Test 2
@@ -154,7 +153,7 @@ func TestValidate(t *testing.T) {
 	isIntStruct2 := IsIntStruct2{}
 	err = Validate(&isIntStruct2, json)
 
-	if err == nil || !strings.Contains(err.Error(), errCustomMessage) {
-		t.Errorf(setValidateError("IsInt - received: %v; expected: \"error\""))
+	if getInvalidErrorCustom() {
+		t.Errorf(setValidateErrorCustom("IsInt"))
 	}
 }
