@@ -111,6 +111,22 @@ func TestValidate(t *testing.T) {
 	}
 	initValidateTest(t, validateTestCustom, "IsString", &IsStringStruct2{})
 
+	/// IsNumber
+	// Test 1
+	type IsNumberStruct1 struct {
+		Value string `json:"value" validates:"isNumber"`
+	}
+	jsonValue = `{
+		"value": "name"
+	}`
+	initValidateTest(t, validateTestDefault, "IsNumber", &IsNumberStruct1{})
+
+	// Test 2
+	type IsNumberStruct2 struct {
+		Value string `json:"value" validates:"isNumber=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsNumber", &IsNumberStruct2{})
+
 	/// IsInt
 	// Test 1
 	type IsIntStruct1 struct {
@@ -126,4 +142,36 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"isInt=error"`
 	}
 	initValidateTest(t, validateTestCustom, "IsInt", &IsIntStruct2{})
+
+	/// IsFloat
+	// Test 1
+	type IsFloatStruct1 struct {
+		Value string `json:"value" validates:"isFloat"`
+	}
+	jsonValue = `{
+		"value": "name"
+	}`
+	initValidateTest(t, validateTestDefault, "IsFloat", &IsFloatStruct1{})
+
+	// Test 2
+	type IsFloatStruct2 struct {
+		Value string `json:"value" validates:"isFloat=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsFloat", &IsFloatStruct2{})
+
+	/// IsBool
+	// Test 1
+	type IsBoolStruct1 struct {
+		Value string `json:"value" validates:"isBool"`
+	}
+	jsonValue = `{
+		"value": "name"
+	}`
+	initValidateTest(t, validateTestDefault, "IsBool", &IsBoolStruct1{})
+
+	// Test 2
+	type IsBoolStruct2 struct {
+		Value string `json:"value" validates:"isBool=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsBool", &IsBoolStruct2{})
 }
