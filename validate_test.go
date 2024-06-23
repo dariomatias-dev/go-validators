@@ -86,74 +86,44 @@ func TestValidate(t *testing.T) {
 	type RequiredStruct1 struct {
 		Value string `json:"value" validates:"required"`
 	}
-	requiredStruct1 := RequiredStruct1{}
-	json := `{}`
-	err = Validate(&requiredStruct1, json)
-
-	if err == nil {
-		t.Errorf(setValidateErrorDefault("Required"))
-	}
+	jsonValue = `{}`
+	initValidateTest(t, validateTestDefault, "Required", &RequiredStruct1{})
 
 	// Test 2
 	type RequiredStruct2 struct {
 		Value string `json:"value" validates:"required=error"`
 	}
-	requiredStruct2 := RequiredStruct2{}
-	err = Validate(&requiredStruct2, json)
-
-	if getInvalidErrorCustom() {
-		t.Errorf(setValidateErrorCustom("Required"))
-	}
+	initValidateTest(t, validateTestCustom, "Required", &RequiredStruct2{})
 
 	/// IsString
 	// Test 1
 	type IsStringStruct1 struct {
 		Value string `json:"value" validates:"isString"`
 	}
-	isStringStruct1 := IsStringStruct1{}
-	json = `{
+	jsonValue = `{
 		"value": 0
 	}`
-	err = Validate(&isStringStruct1, json)
-
-	if err == nil {
-		t.Errorf(setValidateErrorDefault("IsString"))
-	}
+	initValidateTest(t, validateTestDefault, "IsString", &IsStringStruct1{})
 
 	// Test 2
 	type IsStringStruct2 struct {
 		Value string `json:"value" validates:"isString=error"`
 	}
-	isStringStruct2 := IsStringStruct2{}
-	err = Validate(&isStringStruct2, json)
-
-	if getInvalidErrorCustom() {
-		t.Errorf(setValidateErrorCustom("IsString"))
-	}
+	initValidateTest(t, validateTestCustom, "IsString", &IsStringStruct2{})
 
 	/// IsInt
 	// Test 1
 	type IsIntStruct1 struct {
 		Value string `json:"value" validates:"isInt"`
 	}
-	isIntStruct1 := IsIntStruct1{}
-	json = `{
+	jsonValue = `{
 		"value": "name"
 	}`
-	err = Validate(&isIntStruct1, json)
-
-	if err == nil {
-		t.Errorf(setValidateErrorDefault("IsInt"))
-	}
+	initValidateTest(t, validateTestDefault, "IsInt", &IsIntStruct1{})
 
 	// Test 2
 	type IsIntStruct2 struct {
 		Value string `json:"value" validates:"isInt=error"`
 	}
-	isIntStruct2 := IsIntStruct2{}
-	err = Validate(&isIntStruct2, json)
-
-	if getInvalidErrorCustom() {
-		t.Errorf(setValidateErrorCustom("IsInt"))
-	}
+	initValidateTest(t, validateTestCustom, "IsInt", &IsIntStruct2{})
 }

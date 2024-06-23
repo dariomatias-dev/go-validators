@@ -4,11 +4,13 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"testing"
 )
 
 var (
 	err               error
 	abortValidation   bool
+	jsonValue         string
 	errCustomMessage  = "error"
 	errCustomMessage2 = "error2"
 	errCustom         = errors.New(errCustomMessage)
@@ -26,40 +28,45 @@ func setError(
 
 func getArgs() []any {
 	return []any{
-		getErrMessage(),
+		func() any {
+			if err == nil {
+				return nil
+			}
+
+			return fmt.Sprintf("\"%s\"", err.Error())
+		}(),
 		abortValidation,
 	}
 }
 
-func getInvalidErrorCustom() bool {
-	return err == nil || !strings.Contains(err.Error(), errCustomMessage)
-}
+const (
+	validateTestDefault = "ValidateTestDefault"
+	validateTestCustom  = "ValidateTestCustom"
+)
 
-func setValidateErrorDefault(
+func initValidateTest(
+	t *testing.T,
+	validateTestType string,
 	validateName string,
-) string {
-	return fmt.Sprintf(
-		"%s - received: nil; expected: \"[error message]\"",
-		validateName,
-	)
-}
+	structValue any,
+) {
+	err = Validate(structValue, jsonValue)
 
-func setValidateErrorCustom(
-	validateName string,
-) string {
-	return fmt.Sprintf(
-		"%s - received: %v; expected: \"error\"",
-		validateName,
-		getErrMessage(),
-	)
-}
-
-func getErrMessage() any {
-	if err == nil {
-		return nil
+	isValidateTestCustom := validateTestType == validateTestCustom
+	errorMessage := "\"[error message]\""
+	if isValidateTestCustom {
+		errorMessage = "\"error\""
 	}
 
-	return fmt.Sprintf("\"%s\"", err.Error())
+	if err == nil || isValidateTestCustom && !strings.Contains(err.Error(), errCustomMessage) {
+		t.Errorf(
+			fmt.Sprintf(
+				"%s - received: nil; expected: %s",
+				validateName,
+				errorMessage,
+			),
+		)
+	}
 }
 
 func convertToFloat64(value any) float64 {
