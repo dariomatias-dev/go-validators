@@ -188,14 +188,9 @@ if errors != nil {
         <th>Input</th>
     </tr>
     <tr>
-        <td>IsRequired</td>
+        <td>Required</td>
         <td>Presence</td>
         <td>Error message</td>
-    </tr>
-    <tr>
-        <td>IsOptional</td>
-        <td>Presence</td>
-        <td>None</td>
     </tr>
     <tr>
         <td>IsString</td>
@@ -227,8 +222,6 @@ if errors != nil {
         <td>Type</td>
         <td>
             <ul>
-                <li>Type of values*</li>
-                <li>Array settings*</li>
                 <li>Field validators*</li>
                 <li>Error message</li>
             </ul>
@@ -264,8 +257,6 @@ if errors != nil {
         <td>Type</td>
         <td>
             <ul>
-                <li>Type of values*</li>
-                <li>Array settings*</li>
                 <li>Field validators*</li>
                 <li>Error message</li>
             </ul>
@@ -334,17 +325,6 @@ if errors != nil {
         <td>IsAlphaSpace</td>
         <td>Value</td>
         <td>Error message</td>
-    </tr>
-    <tr>
-        <td>OneOf</td>
-        <td>Value</td>
-        <td>
-            <ul>
-                <li>Array type*</li>
-                <li>Possible options*</li>
-                <li>Error message</li>
-            </ul>
-        </td>
     </tr>
     <tr>
         <td>StartsWith</td>
