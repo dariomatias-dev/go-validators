@@ -127,32 +127,68 @@ if err != nil {
     <tr>
         <td>Required</td>
         <td>Presence</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsString</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsNumber</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsInt</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsFloat</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsBool</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsArray</td>
@@ -167,27 +203,57 @@ if err != nil {
     <tr>
         <td>IsNullString</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsNullNumber</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsNullInt</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsNullFloat</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsNullBool</td>
         <td>Type</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsNullArray</td>
@@ -210,6 +276,17 @@ if err != nil {
                     <li>Invalid email</li>
                     <li>Value is not string</li>
                 </ul>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
             </ul>
         </td>
     </tr>
@@ -256,12 +333,24 @@ if err != nil {
     <tr>
         <td>IsAlpha</td>
         <td>Value</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>IsAlphaSpace</td>
         <td>Value</td>
-        <td>Error message</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>StartsWith</td>
@@ -314,19 +403,26 @@ if err != nil {
         </td>
     </tr>
     <tr>
-        <td>Password</td>
-        <td>Value</td>
-        <td>Error message</td>
-    </tr>
-    <tr>
         <td>URL</td>
         <td>Value</td>
-        <td>Error message</td
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>Custom</td>
         <td>Value</td>
-        <td>Custom validator*</td>
+        <td>
+            <ul>
+                <li>
+                    Custom validator*
+                </li>
+            </ul>
+        </td>
     </tr>
 </table>
 
