@@ -186,16 +186,22 @@ func applyValidations(
 		validate := strings.Split(validate, "=")
 
 		validateTag := validate[0]
+		validateLen := len(validate)
 		validateTagIsArrayType := validateTag == "isArray" || validateTag == "isNullArray"
+		isArrayTypeErrorMessage := ""
 		if validateTagIsArrayType {
 			options = append(options, validates[i+1:]...)
-		} else if len(validate) > 1 {
+			if validateLen > 1 {
+				isArrayTypeErrorMessage = validate[1]
+			}
+		} else if validateLen > 1 {
 			options = strings.Split(validate[1], ",")
 		}
 		optionsLen := len(options)
 
 		validator, selectValidationErr := selectValidation(
 			validateTag,
+			isArrayTypeErrorMessage,
 			options,
 			optionsLen,
 		)
@@ -246,6 +252,7 @@ func applyValidations(
 
 func selectValidation(
 	validateTag string,
+	isArrayTypeErrorMessage string,
 	options []string,
 	optionsLen int,
 ) (*Validator, error) {
@@ -267,8 +274,8 @@ func selectValidation(
 			return nil, err
 		}
 
-		if errCustomMessage != "" {
-			validation = IsArray(*validations, errCustomMessage)
+		if isArrayTypeErrorMessage != "" {
+			validation = IsArray(*validations, isArrayTypeErrorMessage)
 		} else {
 			validation = IsArray(*validations)
 		}
@@ -279,8 +286,8 @@ func selectValidation(
 			return nil, err
 		}
 
-		if errCustomMessage != "" {
-			validation = IsNullArray(*validations, errCustomMessage)
+		if isArrayTypeErrorMessage != "" {
+			validation = IsNullArray(*validations, isArrayTypeErrorMessage)
 		} else {
 			validation = IsNullArray(*validations)
 		}
@@ -528,6 +535,7 @@ func getArrayFieldValidations(
 
 		validator, err := selectValidation(
 			validate[0],
+			"",
 			validateOptions,
 			validateOptionsLen,
 		)

@@ -166,6 +166,19 @@ func TestValidate(t *testing.T) {
 	}
 	initValidateTest(t, validateTestCustom, "IsBool", &IsBoolStruct2{})
 
+	/// IsArray
+	// Test 1
+	type IsArrayStruct1 struct {
+		Value string `json:"value" validates:"isArray"`
+	}
+	initValidateTest(t, validateTestDefault, "IsArray", &IsArrayStruct1{})
+
+	// Test 2
+	type IsArrayStruct2 struct {
+		Value string `json:"value" validates:"isArray=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsArray", &IsArrayStruct2{})
+
 	/// IsNullString
 	// Test 1
 	type IsNullStringStruct1 struct {
@@ -236,4 +249,17 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"isNullBool=error"`
 	}
 	initValidateTest(t, validateTestCustom, "IsNullBool", &IsNullBoolStruct2{})
+
+	/// IsNullArray
+	// Test 1
+	type IsNullArrayStruct1 struct {
+		Value string `json:"value" validates:"isNullArray"`
+	}
+	initValidateTest(t, validateTestDefault, "IsNullArray", &IsNullArrayStruct1{})
+
+	// Test 2
+	type IsNullArrayStruct2 struct {
+		Value string `json:"value" validates:"isNullArray=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsNullArray", &IsNullArrayStruct2{})
 }
