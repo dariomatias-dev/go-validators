@@ -46,7 +46,7 @@ In the table of [validators-available](#validators-available), it's referenced w
 To use the validations, use `v.` followed by the desired validation. In the first parenthesis, provide what is being requested, and if you don't want the default error message, insert the desired message afterwards.
 The validators will return two values: the first will be the error message if the provided value did not pass validation, and the second will be a boolean value indicating whether the validations should be halted or not. The second value is used in situations where, if the value did not pass the validator, subsequent validations cannot be executed because they will result in an error.
 
-Validations can be performed in three distinct ways: [individually](#validate-individual-value), in [combination](#validate-value-with-multiple-validators), or within a [map](#validate-map).
+Validations can be performed in three distinct ways: [individually](#validate-individual-value), or within a [json](#validate-json).
 
 </br>
 
@@ -69,112 +69,49 @@ if err != nil {
 // Error
 value = 2
 
-err, _ = v.Min(3)(value) // [error message], false
+err, _ = v.Min(3)(value) // The minimum value is 3, but it received 2, false
 if err != nil {
     fmt.Println(err)
     return
 }
 ```
 
-#### Validate Value with Multiple Validators
+#### Validate JSON
 
-Multiple validators are combined to validate a single value.
-
-**Examples:**
-
-```go
-validations := v.Validate(
-    v.IsInt(),
-    v.Min(3),
-    v.Max(10),
-)
-
-// Success
-value := 4
-errors := validations(value) // Output: nil
-
-if len(*errors) != 0 {
-    fmt.Println(*errors)
-    return
-}
-
-// Error
-value = 2
-errors = validations(value) // Output: [ error message(s) ]
-
-if len(*errors) != 0 {
-    fmt.Println(*errors)
-    return
-}
-```
-
-#### Validate Map
-
-Each key of the map is validated separately with its own sets of validators.
+Validates the provided JSON based on the validators defined for each field, returning an error if there is an inconsistency, or assigning the values from the JSON to the provided struct if there are no errors.
 
 **Examples:**
 
 ```go
-data := map[string]any{
+type UserModel struct {
+    Name  string `json:"name"  validates:"required;isString;minLength=3;maxLength=20"`
+    Age   int    `json:"age"   validates:"required;isInt;min=18;max=100"`
+    Email string `json:"email" validates:"required;email"`
+}
+user := UserModel{}
+
+json := `{
     "name":  "Name",
     "age":   18,
-    "email": "emailexample@gmail.com",
-}
-
-validations := v.Validators{
-    "name": []v.Validator{
-        v.IsString(),
-        v.MinLength(3),
-        v.MaxLength(20),
-    },
-    "age": []v.Validator{
-        v.IsInt(),
-        v.Min(18),
-        v.Max(100),
-    },
-    "email": []v.Validator{
-        v.Email(),
-    },
-}
-
-validateMap := v.ValidateMap(validations)
+    "email": "emailexample@gmail.com"
+}`
 
 // Success
-errors := validateMap(data) // Output: nil
-if errors != nil {
-    fmt.Println(*errors)
+err := Validate(&user, json) // Output: nil
+if err != nil {
+    fmt.Println(err)
     return
 }
 
 // Error
-data["name"] = "Na"
-errors = validateMap(data) // Output: {"name": [ error message ]}
-if errors != nil {
-    fmt.Println(*errors)
-    return
-}
-
-
-/// Using struct
-
-user := User{
-    Name:  "Name",
-    Age:   18,
-    Email: "exampleemail@gmail.com",
-}
-
-// Success
-errors := validateMap(data) // Output: nil
-if errors != nil {
-    fmt.Println(*errors)
-    return
-}
-
-// Error
-user.Email = "emailexample"
-errors := validateMap(data) // {"email": [ "Invalid email" ]}
-if errors != nil {
-    fmt.Println(*errors)
+json := `{
+    "name":  "Name",
+    "age":   16,
+    "email": "emailexample@gmail.com"
+}`
+err := Validate(&user, json) // Output: {"age":["The minimum value is 18, but it received 16."]}
+if err != nil {
+    fmt.Println(err)
     return
 }
 ```
