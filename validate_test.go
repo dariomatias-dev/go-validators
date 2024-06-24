@@ -320,4 +320,56 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"maxLength=2,error"`
 	}
 	initValidateTest(t, validateTestCustom, "MaxLength", &MaxLengthStruct2{})
+
+	/// StartsWith
+	// Test 1
+	type StartsWithStruct1 struct {
+		Value string `json:"value" validates:"startsWith=ne"`
+	}
+	initValidateTest(t, validateTestDefault, "StartsWith", &StartsWithStruct1{})
+
+	// Test 2
+	type StartsWithStruct2 struct {
+		Value string `json:"value" validates:"startsWith=ne,error"`
+	}
+	initValidateTest(t, validateTestCustom, "StartsWith", &StartsWithStruct2{})
+
+	/// StartsNotWith
+	// Test 1
+	type StartsNotWithStruct1 struct {
+		Value string `json:"value" validates:"startsNotWith=na"`
+	}
+	initValidateTest(t, validateTestDefault, "StartsNotWith", &StartsNotWithStruct1{})
+
+	// Test 2
+	type StartsNotWithStruct2 struct {
+		Value string `json:"value" validates:"startsNotWith=na,error"`
+	}
+	initValidateTest(t, validateTestCustom, "StartsNotWith", &StartsNotWithStruct2{})
+
+	/// EndsWith
+	// Test 1
+	type EndsWithStruct1 struct {
+		Value string `json:"value" validates:"endsWith=ma"`
+	}
+	initValidateTest(t, validateTestDefault, "EndsWith", &EndsWithStruct1{})
+
+	// Test 2
+	type EndsWithStruct2 struct {
+		Value string `json:"value" validates:"endsWith=ma,error"`
+	}
+	initValidateTest(t, validateTestCustom, "EndsWith", &EndsWithStruct2{})
+
+	/// EndsNotWith
+	// Test 1
+	type EndsNotWithStruct1 struct {
+		Value string `json:"value" validates:"endsNotWith=me"`
+	}
+	initValidateTest(t, validateTestDefault, "EndsNotWith", &EndsNotWithStruct1{})
+
+	// Test 2
+	type EndsNotWithStruct2 struct {
+		Value string `json:"value" validates:"endsNotWith=me,error"`
+	}
+	initValidateTest(t, validateTestCustom, "EndsNotWith", &EndsNotWithStruct2{})
 }
