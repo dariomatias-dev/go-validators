@@ -372,4 +372,56 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"endsNotWith=me,error"`
 	}
 	initValidateTest(t, validateTestCustom, "EndsNotWith", &EndsNotWithStruct2{})
+
+	/// Email
+	// Test 1
+	type EmailStruct1 struct {
+		Value string `json:"value" validates:"email"`
+	}
+	initValidateTest(t, validateTestDefault, "Email", &EmailStruct1{})
+
+	// Test 2
+	type EmailStruct2 struct {
+		Value string `json:"value" validates:"email=error"`
+	}
+	initValidateTest(t, validateTestCustom, "Email", &EmailStruct2{})
+
+	/// Password
+	// Test 1
+	type PasswordStruct1 struct {
+		Value string `json:"value" validates:"password"`
+	}
+	initValidateTest(t, validateTestDefault, "Password", &PasswordStruct1{})
+
+	// Test 2
+	type PasswordStruct2 struct {
+		Value string `json:"value" validates:"password=error"`
+	}
+	initValidateTest(t, validateTestCustom, "Password", &PasswordStruct2{})
+
+	/// Url
+	// Test 1
+	type UrlStruct1 struct {
+		Value string `json:"value" validates:"url"`
+	}
+	initValidateTest(t, validateTestDefault, "Url", &UrlStruct1{})
+
+	// Test 2
+	type UrlStruct2 struct {
+		Value string `json:"value" validates:"url=error"`
+	}
+	initValidateTest(t, validateTestCustom, "Url", &UrlStruct2{})
+
+	/// Regex
+	// Test 1
+	type RegexStruct1 struct {
+		Value string `json:"value" validates:"regex=^[0-9]+$"`
+	}
+	initValidateTest(t, validateTestDefault, "Regex", &RegexStruct1{})
+
+	// Test 2
+	type RegexStruct2 struct {
+		Value string `json:"value" validates:"regex=^[0-9]+$,error"`
+	}
+	initValidateTest(t, validateTestCustom, "Regex", &RegexStruct2{})
 }
