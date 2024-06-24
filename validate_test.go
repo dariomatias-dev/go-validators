@@ -424,4 +424,36 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"regex=^[0-9]+$,error"`
 	}
 	initValidateTest(t, validateTestCustom, "Regex", &RegexStruct2{})
+
+	/// IsAlpha
+	// Test 1
+	type IsAlphaStruct1 struct {
+		Value string `json:"value" validates:"isAlpha"`
+	}
+	jsonValue = `{
+		"value": "0"
+	}`
+	initValidateTest(t, validateTestDefault, "IsAlpha", &IsAlphaStruct1{})
+
+	// Test 2
+	type IsAlphaStruct2 struct {
+		Value string `json:"value" validates:"isAlpha=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsAlpha", &IsAlphaStruct2{})
+
+	/// IsAlphaSpace
+	// Test 1
+	type IsAlphaSpaceStruct1 struct {
+		Value string `json:"value" validates:"isAlphaSpace"`
+	}
+	jsonValue = `{
+		"value": "0"
+	}`
+	initValidateTest(t, validateTestDefault, "IsAlphaSpace", &IsAlphaSpaceStruct1{})
+
+	// Test 2
+	type IsAlphaSpaceStruct2 struct {
+		Value string `json:"value" validates:"isAlphaSpace=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsAlphaSpace", &IsAlphaSpaceStruct2{})
 }
