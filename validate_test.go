@@ -262,4 +262,62 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"isNullArray=error"`
 	}
 	initValidateTest(t, validateTestCustom, "IsNullArray", &IsNullArrayStruct2{})
+
+	/// Min
+	// Test 1
+	type MinStruct1 struct {
+		Value string `json:"value" validates:"min=5"`
+	}
+	jsonValue = `{
+		"value": 3
+	}`
+	initValidateTest(t, validateTestDefault, "Min", &MinStruct1{})
+
+	// Test 2
+	type MinStruct2 struct {
+		Value string `json:"value" validates:"min=5,error"`
+	}
+	initValidateTest(t, validateTestCustom, "Min", &MinStruct2{})
+
+	/// Max
+	// Test 1
+	type MaxStruct1 struct {
+		Value string `json:"value" validates:"max=2"`
+	}
+	initValidateTest(t, validateTestDefault, "Max", &MaxStruct1{})
+
+	// Test 2
+	type MaxStruct2 struct {
+		Value string `json:"value" validates:"max=2,error"`
+	}
+	initValidateTest(t, validateTestCustom, "Max", &MaxStruct2{})
+
+	/// MinLength
+	// Test 1
+	type MinLengthStruct1 struct {
+		Value string `json:"value" validates:"minLength=5"`
+	}
+	jsonValue = `{
+		"value": "name"
+	}`
+	initValidateTest(t, validateTestDefault, "MinLength", &MinLengthStruct1{})
+
+	// Test 2
+	type MinLengthStruct2 struct {
+		Value string `json:"value" validates:"minLength=5,error"`
+	}
+	initValidateTest(t, validateTestCustom, "MinLength", &MinLengthStruct2{})
+
+	/// MaxLength
+	// Test 1
+	type MaxLengthStruct1 struct {
+		Value string `json:"value" validates:"maxLength=2"`
+	}
+	initValidateTest(t, validateTestDefault, "MaxLength", &MaxLengthStruct1{})
+
+	// Test 2
+	type MaxLengthStruct2 struct {
+		Value string `json:"value" validates:"maxLength=2,error"`
+	}
+	initValidateTest(t, validateTestCustom, "MaxLength", &MaxLengthStruct2{})
 }
