@@ -132,9 +132,6 @@ func TestValidate(t *testing.T) {
 	type IsIntStruct1 struct {
 		Value string `json:"value" validates:"isInt"`
 	}
-	jsonValue = `{
-		"value": "name"
-	}`
 	initValidateTest(t, validateTestDefault, "IsInt", &IsIntStruct1{})
 
 	// Test 2
@@ -148,9 +145,6 @@ func TestValidate(t *testing.T) {
 	type IsFloatStruct1 struct {
 		Value string `json:"value" validates:"isFloat"`
 	}
-	jsonValue = `{
-		"value": "name"
-	}`
 	initValidateTest(t, validateTestDefault, "IsFloat", &IsFloatStruct1{})
 
 	// Test 2
@@ -164,9 +158,6 @@ func TestValidate(t *testing.T) {
 	type IsBoolStruct1 struct {
 		Value string `json:"value" validates:"isBool"`
 	}
-	jsonValue = `{
-		"value": "name"
-	}`
 	initValidateTest(t, validateTestDefault, "IsBool", &IsBoolStruct1{})
 
 	// Test 2
@@ -174,4 +165,75 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"isBool=error"`
 	}
 	initValidateTest(t, validateTestCustom, "IsBool", &IsBoolStruct2{})
+
+	/// IsNullString
+	// Test 1
+	type IsNullStringStruct1 struct {
+		Value string `json:"value" validates:"isNullString"`
+	}
+	jsonValue = `{
+		"value": 0
+	}`
+	initValidateTest(t, validateTestDefault, "IsNullString", &IsNullStringStruct1{})
+
+	// Test 2
+	type IsNullStringStruct2 struct {
+		Value string `json:"value" validates:"isNullString=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsNullString", &IsNullStringStruct2{})
+
+	/// IsNullNumber
+	// Test 1
+	type IsNullNumberStruct1 struct {
+		Value string `json:"value" validates:"isNullNumber"`
+	}
+	jsonValue = `{
+		"value": "name"
+	}`
+	initValidateTest(t, validateTestDefault, "IsNullNumber", &IsNullNumberStruct1{})
+
+	// Test 2
+	type IsNullNumberStruct2 struct {
+		Value string `json:"value" validates:"isNullNumber=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsNullNumber", &IsNullNumberStruct2{})
+
+	/// IsNullInt
+	// Test 1
+	type IsNullIntStruct1 struct {
+		Value string `json:"value" validates:"isNullInt"`
+	}
+	initValidateTest(t, validateTestDefault, "IsNullInt", &IsNullIntStruct1{})
+
+	// Test 2
+	type IsNullIntStruct2 struct {
+		Value string `json:"value" validates:"isNullInt=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsNullInt", &IsNullIntStruct2{})
+
+	/// IsNullFloat
+	// Test 1
+	type IsNullFloatStruct1 struct {
+		Value string `json:"value" validates:"isNullFloat"`
+	}
+	initValidateTest(t, validateTestDefault, "IsNullFloat", &IsNullFloatStruct1{})
+
+	// Test 2
+	type IsNullFloatStruct2 struct {
+		Value string `json:"value" validates:"isNullFloat=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsNullFloat", &IsNullFloatStruct2{})
+
+	/// IsNullBool
+	// Test 1
+	type IsNullBoolStruct1 struct {
+		Value string `json:"value" validates:"isNullBool"`
+	}
+	initValidateTest(t, validateTestDefault, "IsNullBool", &IsNullBoolStruct1{})
+
+	// Test 2
+	type IsNullBoolStruct2 struct {
+		Value string `json:"value" validates:"isNullBool=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsNullBool", &IsNullBoolStruct2{})
 }
