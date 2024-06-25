@@ -311,6 +311,16 @@ if err != nil {
         </td>
     </tr>
     <tr>
+        <td>Length</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>Size*</li>
+                <li>Error message</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
         <td>MinLength</td>
         <td>Value</td>
         <td>

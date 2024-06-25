@@ -6,6 +6,39 @@ import (
 	"reflect"
 )
 
+// Checks if a string/slice/array has the specified length.
+//
+// Configuration parameters:
+//   - length (int): length that the string must have.
+//   - errorMessage (string): custom error message (optional).
+//
+// Input value (string | slice | array): value to be validated.
+//
+// Usage examples:
+//
+// String
+//
+// 	value := "Name"
+// 	v.Length(4)(value)               // Output: nil, false
+//
+// 	v.Length(3)(value)               // Output: [error message], false
+// 	v.Length(3, "error")(value)      // Output: "error", false
+//
+// Slice
+//
+// 	value := []string{"Name", "is"}
+// 	v.Length(2)(value)               // Output: nil, false
+//
+// 	v.Length(1)(value)               // Output: [error message], false
+// 	v.Length(1, "error")(value)      // Output: "error", false
+//
+// Array
+//
+// 	value := [2]string{"Name", "is"}
+// 	v.Length(2)(value)               // Output: nil, false
+//
+// 	v.Length(1)(value)               // Output: [error message], false
+// 	v.Length(1, "error")(value)      // Output: "error", false
 func Length(
 	length any,
 	errorMessage ...string,
