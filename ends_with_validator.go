@@ -17,10 +17,10 @@ import (
 // Usage examples:
 //
 //	value := "message"
-//	v.EndsWith("age")(value) // Output: nil, false
+//	v.EndsWith("age")(value)          // Output: nil, false
 //
 //	value := "send message"
-//	v.EndsWith("end")(value) // Output: [error message], false
+//	v.EndsWith("end")(value)          // Output: [error message], false
 //	v.EndsWith("end", "error")(value) // Output: "error", false
 func EndsWith(
 	endsWith string,

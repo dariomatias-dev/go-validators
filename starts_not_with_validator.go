@@ -16,10 +16,10 @@ import (
 // Usage examples:
 //
 //	value := "message"
-//	v.StartsNotWith("es")(value) // Output: nil, false
+//	v.StartsNotWith("es")(value)            // Output: nil, false
 //
 //	value := "send message"
-//	v.StartsNotWith("send")(value) // Output: [error message], false
+//	v.StartsNotWith("send")(value)          // Output: [error message], false
 //	v.StartsNotWith("send", "error")(value) // Output: "error", false
 func StartsNotWith(
 	startsNotWith string,

@@ -19,10 +19,10 @@ import (
 //	errorMessage := "The value must be in capital letters"
 //
 //	value := "ABC"
-//	v.Regex(regex, errorMessage)(value) // Output: nil, false
+//	v.Regex(regex, errorMessage)(value)                    // Output: nil, false
 //
 //	value = "abc"
-//	v.Regex(regex, errorMessage)(value) // Output: [error message], false
+//	v.Regex(regex, errorMessage)(value)                    // Output: The value must be in capital letters, false
 func Regex(
 	regex string,
 	errorMessage string,

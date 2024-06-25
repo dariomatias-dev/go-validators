@@ -15,13 +15,13 @@ import (
 // Usage examples:
 //
 //	value1 := true
-//	v.IsBool()(value1) // Output: nil, false
+//	v.IsBool()(value1)        // Output: nil, false
 //
 //	value2 := nil
-//	v.IsBool()(value2) // Output: [error message], true
+//	v.IsBool()(value2)        // Output: [error message], true
 //
 //	value3 := 0
-//	v.IsBool()(value3) // Output: [error message], true
+//	v.IsBool()(value3)        // Output: [error message], true
 //	v.IsBool("error")(value3) // Output: "error", true
 func IsBool(
 	errorMessage ...string,

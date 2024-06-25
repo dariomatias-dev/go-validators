@@ -10,13 +10,13 @@ package validators
 // Usage examples:
 //
 //	value1 := true
-//	v.IsNullBool()(value1) // Output: nil, false
+//	v.IsNullBool()(value1)        // Output: nil, false
 //
 //	value2 := nil
-//	v.IsNullBool()(value2) // Output: nil, true
+//	v.IsNullBool()(value2)        // Output: nil, true
 //
 //	value3 := 0
-//	v.IsNullBool()(value3) // Output: [error message], true
+//	v.IsNullBool()(value3)        // Output: [error message], true
 //	v.IsNullBool("error")(value3) // Output: "error", true
 func IsNullBool(
 	errorMessage ...string,

@@ -17,28 +17,28 @@ import "fmt"
 //		[]Validator{
 //			IsString(),
 //		},
-//	)(value1) // Output: nil, true
+//	)(value1)               // Output: nil, true
 //
 //	value2 := []string{""}
 //	IsNullArray(
 //		[]Validator{
 //			IsString(),
 //		},
-//	)(value2) // Output: nil, false
+//	)(value2)               // Output: nil, false
 //
 //	value3 := [1]string{""}
 //	IsNullArray(
 //		[]Validator{
 //			IsString(),
 //		},
-//	)(value3) // Output: nil, false
+//	)(value3)               // Output: nil, false
 //
 //	value4 := ""
 //	IsNullArray(
 //		[]Validator{
 //			IsString(),
 //		},
-//	)(value4) // Output: [error message], true
+//	)(value4)               // Output: [error message], true
 func IsNullArray(
 	validators []Validator,
 	errorMessage ...string,

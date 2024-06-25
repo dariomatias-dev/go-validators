@@ -15,16 +15,16 @@ import (
 // Usage examples:
 //
 //	value1 := 1
-//	v.IsNumber()(value1) // Output: nil, false
+//	v.IsNumber()(value1)        // Output: nil, false
 //
 //	value2 := 1.0
-//	v.IsNumber()(value2) // Output: nil, false
+//	v.IsNumber()(value2)        // Output: nil, false
 //
 //	value3 := nil
-//	v.IsNumber()(value3) // Output: [error message], true
+//	v.IsNumber()(value3)        // Output: [error message], true
 //
 //	value4 := ""
-//	v.IsNumber()(value4) // Output: [error message], true
+//	v.IsNumber()(value4)        // Output: [error message], true
 //	v.IsNumber("error")(value4) // Output: "error", true
 func IsNumber(
 	errorMessage ...string,

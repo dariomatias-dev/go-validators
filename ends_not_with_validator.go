@@ -16,9 +16,9 @@ import (
 // Usage examples:
 //
 //	value := "message"
-//	v.EndsNotWith("mes")(value) // Output: nil, false
+//	v.EndsNotWith("mes")(value)          // Output: nil, false
 //
-//	v.EndsNotWith("age")(value) // Output: [error message], false
+//	v.EndsNotWith("age")(value)          // Output: [error message], false
 //	v.EndsNotWith("age", "error")(value) // Output: "error", false
 func EndsNotWith(
 	endsNotWith string,

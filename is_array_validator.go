@@ -22,28 +22,28 @@ import (
 //		[]Validator{
 //			IsString(),
 //		},
-//	)(value1) // Output: nil, false
+//	)(value1)               // Output: nil, false
 //
 //	value2 := [1]string{""}
 //	IsArray(
 //		[]Validator{
 //			IsString(),
 //		},
-//	)(value2) // Output: nil, false
+//	)(value2)               // Output: nil, false
 //
 //	value3 := ""
 //	IsArray(
 //		[]Validator{
 //			IsString(),
 //		},
-//	)(value3) // Output: [error message], true
+//	)(value3)               // Output: [error message], true
 //
 //	value4 := nil
 //	IsNullArray(
 //		[]Validator{
 //			IsString(),
 //		},
-//	)(value4) // Output: [error message], true
+//	)(value4)               // Output: [error message], true
 func IsArray(
 	validators []Validator,
 	errorMessage ...string,

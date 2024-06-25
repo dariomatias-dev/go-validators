@@ -15,16 +15,16 @@ import (
 // Usage examples:
 //
 //	value2 := 1.0
-//	v.IsFloat()(value2) // Output: nil, false
+//	v.IsFloat()(value2)        // Output: nil, false
 //
 //	value1 := 1
-//	v.IsFloat()(value1) // Output: [error message], true
+//	v.IsFloat()(value1)        // Output: [error message], true
 //
 //	value3 := nil
-//	v.IsFloat()(value3) // Output: [error message], true
+//	v.IsFloat()(value3)        // Output: [error message], true
 //
 //	value4 := ""
-//	v.IsFloat()(value4) // Output: [error message], true
+//	v.IsFloat()(value4)        // Output: [error message], true
 //	v.IsFloat("error")(value4) // Output: "error", true
 func IsFloat(
 	errorMessage ...string,

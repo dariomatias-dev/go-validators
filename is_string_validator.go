@@ -15,13 +15,13 @@ import (
 // Usage examples:
 //
 //	value1 := "Name"
-//	v.IsString()(value1) // Output: nil, false
+//	v.IsString()(value1)        // Output: nil, false
 //
 //	value2 := nil
-//	v.IsString()(value2) // Output: [error message], true
+//	v.IsString()(value2)        // Output: [error message], true
 //
 //	value3 := 0
-//	v.IsString()(value3) // Output: [error message], true
+//	v.IsString()(value3)        // Output: [error message], true
 //	v.IsString("error")(value3) // Output: "error", true
 func IsString(
 	errorMessage ...string,

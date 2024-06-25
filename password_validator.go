@@ -22,10 +22,10 @@ var (
 // Usage examples:
 //
 //	value := "abcABC0123!@"
-//	v.Password()(value) // Output: nil, false
+//	v.Password()(value)        // Output: nil, false
 //
 //	value = "abc"
-//	v.Password()(value) // Output: [error message], false
+//	v.Password()(value)        // Output: [error message], false
 //	v.Password("error")(value) // Output: "error", false
 func Password(
 	errorMessage ...string,

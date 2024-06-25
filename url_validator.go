@@ -15,10 +15,10 @@ import (
 // Usage examples:
 //
 //	value := "golang.org"
-//	v.URL()(value) // Output: nil, false
+//	v.URL()(value)        // Output: nil, false
 //
 //	value = "golang"
-//	v.URL()(value) // Output: [error message], false
+//	v.URL()(value)        // Output: [error message], false
 //	v.URL("error")(value) // Output: "error", false
 func URL(
 	errorMessage ...string,

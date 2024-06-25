@@ -16,10 +16,10 @@ import (
 // Usage examples:
 //
 //	value := 6
-//	v.Min(5)(value) // Output: nil, false
+//	v.Min(5)(value)          // Output: nil, false
 //
 //	value := 3
-//	v.Min(5)(value) // Output: [error message], false
+//	v.Min(5)(value)          // Output: [error message], false
 //	v.Min(5, "error")(value) // Output: "error", false
 func Min(
 	min any,

@@ -19,13 +19,13 @@ var (
 // Usage examples:
 //
 //	value := "abcABC"
-//	v.IsAlpha()(value) // Output: nil, false
+//	v.IsAlpha()(value)     // Output: nil, false
 //
 //	value = "abcABC "
-//	v.IsAlpha()(value) // Output: [error message], false
+//	v.IsAlpha()(value)     // Output: [error message], false
 //
 //	value = "abcABC0123!@"
-//	v.IsAlpha()(value) // Output: [error message], false
+//	v.IsAlpha()(value)     // Output: [error message], false
 func IsAlpha(
 	errorMessage ...string,
 ) Validator {

@@ -16,10 +16,10 @@ import (
 // Usage examples:
 //
 //	value := 3
-//	v.Max(5)(value) // Output: nil, false
+//	v.Max(5)(value)          // Output: nil, false
 //
 //	value := 6
-//	v.Max(5)(value) // Output: [error message], false
+//	v.Max(5)(value)          // Output: [error message], false
 //	v.Max(5, "error")(value) // Output: "error", false
 func Max(
 	max any,

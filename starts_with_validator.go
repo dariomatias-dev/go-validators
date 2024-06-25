@@ -17,10 +17,10 @@ import (
 // Usage examples:
 //
 //	value := "message"
-//	v.StartsWith("mes")(value) // Output: nil, false
+//	v.StartsWith("mes")(value)          // Output: nil, false
 //
 //	value := "send message"
-//	v.StartsWith("end")(value) // Output: [error message], false
+//	v.StartsWith("end")(value)          // Output: [error message], false
 //	v.StartsWith("end", "error")(value) // Output: "error", false
 func StartsWith(
 	startWith string,

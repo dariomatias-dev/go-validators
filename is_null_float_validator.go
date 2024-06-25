@@ -10,16 +10,16 @@ package validators
 // Usage examples:
 //
 //	value1 := nil
-//	v.IsNullFloat()(value1) // Output: nil, true
+//	v.IsNullFloat()(value1)        // Output: nil, true
 //
 //	value2 := 1.0
-//	v.IsNullFloat()(value2) // Output: nil, false
+//	v.IsNullFloat()(value2)        // Output: nil, false
 //
 //	value3 := 1
-//	v.IsNullFloat()(value3) // Output: [error message], true
+//	v.IsNullFloat()(value3)        // Output: [error message], true
 //
 //	value4 := ""
-//	v.IsNullFloat()(value4) // Output: [error message], true
+//	v.IsNullFloat()(value4)        // Output: [error message], true
 //	v.IsNullFloat("error")(value4) // Output: "error", true
 func IsNullFloat(
 	errorMessage ...string,
