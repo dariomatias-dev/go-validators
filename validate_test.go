@@ -81,12 +81,22 @@ func TestValidate(t *testing.T) {
 	}
 
 	/// - Errors
+	// Test 1
+	type ValidateStruct struct {
+		Value string `json:"value"`
+	}
+	jsonValue = `{}`
+	validateStruct := ValidateStruct{}
+	err := Validate(&validateStruct, jsonValue)
+	if err == nil {
+		t.Errorf("received: nil; expected: \"[error message]\"",)
+	}
+
 	/// Required
 	// Test 1
 	type RequiredStruct1 struct {
 		Value string `json:"value" validates:"required"`
 	}
-	jsonValue = `{}`
 	initValidateTest(t, validateTestDefault, "Required", &RequiredStruct1{})
 
 	// Test 2
