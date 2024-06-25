@@ -9,7 +9,7 @@ import (
 // Checks if a string/slice/array has the specified length.
 //
 // Configuration parameters:
-//   - length (int): length that the string must have.
+//   - length (int): length that the value must have.
 //   - errorMessage (string): custom error message (optional).
 //
 // Input value (string | slice | array): value to be validated.

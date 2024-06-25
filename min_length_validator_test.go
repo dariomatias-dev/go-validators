@@ -13,13 +13,14 @@ func TestMinLength(t *testing.T) {
 		t.Errorf(setError("MinLength(5)(\"aAbBcC\") = %v, %t; expected: nil, false"))
 	}
 
-	/// Array Size
+	/// Slice Size
 	// Test 2
 	err, abortValidation = MinLength(5)([]int{0, 1, 2, 3, 4})
 	if err != nil || abortValidation {
 		t.Errorf(setError("MinLength(5)([]int{0, 1, 2, 3, 4}) = %v, %t; expected: nil, false"))
 	}
 
+	/// Array Size
 	// Test 3
 	err, abortValidation = MinLength(5)([5]int{0, 1, 2, 3})
 	if err != nil || abortValidation {
@@ -58,7 +59,7 @@ func TestMinLength(t *testing.T) {
 		t.Errorf(setError("MinLength(5, \"error\")(\"aA\") = %v, %t; expected: \"error\", false"))
 	}
 
-	/// Array Size
+	/// Slice Size
 	// Test 1
 	err, abortValidation = MinLength(5)([]int{})
 	if err == nil || abortValidation {
@@ -83,6 +84,7 @@ func TestMinLength(t *testing.T) {
 		t.Errorf(setError("MinLength(5, \"error\")([]int{0, 1, 2, 3}) = %v, %t; expected: \"error\", false"))
 	}
 
+	/// Array Size
 	// Test 5
 	err, abortValidation = MinLength(5)([4]int{0, 1, 2, 3})
 	if err == nil || abortValidation {

@@ -13,13 +13,14 @@ func TestMaxLength(t *testing.T) {
 		t.Errorf(setError("MaxLength(5)(\"aA\") = %v, %t; expected: nil, false"))
 	}
 
-	/// Array Size
+	/// Slice Size
 	// Test 2
 	err, abortValidation = MaxLength(5)([]int{0, 1, 2, 3, 4})
 	if err != nil || abortValidation {
 		t.Errorf(setError("MaxLength(5)([]int{0, 1, 2, 3, 4}) = %v, %t; expected: nil, false"))
 	}
 
+	/// Array size
 	// Test 3
 	err, abortValidation = MaxLength(5)([5]int{0, 1, 2, 3, 4})
 	if err != nil || abortValidation {
@@ -46,7 +47,7 @@ func TestMaxLength(t *testing.T) {
 		t.Errorf(setError("MaxLength(5, \"error\")(\"aAbBcC\") = %v, %t; expected: \"error\", false"))
 	}
 
-	/// Array Size
+	/// Slice Size
 	// Test 3
 	err, abortValidation = MaxLength(5)([]int{0, 1, 2, 3, 4, 5})
 	if err == nil || abortValidation {
@@ -59,6 +60,7 @@ func TestMaxLength(t *testing.T) {
 		t.Errorf(setError("MaxLength(5, \"error\")([]int{0, 1, 2, 3, 4, 5}) = %v, %t; expected: \"error\", false"))
 	}
 
+	/// Array Size
 	// Test 5
 	err, abortValidation = MaxLength(5)([6]int{0, 1, 2, 3, 4, 5})
 	if err == nil || abortValidation {

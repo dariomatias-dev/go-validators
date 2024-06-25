@@ -6,7 +6,7 @@ import (
 	"reflect"
 )
 
-// Checks if a string has the specified maximum length.
+// Checks if a string/slice/array has the specified maximum length.
 //
 // Configuration parameters:
 //   - maxLength (int): maximum length that the string must have.
@@ -19,26 +19,26 @@ import (
 // String
 //
 //	value := "Name"
-//	v.MaxLength(5)(value) // Output: nil, false
+//	v.MaxLength(5)(value)            // Output: nil, false
 //
-//	v.MaxLength(3)(value) // Output: [error message], false
-//	v.MaxLength(3, "error")(value) // Output: "error", false
+//	v.MaxLength(3)(value)            // Output: [error message], false
+//	v.MaxLength(3, "error")(value)   // Output: "error", false
 //
 // Slice
 //
 //	value := []string{"Name", "is"}
-//	v.MaxLength(3)(value) // Output: nil, false
+//	v.MaxLength(3)(value)            // Output: nil, false
 //
-//	v.MaxLength(1)(value) // Output: [error message], false
-//	v.MaxLength(1, "error")(value) // Output: "error", false
+//	v.MaxLength(1)(value)            // Output: [error message], false
+//	v.MaxLength(1, "error")(value)   // Output: "error", false
 //
 // Array
 //
 //	value := [2]string{"Name", "is"}
-//	v.MaxLength(3)(value) // Output: nil, false
+//	v.MaxLength(3)(value)            // Output: nil, false
 //
-//	v.MaxLength(1)(value) // Output: [error message], false
-//	v.MaxLength(1, "error")(value) // Output: "error", false
+//	v.MaxLength(1)(value)            // Output: [error message], false
+//	v.MaxLength(1, "error")(value)   // Output: "error", false
 func MaxLength(
 	maxLength any,
 	errorMessage ...string,

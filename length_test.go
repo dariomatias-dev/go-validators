@@ -1,6 +1,8 @@
 package validators
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestLength(t *testing.T) {
 	/// - Successes
@@ -11,13 +13,14 @@ func TestLength(t *testing.T) {
 		t.Errorf(setError("Length(5)(\"aAbBc\") = %v, %t; expected: nil, false"))
 	}
 
-	/// Array Size
+	/// Slice Size
 	// Test 2
 	err, abortValidation = Length(5)([]int{0, 1, 2, 3, 4})
 	if err != nil || abortValidation {
 		t.Errorf(setError("Length(5)([]int{0, 1, 2, 3, 4}) = %v, %t; expected: nil, false"))
 	}
 
+	/// Array Size
 	// Test 3
 	err, abortValidation = Length(5)([5]int{0, 1, 2, 3, 4})
 	if err != nil || abortValidation {
@@ -44,7 +47,7 @@ func TestLength(t *testing.T) {
 		t.Errorf(setError("Length(5, \"error\")(\"aAbB\") = %v, %t; expected: \"error\", false"))
 	}
 
-	/// Array Size
+	/// Slice Size
 	// Test 3
 	err, abortValidation = Length(5)([]int{0, 1, 2, 3})
 	if err == nil || abortValidation {
@@ -57,6 +60,7 @@ func TestLength(t *testing.T) {
 		t.Errorf(setError("Length(5, \"error\")([]int{0, 1, 2, 3}) = %v, %t; expected: \"error\", false"))
 	}
 
+	/// Array Size
 	// Test 5
 	err, abortValidation = Length(5)([4]int{0, 1, 2, 3})
 	if err == nil || abortValidation {

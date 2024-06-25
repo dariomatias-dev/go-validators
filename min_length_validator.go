@@ -6,10 +6,10 @@ import (
 	"reflect"
 )
 
-// Checks if a string has the specified minimum length.
+// Checks if a string/slice/array has the specified minimum length.
 //
 // Configuration parameters:
-//   - minLength (int): minimum length that the string must have.
+//   - minLength (int): minimum length that the value must have.
 //   - errorMessage (string): custom error message (optional).
 //
 // Input value (string | slice | array): value to be validated.
@@ -19,26 +19,26 @@ import (
 // String
 //
 //	value := "Name"
-//	v.MinLength(3)(value) // Output: nil, false
+//	v.MinLength(3)(value)            // Output: nil, false
 //
-//	v.MinLength(5)(value) // Output: [error message], false
-//	v.MinLength(5, "error")(value) // Output: "error", false
+//	v.MinLength(5)(value)            // Output: [error message], false
+//	v.MinLength(5, "error")(value)   // Output: "error", false
 //
 // Slice
 //
 //	value := []string{"Name", "is"}
-//	v.MinLength(1)(value) // Output: nil, false
+//	v.MinLength(1)(value)            // Output: nil, false
 //
-//	v.MinLength(3)(value) // Output: [error message], false
-//	v.MinLength(3, "error")(value) // Output: "error", false
+//	v.MinLength(3)(value)            // Output: [error message], false
+//	v.MinLength(3, "error")(value)   // Output: "error", false
 //
 // Array
 //
 //	value := [2]string{"Name", "is"}
-//	v.MinLength(1)(value) // Output: nil, false
+//	v.MinLength(1)(value)            // Output: nil, false
 //
-//	v.MinLength(3)(value) // Output: [error message], false
-//	v.MinLength(3, "error")(value) // Output: "error", false
+//	v.MinLength(3)(value)            // Output: [error message], false
+//	v.MinLength(3, "error")(value)   // Output: "error", false
 func MinLength(
 	minLength any,
 	errorMessage ...string,
