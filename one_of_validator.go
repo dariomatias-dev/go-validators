@@ -7,7 +7,7 @@ import (
 )
 
 func OneOf(
-	allowedValues any,
+	options any,
 	errorMessage ...string,
 ) Validator {
 	message := ""
@@ -16,7 +16,7 @@ func OneOf(
 	}
 
 	return func(value any) (error, bool) {
-		structValue := reflect.ValueOf(allowedValues)
+		structValue := reflect.ValueOf(options)
 
 		switch structValue.Kind() {
 		case reflect.Array, reflect.Slice:
@@ -51,7 +51,7 @@ func OneOf(
 			}
 
 		default:
-			message = "\"allowedValues\" invalid"
+			message = "options invalid"
 			return errors.New(message), false
 		}
 
