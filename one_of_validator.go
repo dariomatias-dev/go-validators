@@ -6,6 +6,23 @@ import (
 	"reflect"
 )
 
+// Checks if the value is within certain options.
+//
+// Configuration parameters:
+//   - options (slice | array): value options.
+//   - errorMessage (string): custom error message (optional).
+//
+// Input value (string | int | float64): value to be validated.
+//
+// Usage examples:
+//
+//	options := []string{"one", "two", "three"}
+//	value := "three"
+//	v.OneOf(options)(value)                    // Output: nil, false
+//
+//	value = "four"
+//	v.OneOf(options)(value)                    // Output: [error message], false
+//	v.OneOf(options, "error")(value)           // Output: "error", false
 func OneOf(
 	options any,
 	errorMessage ...string,

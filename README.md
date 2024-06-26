@@ -424,6 +424,20 @@ if err != nil {
         </td>
     </tr>
     <tr>
+        <td>OneOf</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>
+	                Options*
+                </li>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
         <td>Custom</td>
         <td>Value</td>
         <td>
