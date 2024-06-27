@@ -5,7 +5,7 @@ package validators
 // Configuration parameters:
 //   - errorMessage (string): custom error message (optional).
 //
-// Input value (any): Value to be validated.
+// Input value (nil | bool): Value to be validated.
 //
 // Usage examples:
 //

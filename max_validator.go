@@ -8,10 +8,10 @@ import (
 // Checks if the value is greater than the specified maximum value.
 //
 // Configuration parameters:
-//   - max(int | int32| int64 | float32 | float64): maximum value that the value must have.
+//   - max(int | int32 | int64 | float32 | float64): maximum value that the value must have.
 //   - errorMessage (string): custom error message (optional).
 //
-// Input value (int | int32| int64 | float32 | float64): value to be validated.
+// Input value (int | int32 | int64 | float32 | float64): value to be validated.
 //
 // Usage examples:
 //

@@ -69,7 +69,7 @@ if err != nil {
 // Error
 value = 2
 
-err, _ = v.Min(3)(value) // The minimum value is 3, but it received 2, false
+err, _ = v.Min(3)(value)  // The minimum value is 3, but it received 2, false
 if err != nil {
     fmt.Println(err)
     return
@@ -97,7 +97,7 @@ json := `{
 }`
 
 // Success
-err := Validate(&user, json) // Output: nil
+err := Validate(&user, json)           // Output: nil
 if err != nil {
     fmt.Println(err)
     return
@@ -109,7 +109,7 @@ json := `{
     "age":   16,
     "email": "emailexample@gmail.com"
 }`
-err := Validate(&user, json) // Output: {"age":["The minimum value is 18, but it received 16."]}
+err := Validate(&user, json)           // Output: {"age":["The minimum value is 18, but it received 16."]}
 if err != nil {
     fmt.Println(err)
     return
@@ -120,9 +120,10 @@ if err != nil {
 
 <table>
     <tr>
-        <th>Validators</th>
+        <th>Validator</th>
         <th>Type</th>
         <th>Input</th>
+        <th>Value Type</th>
     </tr>
     <tr>
         <td>Required</td>
@@ -134,6 +135,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>any</td>
     </tr>
     <tr>
         <td>IsString</td>
@@ -145,6 +147,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>IsNumber</td>
@@ -156,6 +159,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>int | float</td>
     </tr>
     <tr>
         <td>IsInt</td>
@@ -167,6 +171,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>int</td>
     </tr>
     <tr>
         <td>IsFloat</td>
@@ -178,6 +183,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>float</td>
     </tr>
     <tr>
         <td>IsBool</td>
@@ -189,6 +195,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>bool</td>
     </tr>
     <tr>
         <td>IsArray</td>
@@ -199,6 +206,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>slice | array</td>
     </tr>
     <tr>
         <td>IsNullString</td>
@@ -210,6 +218,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>nil | string</td>
     </tr>
     <tr>
         <td>IsNullNumber</td>
@@ -221,6 +230,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>nil | int | float</td>
     </tr>
     <tr>
         <td>IsNullInt</td>
@@ -232,6 +242,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>nil | int</td>
     </tr>
     <tr>
         <td>IsNullFloat</td>
@@ -243,6 +254,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>nil | float</td>
     </tr>
     <tr>
         <td>IsNullBool</td>
@@ -254,6 +266,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>nil | bool</td>
     </tr>
     <tr>
         <td>IsNullArray</td>
@@ -264,6 +277,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>nil | slice | array</td>
     </tr>
     <tr>
         <td>Email</td>
@@ -278,6 +292,7 @@ if err != nil {
                 </ul>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>Password</td>
@@ -289,6 +304,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>Min</td>
@@ -299,6 +315,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>int | int32 | int64 | float32 | float64</td>
     </tr>
     <tr>
         <td>Max</td>
@@ -309,6 +326,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>int | int32 | int64 | float32 | float64</td>
     </tr>
     <tr>
         <td>Length</td>
@@ -319,6 +337,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>string | slice | array</td>
     </tr>
     <tr>
         <td>MinLength</td>
@@ -329,6 +348,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>string | slice | array</td>
     </tr>
     <tr>
         <td>MaxLength</td>
@@ -339,6 +359,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>string | slice | array</td>
     </tr>
     <tr>
         <td>IsAlpha</td>
@@ -350,6 +371,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>IsAlphaSpace</td>
@@ -361,6 +383,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>StartsWith</td>
@@ -371,6 +394,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>StartsNotWith</td>
@@ -381,6 +405,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>EndsWith</td>
@@ -391,6 +416,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>EndsNotWith</td>
@@ -401,6 +427,7 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>Regex</td>
@@ -411,9 +438,10 @@ if err != nil {
                 <li>Error message</li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
-        <td>URL</td>
+        <td>Url</td>
         <td>Value</td>
         <td>
             <ul>
@@ -422,6 +450,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>OneOf</td>
@@ -436,6 +465,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>string</td>
     </tr>
     <tr>
         <td>Custom</td>
@@ -447,6 +477,7 @@ if err != nil {
                 </li>
             </ul>
         </td>
+        <td>any</td>
     </tr>
 </table>
 

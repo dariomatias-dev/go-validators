@@ -10,7 +10,7 @@ import (
 // Configuration parameters:
 //   - errorMessage (string): custom error message (optional).
 //
-// Input value (any): Value to be validated.
+// Input value (bool): Value to be validated.
 //
 // Usage examples:
 //

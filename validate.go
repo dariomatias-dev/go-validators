@@ -494,7 +494,7 @@ func selectValidation(
 	case "url":
 		setErrCustomMessage(1)
 
-		validation = URL(errCustomMessage)
+		validation = Url(errCustomMessage)
 	case "oneOf":
 		setErrCustomMessage(2)
 		options := strings.Split(options[0], " ")

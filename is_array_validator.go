@@ -13,7 +13,7 @@ import (
 //   - validators ([]Validator): validators that will be applied to each value in the array.
 //   - errorMessage (string): custom error message (optional).
 //
-// Input value ([]any): value to be validated.
+// Input value (slice | array): value to be validated.
 //
 // Usage examples:
 //

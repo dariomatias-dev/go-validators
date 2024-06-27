@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-// Checks if the value is a valid URL.
+// Checks if the value is a valid Url.
 //
 // Configuration parameters:
 //   - errorMessage (string): custom error message.
@@ -15,15 +15,15 @@ import (
 // Usage examples:
 //
 //	value := "golang.org"
-//	v.URL()(value)        // Output: nil, false
+//	v.Url()(value)        // Output: nil, false
 //
 //	value = "golang"
-//	v.URL()(value)        // Output: [error message], false
-//	v.URL("error")(value) // Output: "error", false
-func URL(
+//	v.Url()(value)        // Output: [error message], false
+//	v.Url("error")(value) // Output: "error", false
+func Url(
 	errorMessage ...string,
 ) Validator {
-	message := "Invalid URL"
+	message := "Invalid Url"
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
 	}
