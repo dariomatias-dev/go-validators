@@ -37,6 +37,7 @@ type FieldValidations struct {
 	StartsWith     string   `json:"startsWith"     validates:"required;isString;startsWith=na"`
 	StartsNotWith  string   `json:"startsNotWith"  validates:"required;isString;startsNotWith=ne"`
 	Url            string   `json:"url"            validates:"required;url"`
+	OneOf          string   `json:"oneOf"          validates:"required;oneOf=EASY MEDIUM HARD"`
 }
 
 const values = `{
@@ -64,7 +65,8 @@ const values = `{
 	"regex":          "0123",
 	"startsWith":     "name",
 	"startsNotWith":  "name",
-	"url":            "https://example.com"
+	"url":            "https://example.com",
+	"oneOf":          "EASY"
 }`
 
 func TestValidate(t *testing.T) {
@@ -89,7 +91,7 @@ func TestValidate(t *testing.T) {
 	validateStruct := ValidateStruct{}
 	err := Validate(&validateStruct, jsonValue)
 	if err == nil {
-		t.Errorf("received: nil; expected: \"[error message]\"",)
+		t.Errorf("received: nil; expected: \"[error message]\"")
 	}
 
 	/// Required
@@ -466,4 +468,18 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"isAlphaSpace=error"`
 	}
 	initValidateTest(t, validateTestCustom, "IsAlphaSpace", &IsAlphaSpaceStruct2{})
+
+	/// OneOf
+	// Test 1
+	type OneOfStruct1 struct {
+		Value string `json:"value" validates:"oneOf=EASY MEDIUM HARD"`
+	}
+	initValidateTest(t, validateTestDefault, "OneOf", &OneOfStruct1{})
+
+	/// OneOf
+	// Test 1
+	type OneOfStruct2 struct {
+		Value string `json:"value" validates:"oneOf=EASY MEDIUM HARD, error"`
+	}
+	initValidateTest(t, validateTestDefault, "OneOf", &OneOfStruct2{})
 }

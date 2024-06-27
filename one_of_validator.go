@@ -47,7 +47,7 @@ func OneOf(
 
 			if !valueIsValid {
 				if len(errorMessage) == 0 {
-					message = "Value not found in options: "
+					message = fmt.Sprintf("Value `%v` not found in options: ", value)
 
 					structValueLen := structValue.Len()
 					for i := range structValueLen {

@@ -495,6 +495,15 @@ func selectValidation(
 		setErrCustomMessage(1)
 
 		validation = URL(errCustomMessage)
+	case "oneOf":
+		setErrCustomMessage(2)
+		options := strings.Split(options[0], " ")
+
+		if errCustomMessage != "" {
+			validation = OneOf(options, errCustomMessage)
+		} else {
+			validation = OneOf(options)
+		}
 	default:
 		return nil, fmt.Errorf(
 			fmt.Sprintf("%s: %s", invalidValidator, validateTag),
