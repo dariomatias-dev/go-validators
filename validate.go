@@ -267,30 +267,6 @@ func selectValidation(
 	var validation Validator
 
 	switch validateTag {
-	case "isArray":
-		validations, err := getArrayFieldValidations(options)
-
-		if err != nil {
-			return nil, err
-		}
-
-		if isArrayTypeErrorMessage != "" {
-			validation = IsArray(*validations, isArrayTypeErrorMessage)
-		} else {
-			validation = IsArray(*validations)
-		}
-	case "isNullArray":
-		validations, err := getArrayFieldValidations(options)
-
-		if err != nil {
-			return nil, err
-		}
-
-		if isArrayTypeErrorMessage != "" {
-			validation = IsNullArray(*validations, isArrayTypeErrorMessage)
-		} else {
-			validation = IsNullArray(*validations)
-		}
 	case "required":
 		setErrCustomMessage(1)
 
@@ -314,6 +290,18 @@ func selectValidation(
 			validation = IsNumber(errCustomMessage)
 		} else {
 			validation = IsNumber()
+		}
+	case "isArray":
+		validations, err := getArrayFieldValidations(options)
+
+		if err != nil {
+			return nil, err
+		}
+
+		if isArrayTypeErrorMessage != "" {
+			validation = IsArray(*validations, isArrayTypeErrorMessage)
+		} else {
+			validation = IsArray(*validations)
 		}
 	case "isInt":
 		setErrCustomMessage(1)
@@ -379,6 +367,30 @@ func selectValidation(
 		} else {
 			validation = IsNullBool()
 		}
+	case "isNullArray":
+		validations, err := getArrayFieldValidations(options)
+
+		if err != nil {
+			return nil, err
+		}
+
+		if isArrayTypeErrorMessage != "" {
+			validation = IsNullArray(*validations, isArrayTypeErrorMessage)
+		} else {
+			validation = IsNullArray(*validations)
+		}
+	case "email":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = Email(errCustomMessage)
+		} else {
+			validation = Email()
+		}
+	case "password":
+		setErrCustomMessage(1)
+
+		validation = Password(errCustomMessage)
 	case "min":
 		setErrCustomMessage(2)
 
@@ -418,14 +430,6 @@ func selectValidation(
 			validation = MaxLength(maxLength, errCustomMessage)
 		} else {
 			validation = MaxLength(maxLength)
-		}
-	case "email":
-		setErrCustomMessage(1)
-
-		if errCustomMessage != "" {
-			validation = Email(errCustomMessage)
-		} else {
-			validation = Email()
 		}
 	case "isAlpha":
 		setErrCustomMessage(1)
@@ -487,10 +491,6 @@ func selectValidation(
 		setErrCustomMessage(2)
 
 		validation = Regex(options[0], errCustomMessage)
-	case "password":
-		setErrCustomMessage(1)
-
-		validation = Password(errCustomMessage)
 	case "url":
 		setErrCustomMessage(1)
 

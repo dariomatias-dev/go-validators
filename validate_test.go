@@ -275,6 +275,32 @@ func TestValidate(t *testing.T) {
 	}
 	initValidateTest(t, validateTestCustom, "IsNullArray", &IsNullArrayStruct2{})
 
+	/// Password
+	// Test 1
+	type PasswordStruct1 struct {
+		Value string `json:"value" validates:"password"`
+	}
+	initValidateTest(t, validateTestDefault, "Password", &PasswordStruct1{})
+
+	// Test 2
+	type PasswordStruct2 struct {
+		Value string `json:"value" validates:"password=error"`
+	}
+	initValidateTest(t, validateTestCustom, "Password", &PasswordStruct2{})
+
+	/// Email
+	// Test 1
+	type EmailStruct1 struct {
+		Value string `json:"value" validates:"email"`
+	}
+	initValidateTest(t, validateTestDefault, "Email", &EmailStruct1{})
+
+	// Test 2
+	type EmailStruct2 struct {
+		Value string `json:"value" validates:"email=error"`
+	}
+	initValidateTest(t, validateTestCustom, "Email", &EmailStruct2{})
+
 	/// Min
 	// Test 1
 	type MinStruct1 struct {
@@ -333,6 +359,38 @@ func TestValidate(t *testing.T) {
 	}
 	initValidateTest(t, validateTestCustom, "MaxLength", &MaxLengthStruct2{})
 
+	/// IsAlpha
+	// Test 1
+	type IsAlphaStruct1 struct {
+		Value string `json:"value" validates:"isAlpha"`
+	}
+	jsonValue = `{
+		"value": "0"
+	}`
+	initValidateTest(t, validateTestDefault, "IsAlpha", &IsAlphaStruct1{})
+
+	// Test 2
+	type IsAlphaStruct2 struct {
+		Value string `json:"value" validates:"isAlpha=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsAlpha", &IsAlphaStruct2{})
+
+	/// IsAlphaSpace
+	// Test 1
+	type IsAlphaSpaceStruct1 struct {
+		Value string `json:"value" validates:"isAlphaSpace"`
+	}
+	jsonValue = `{
+		"value": "0"
+	}`
+	initValidateTest(t, validateTestDefault, "IsAlphaSpace", &IsAlphaSpaceStruct1{})
+
+	// Test 2
+	type IsAlphaSpaceStruct2 struct {
+		Value string `json:"value" validates:"isAlphaSpace=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsAlphaSpace", &IsAlphaSpaceStruct2{})
+
 	/// StartsWith
 	// Test 1
 	type StartsWithStruct1 struct {
@@ -385,45 +443,6 @@ func TestValidate(t *testing.T) {
 	}
 	initValidateTest(t, validateTestCustom, "EndsNotWith", &EndsNotWithStruct2{})
 
-	/// Email
-	// Test 1
-	type EmailStruct1 struct {
-		Value string `json:"value" validates:"email"`
-	}
-	initValidateTest(t, validateTestDefault, "Email", &EmailStruct1{})
-
-	// Test 2
-	type EmailStruct2 struct {
-		Value string `json:"value" validates:"email=error"`
-	}
-	initValidateTest(t, validateTestCustom, "Email", &EmailStruct2{})
-
-	/// Password
-	// Test 1
-	type PasswordStruct1 struct {
-		Value string `json:"value" validates:"password"`
-	}
-	initValidateTest(t, validateTestDefault, "Password", &PasswordStruct1{})
-
-	// Test 2
-	type PasswordStruct2 struct {
-		Value string `json:"value" validates:"password=error"`
-	}
-	initValidateTest(t, validateTestCustom, "Password", &PasswordStruct2{})
-
-	/// Url
-	// Test 1
-	type UrlStruct1 struct {
-		Value string `json:"value" validates:"url"`
-	}
-	initValidateTest(t, validateTestDefault, "Url", &UrlStruct1{})
-
-	// Test 2
-	type UrlStruct2 struct {
-		Value string `json:"value" validates:"url=error"`
-	}
-	initValidateTest(t, validateTestCustom, "Url", &UrlStruct2{})
-
 	/// Regex
 	// Test 1
 	type RegexStruct1 struct {
@@ -437,37 +456,18 @@ func TestValidate(t *testing.T) {
 	}
 	initValidateTest(t, validateTestCustom, "Regex", &RegexStruct2{})
 
-	/// IsAlpha
+	/// Url
 	// Test 1
-	type IsAlphaStruct1 struct {
-		Value string `json:"value" validates:"isAlpha"`
+	type UrlStruct1 struct {
+		Value string `json:"value" validates:"url"`
 	}
-	jsonValue = `{
-		"value": "0"
-	}`
-	initValidateTest(t, validateTestDefault, "IsAlpha", &IsAlphaStruct1{})
+	initValidateTest(t, validateTestDefault, "Url", &UrlStruct1{})
 
 	// Test 2
-	type IsAlphaStruct2 struct {
-		Value string `json:"value" validates:"isAlpha=error"`
+	type UrlStruct2 struct {
+		Value string `json:"value" validates:"url=error"`
 	}
-	initValidateTest(t, validateTestCustom, "IsAlpha", &IsAlphaStruct2{})
-
-	/// IsAlphaSpace
-	// Test 1
-	type IsAlphaSpaceStruct1 struct {
-		Value string `json:"value" validates:"isAlphaSpace"`
-	}
-	jsonValue = `{
-		"value": "0"
-	}`
-	initValidateTest(t, validateTestDefault, "IsAlphaSpace", &IsAlphaSpaceStruct1{})
-
-	// Test 2
-	type IsAlphaSpaceStruct2 struct {
-		Value string `json:"value" validates:"isAlphaSpace=error"`
-	}
-	initValidateTest(t, validateTestCustom, "IsAlphaSpace", &IsAlphaSpaceStruct2{})
+	initValidateTest(t, validateTestCustom, "Url", &UrlStruct2{})
 
 	/// OneOf
 	// Test 1

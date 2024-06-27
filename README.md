@@ -450,9 +450,9 @@ if err != nil {
     </tr>
 </table>
 
-</br>
+### **All entries marked with (\*) are mandatory.**
 
-**All entries marked with (\*) are mandatory.**
+</br>
 
 # Donations
 
