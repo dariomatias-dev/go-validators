@@ -83,11 +83,12 @@ func TestValidate(t *testing.T) {
 	}
 
 	/// - Errors
+	jsonValue = `{}`
+
 	// Test 1
 	type ValidateStruct struct {
 		Value string `json:"value"`
 	}
-	jsonValue = `{}`
 	validateStruct := ValidateStruct{}
 	err := Validate(&validateStruct, jsonValue)
 	if err == nil {
@@ -108,13 +109,14 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "Required", &RequiredStruct2{})
 
 	/// IsString
+	jsonValue = `{
+		"value": 0
+	}`
+
 	// Test 1
 	type IsStringStruct1 struct {
 		Value string `json:"value" validates:"isString"`
 	}
-	jsonValue = `{
-		"value": 0
-	}`
 	initValidateTest(t, validateTestDefault, "IsString", &IsStringStruct1{})
 
 	// Test 2
@@ -192,13 +194,14 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "IsArray", &IsArrayStruct2{})
 
 	/// IsNullString
+	jsonValue = `{
+		"value": 0
+	}`
+
 	// Test 1
 	type IsNullStringStruct1 struct {
 		Value string `json:"value" validates:"isNullString"`
 	}
-	jsonValue = `{
-		"value": 0
-	}`
 	initValidateTest(t, validateTestDefault, "IsNullString", &IsNullStringStruct1{})
 
 	// Test 2
@@ -208,13 +211,14 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "IsNullString", &IsNullStringStruct2{})
 
 	/// IsNullNumber
+	jsonValue = `{
+		"value": "name"
+	}`
+
 	// Test 1
 	type IsNullNumberStruct1 struct {
 		Value string `json:"value" validates:"isNullNumber"`
 	}
-	jsonValue = `{
-		"value": "name"
-	}`
 	initValidateTest(t, validateTestDefault, "IsNullNumber", &IsNullNumberStruct1{})
 
 	// Test 2
@@ -302,13 +306,14 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "Email", &EmailStruct2{})
 
 	/// Min
+	jsonValue = `{
+		"value": 3
+	}`
+
 	// Test 1
 	type MinStruct1 struct {
 		Value string `json:"value" validates:"min=5"`
 	}
-	jsonValue = `{
-		"value": 3
-	}`
 	initValidateTest(t, validateTestDefault, "Min", &MinStruct1{})
 
 	// Test 2
@@ -331,13 +336,14 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "Max", &MaxStruct2{})
 
 	/// MinLength
+	jsonValue = `{
+		"value": "name"
+	}`
+
 	// Test 1
 	type MinLengthStruct1 struct {
 		Value string `json:"value" validates:"minLength=5"`
 	}
-	jsonValue = `{
-		"value": "name"
-	}`
 	initValidateTest(t, validateTestDefault, "MinLength", &MinLengthStruct1{})
 
 	// Test 2
@@ -360,13 +366,14 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "MaxLength", &MaxLengthStruct2{})
 
 	/// IsAlpha
+	jsonValue = `{
+		"value": "0"
+	}`
+
 	// Test 1
 	type IsAlphaStruct1 struct {
 		Value string `json:"value" validates:"isAlpha"`
 	}
-	jsonValue = `{
-		"value": "0"
-	}`
 	initValidateTest(t, validateTestDefault, "IsAlpha", &IsAlphaStruct1{})
 
 	// Test 2
@@ -376,13 +383,14 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "IsAlpha", &IsAlphaStruct2{})
 
 	/// IsAlphaSpace
+	jsonValue = `{
+		"value": "0"
+	}`
+
 	// Test 1
 	type IsAlphaSpaceStruct1 struct {
 		Value string `json:"value" validates:"isAlphaSpace"`
 	}
-	jsonValue = `{
-		"value": "0"
-	}`
 	initValidateTest(t, validateTestDefault, "IsAlphaSpace", &IsAlphaSpaceStruct1{})
 
 	// Test 2
@@ -405,6 +413,10 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "StartsWith", &StartsWithStruct2{})
 
 	/// StartsNotWith
+	jsonValue = `{
+		"value": "name"
+	}`
+
 	// Test 1
 	type StartsNotWithStruct1 struct {
 		Value string `json:"value" validates:"startsNotWith=na"`
@@ -431,6 +443,10 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "EndsWith", &EndsWithStruct2{})
 
 	/// EndsNotWith
+	jsonValue = `{
+		"value": "name"
+	}`
+
 	// Test 1
 	type EndsNotWithStruct1 struct {
 		Value string `json:"value" validates:"endsNotWith=me"`
@@ -444,6 +460,10 @@ func TestValidate(t *testing.T) {
 	initValidateTest(t, validateTestCustom, "EndsNotWith", &EndsNotWithStruct2{})
 
 	/// Regex
+	jsonValue = `{
+		"value": "Aa"
+	}`
+
 	// Test 1
 	type RegexStruct1 struct {
 		Value string `json:"value" validates:"regex=^[0-9]+$"`
