@@ -10,6 +10,8 @@ type FieldValidations struct {
 	EndsWith       string   `json:"endsWith"       validates:"required;isString;endsWith=me"`
 	EndsNotWith    string   `json:"endsNotWith"    validates:"required;isString;endsNotWith=ma"`
 	IsAlpha        string   `json:"isAlpha"        validates:"required;isString;isAlpha"`
+	IsAlphaNum1    string   `json:"isAlphaNum1"    validates:"required;isString;isAlphaNum"`
+	IsAlphaNum2    string   `json:"isAlphaNum2"    validates:"required;isString;isAlphaNum"`
 	IsAlphaSpace1  string   `json:"isAlphaSpace1"  validates:"isString;isAlphaSpace"`
 	IsAlphaSpace2  string   `json:"isAlphaSpace2"  validates:"required;isString;isAlphaSpace"`
 	IsArray        []string `json:"isArray"        validates:"required;minLength=1;maxLength=2;isArray;isString"`
@@ -45,6 +47,8 @@ const values = `{
 	"endsWith":       "name",
 	"endsNotWith":    "name",
 	"isAlpha":        "abcDEFáÉ",
+	"isAlphaNum1":    "abcDEFáÉ012",
+	"isAlphaNum2":    "abcDEFáÉ012",
 	"isAlphaSpace1":  "abcDEFáÉ",
 	"isAlphaSpace2":  "abcDEFáÉ ",
 	"isArray":        ["name"],
@@ -381,6 +385,23 @@ func TestValidate(t *testing.T) {
 		Value string `json:"value" validates:"isAlpha=error"`
 	}
 	initValidateTest(t, validateTestCustom, "IsAlpha", &IsAlphaStruct2{})
+
+	/// IsAlphaNum
+	jsonValue = `{
+		"value": "#"
+	}`
+
+	// Test 1
+	type IsAlphaNumStruct1 struct {
+		Value string `json:"value" validates:"isAlphaNum"`
+	}
+	initValidateTest(t, validateTestDefault, "IsAlphaNum", &IsAlphaNumStruct1{})
+
+	// Test 2
+	type IsAlphaNumStruct2 struct {
+		Value string `json:"value" validates:"isAlphaNum=error"`
+	}
+	initValidateTest(t, validateTestCustom, "IsAlphaNum", &IsAlphaNumStruct2{})
 
 	/// IsAlphaSpace
 	jsonValue = `{

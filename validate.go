@@ -439,6 +439,14 @@ func selectValidation(
 		} else {
 			validation = IsAlpha()
 		}
+	case "isAlphaNum":
+		setErrCustomMessage(1)
+
+		if errCustomMessage != "" {
+			validation = IsAlphaNum(errCustomMessage)
+		} else {
+			validation = IsAlphaNum()
+		}
 	case "isAlphaSpace":
 		setErrCustomMessage(1)
 
