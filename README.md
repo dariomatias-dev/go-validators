@@ -374,7 +374,31 @@ if err != nil {
         <td>string</td>
     </tr>
     <tr>
+        <td>IsAlphaNum</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
+        <td>string</td>
+    </tr>
+    <tr>
         <td>IsAlphaSpace</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
+        <td>string</td>
+    </tr>
+    <tr>
+        <td>IsAlphaNumSpace</td>
         <td>Value</td>
         <td>
             <ul>

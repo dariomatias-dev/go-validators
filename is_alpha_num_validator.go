@@ -4,7 +4,7 @@ var (
 	alphaNumRegex = `^[a-zA-ZÀ-ÖØ-öø-ÿ0-9]+$`
 )
 
-// Checks if the value contains only letters.
+// Checks if the value contains only letters and numbers.
 //
 // Configuration parameters:
 //   - errorMessage (string): custom error message (optional).
@@ -19,7 +19,7 @@ var (
 //	value = "abcABC "
 //	v.IsAlpha()(value)     // Output: [error message], false
 //
-//	value = "abcABC0123!@"
+//	value = "abcABC012!@"
 //	v.IsAlpha()(value)     // Output: [error message], false
 func IsAlphaNum(
 	errorMessage ...string,

@@ -24,7 +24,7 @@ var (
 func IsAlphaNumSpace(
 	errorMessage ...string,
 ) Validator {
-	message := "Contains characters other than letters and spaces."
+	message := "Contains characters that are not letters, numbers and spaces."
 	if len(errorMessage) != 0 {
 		message = errorMessage[0]
 	}
