@@ -1,13 +1,7 @@
 package validators
 
-import (
-	"errors"
-	"regexp"
-	"strings"
-)
-
 var (
-	alphaSpaceRegex = regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$`)
+	alphaSpaceRegex = `^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$`
 )
 
 // Checks if the value contains only letters and spaces.
@@ -35,15 +29,5 @@ func IsAlphaSpace(
 		message = errorMessage[0]
 	}
 
-	var val string
-
-	return func(value any) (error, bool) {
-		val = value.(string)
-		if !alphaSpaceRegex.MatchString(val) ||
-			strings.TrimSpace(val) == "" {
-			return errors.New(message), false
-		}
-
-		return nil, false
-	}
+	return Regex(alphaSpaceRegex, message)
 }

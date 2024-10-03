@@ -1,12 +1,7 @@
 package validators
 
-import (
-	"errors"
-	"regexp"
-)
-
 var (
-	alphaRegex = regexp.MustCompile(`^[a-zA-ZÀ-ÖØ-öø-ÿ]+$`)
+	alphaRegex = `^[a-zA-ZÀ-ÖØ-öø-ÿ]+$`
 )
 
 // Checks if the value contains only letters.
@@ -34,11 +29,5 @@ func IsAlpha(
 		message = errorMessage[0]
 	}
 
-	return func(value any) (error, bool) {
-		if !alphaRegex.MatchString(value.(string)) {
-			return errors.New(message), false
-		}
-
-		return nil, false
-	}
+	return Regex(alphaRegex, message)
 }
