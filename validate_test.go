@@ -539,6 +539,23 @@ func TestValidate(t *testing.T) {
 	}
 	initValidateTest(t, validateTestCustom, "Url", &UrlStruct2{})
 
+	/// Uuid
+	jsonValue = `{
+		"value": "0"
+	}`
+
+	// Test 1
+	type UuidStruct1 struct {
+		Value string `json:"value" validates:"uuid"`
+	}
+	initValidateTest(t, validateTestDefault, "Uuid", &UuidStruct1{})
+
+	// Test 2
+	type UuidStruct2 struct {
+		Value string `json:"value" validates:"uuid=5,error"`
+	}
+	initValidateTest(t, validateTestCustom, "Uuid", &UuidStruct2{})
+
 	/// OneOf
 	// Test 1
 	type OneOfStruct1 struct {

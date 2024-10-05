@@ -477,6 +477,21 @@ if err != nil {
         <td>string</td>
     </tr>
     <tr>
+        <td>Uuid</td>
+        <td>Value</td>
+        <td>
+            <ul>
+                <li>
+                    Version (Default Version 5)
+                </li>
+                <li>
+                    Error message
+                </li>
+            </ul>
+        </td>
+        <td>string</td>
+    </tr>
+    <tr>
         <td>OneOf</td>
         <td>Value</td>
         <td>
