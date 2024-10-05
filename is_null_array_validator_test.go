@@ -99,7 +99,7 @@ IsNullArray(
 	[]Validator{
 		IsString(),
 	},
-)(\"\") = %v, %t; expected: \"[error message]\", true`,
+)("") = %v, %t; expected: "[error message]", true`,
 			getArgs()...,
 		)
 	}
@@ -120,7 +120,7 @@ IsNullArray(
 		IsString(),
 	},
 	"error",
-)(\"\") = %v, %t; expected: \"error\", true`,
+)("") = %v, %t; expected: "error", true`,
 			getArgs()...,
 		)
 	}
