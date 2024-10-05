@@ -42,6 +42,10 @@ type FieldValidations struct {
 	StartsNotWith    string   `json:"startsNotWith"    validates:"required;isString;startsNotWith=ne"`
 	Url              string   `json:"url"              validates:"required;url"`
 	OneOf            string   `json:"oneOf"            validates:"required;oneOf=EASY MEDIUM HARD"`
+	Uuid2            string   `json:"uuid2"            validates:"required;uuid=2"`
+	Uuid3            string   `json:"uuid3"            validates:"required;uuid=3"`
+	Uuid4            string   `json:"uuid4"            validates:"required;uuid=4"`
+	UuidDefault      string   `json:"uuidDefault"      validates:"required;uuid"`
 }
 
 const values = `{
@@ -74,7 +78,11 @@ const values = `{
 	"startsWith":       "name",
 	"startsNotWith":    "name",
 	"url":              "https://example.com",
-	"oneOf":            "EASY"
+	"oneOf":            "EASY",
+	"uuid2":            "11d50d80-807c-22a4-bb46-bb149cf3b146",
+	"uuid3":            "6fa459ea-ee8a-3ca4-894e-db77e160355e",
+	"uuid4":            "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+	"uuidDefault":      "f47ac10b-58cc-4372-a567-0e02b2c3d479"
 }`
 
 func TestValidate(t *testing.T) {

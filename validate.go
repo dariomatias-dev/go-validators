@@ -511,6 +511,21 @@ func selectValidation(
 		setErrCustomMessage(1)
 
 		validation = Url(errCustomMessage)
+	case "uuid":
+		optionsLen := len(options)
+
+		if optionsLen == 0 {
+			validation = Uuid(4)
+		} else if optionsLen == 1 {
+			version, _ := strconv.Atoi(options[0])
+
+			validation = Uuid(version)
+		} else {
+			version, _ := strconv.Atoi(options[0])
+			setErrCustomMessage(2)
+
+			validation = Uuid(version, errCustomMessage)
+		}
 	case "oneOf":
 		setErrCustomMessage(2)
 		options := strings.Split(options[0], " ")
