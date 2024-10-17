@@ -11,7 +11,7 @@ The aim is to offer a simple and flexible way to perform data validation in Go a
 To use the package in your Go projects, type the following command in your terminal:
 
 ```bash
-go get github.com/dariomatias-dev/go-validadores
+go get github.com/dariomatias-dev/go-validators
 ```
 
 ## Order of Validators
@@ -47,8 +47,6 @@ To use the validations, use `v.` followed by the desired validation. In the firs
 The validators will return two values: the first will be the error message if the provided value did not pass validation, and the second will be a boolean value indicating whether the validations should be halted or not. The second value is used in situations where, if the value did not pass the validator, subsequent validations cannot be executed because they will result in an error.
 
 Validations can be performed in three distinct ways: [individually](#validate-individual-value), or within a [json](#validate-json).
-
-</br>
 
 #### Validate Individual Value
 

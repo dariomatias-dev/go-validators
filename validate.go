@@ -15,6 +15,45 @@ const (
 
 type errMsgGroupType = map[string]any
 
+// Validates the provided JSON based on the validators defined for each field.
+//
+// Parameters:
+//   - s (any): pointer to a struct.
+//   - data (string): the JSON to be validated.
+//
+// Usage examples:
+//
+//	type UserModel struct {
+//	    Name  string `json:"name"  validates:"required;isString;minLength=3;maxLength=20"`
+//	    Age   int    `json:"age"   validates:"required;isInt;min=18;max=100"`
+//	    Email string `json:"email" validates:"required;email"`
+//	}
+//	user := UserModel{}
+//
+//	json := `{
+//	    "name":  "Name",
+//	    "age":   18,
+//	    "email": "emailexample@gmail.com"
+//	}`
+//
+//	// Success
+//	err := Validate(&user, json)           // Output: nil
+//	if err != nil {
+//	    fmt.Println(err)
+//	    return
+//	}
+//
+//	// Error
+//	json := `{
+//	    "name":  "Name",
+//	    "age":   16,
+//	    "email": "emailexample@gmail.com"
+//	}`
+//	err := Validate(&user, json)           // Output: {"age":["The minimum value is 18, but it received 16."]}
+//	if err != nil {
+//	    fmt.Println(err)
+//	    return
+//	}
 func Validate(
 	s any,
 	data string,
