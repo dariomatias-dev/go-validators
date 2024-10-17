@@ -9,8 +9,10 @@ import (
 // Checks if a string/slice/array has the specified minimum length.
 //
 // Configuration parameters:
-//   - minLength (int): minimum length that the value must have.
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. minLength (int): minimum length that the value must have.
+//
+// 2. errorMessage (string): custom error message (optional).
 //
 // Input value (string | slice | array): value to be validated.
 //

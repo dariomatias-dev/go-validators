@@ -10,9 +10,9 @@ import (
 //
 // Configuration parameters:
 //
-// - errorMessages (optional):
-//   - Invalid email.
-//   - value is not string.
+// 1. errorMessages (optional):
+//     - Invalid email.
+//     - value is not string.
 //
 // Input value (string): value to be validated.
 //

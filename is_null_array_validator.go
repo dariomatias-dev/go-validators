@@ -5,8 +5,10 @@ import "fmt"
 // Checks if the value is a valid array or null.
 //
 // Configuration parameters:
-//	 - validators ([]Validator): validators that will be applied to each value in the array.
-// 	 - errorMessage (string): custom error message (optional).
+//
+// 1. validators ([]Validator): validators that will be applied to each value in the array.
+//
+// 2. errorMessage (string): custom error message (optional).
 //
 // Input value (nil | slice | array): value to be validated.
 //

@@ -8,7 +8,8 @@ import (
 // Checks if the value is a number.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. errorMessage (string): custom error message (optional).
 //
 // Input value (number): value to be validated.
 //

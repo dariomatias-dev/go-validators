@@ -9,8 +9,10 @@ import (
 // Checks if the value is within certain options.
 //
 // Configuration parameters:
-//   - options (slice | array): value options.
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. options (slice | array): value options.
+//
+// 2. errorMessage (string): custom error message (optional).
 //
 // Input value (string | int | float64): value to be validated.
 //

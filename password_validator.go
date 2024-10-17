@@ -15,7 +15,8 @@ var (
 // Checks whether the value contains lowercase and uppercase letters, numbers and special characters.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message.
+//
+// 1. errorMessage (string): custom error message.
 //
 // Input value (string): value to be validated.
 //

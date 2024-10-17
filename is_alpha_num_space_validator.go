@@ -7,7 +7,8 @@ var (
 // Checks if the value contains only letters, numbers and spaces.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. errorMessage (string): custom error message (optional).
 //
 // Input value (string): value to be validated.
 //

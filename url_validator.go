@@ -8,7 +8,8 @@ import (
 // Checks if the value is a valid Url.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message.
+//
+// 1. errorMessage (string): custom error message.
 //
 // Input value (string): value to be validated.
 //

@@ -8,7 +8,8 @@ import (
 // Checks if the value was provided.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. errorMessage (string): custom error message (optional).
 //
 // Input value (any): value to be validated.
 //

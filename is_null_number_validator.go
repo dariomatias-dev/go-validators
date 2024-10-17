@@ -3,7 +3,8 @@ package validators
 // Checks if the value is a number or null.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. errorMessage (string): custom error message (optional).
 //
 // Input value (nil | number): value to be validated.
 //

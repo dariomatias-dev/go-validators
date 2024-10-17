@@ -9,8 +9,10 @@ import (
 // Checks whether the value ends with a given string.
 //
 // Configuration parameters:
-//   - endsWith(string): character sequence that the value must start with.
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. endsWith(string): character sequence that the value must start with.
+//
+// 2. errorMessage (string): custom error message (optional).
 //
 // Input value (string): value to be validated.
 //

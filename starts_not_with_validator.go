@@ -8,8 +8,10 @@ import (
 // Checks if the value does not start with a certain sequence.
 //
 // Configuration parameters:
-//   - startWith(string): character sequence that the value should not start with.
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. startWith(string): character sequence that the value should not start with.
+//
+// 2. errorMessage (string): custom error message (optional).
 //
 // Input value (string): value to be validated.
 //

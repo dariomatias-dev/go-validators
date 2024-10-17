@@ -9,8 +9,10 @@ import (
 // Checks if a string/slice/array has the specified maximum length.
 //
 // Configuration parameters:
-//   - maxLength (int): maximum length that the string must have.
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. maxLength (int): maximum length that the string must have.
+//
+// 2. errorMessage (string): custom error message (optional).
 //
 // Input value (string | slice | array): value to be validated.
 //

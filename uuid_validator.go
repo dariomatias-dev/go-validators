@@ -10,8 +10,11 @@ import (
 // Checks if the value is a valid UUID.
 //
 // Configuration parameters:
-//   - version (int): UUID version.
-//   - errorMessage (string): custom error message.
+//
+// 1. version (int): UUID version.
+//
+// 2. errorMessage (string): custom error message.
+//
 //
 // Input value (string): value to be validated.
 //

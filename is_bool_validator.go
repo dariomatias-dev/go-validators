@@ -8,7 +8,8 @@ import (
 // Checks if the value is a boolean.
 //
 // Configuration parameters:
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. errorMessage (string): custom error message (optional).
 //
 // Input value (bool): Value to be validated.
 //

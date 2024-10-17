@@ -8,8 +8,10 @@ import (
 // Checks if the value meets the given regex.
 //
 // Configuration parameters:
-//   - regex (string): regex that will be used to validate value.
-//   - errorMessage (string): custom error message.
+//
+// 1. regex (string): regex that will be used to validate value.
+//
+// 2. errorMessage (string): custom error message.
 //
 // Input value (string): value to be validated.
 //

@@ -8,8 +8,10 @@ import (
 // Checks if the value does not end with a certain sequence.
 //
 // Configuration parameters:
-//   - endsNotWith(string): character sequence that the value should not end with.
-//   - errorMessage (string): custom error message (optional).
+//
+// 1. endsNotWith(string): character sequence that the value should not end with.
+//
+// 2. errorMessage (string): custom error message (optional).
 //
 // Input value (string): value to be validated.
 //
