@@ -115,7 +115,6 @@ jsonPayload := `{
 err := v.Validate(&user, jsonPayload)
 if err != nil {
     fmt.Println(err)
-    // Output: {"age":["The minimum value is 18, but it received 16."]}
     return
 }
 ```
@@ -135,7 +134,6 @@ value = 2
 err, _ = v.Min(3)(value)
 if err != nil {
     fmt.Println(err)
-    // Output: The minimum value is 3, but it received 2.
     return
 }
 ```
