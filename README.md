@@ -11,7 +11,7 @@
   <br>
   <a href="#about-the-project"><strong>Explore the docs »</strong></a>
   <br><br>
-  <a href="https://pkg.go.dev/github.com/dariomatias-dev/go-validators">pkg.go.dev</a>
+  <a href="https://pkg.go.dev/github.com/dariomatias-dev/go-validators" target="_blank">pkg.go.dev</a>
   ·
   <a href="https://github.com/dariomatias-dev/go-validators/issues">Report Bug</a>
   ·
@@ -19,13 +19,13 @@
 </p>
 
 <div align="center">
-  <a href="https://pkg.go.dev/github.com/dariomatias-dev/go-validators">
+  <a href="https://pkg.go.dev/github.com/dariomatias-dev/go-validators" target="_blank">
     <img src="https://img.shields.io/badge/Go-1.21-blue?style=flat-square&logo=go&logoColor=white" alt="Go Version">
   </a>
-  <a href="https://goreportcard.com/report/github.com/dariomatias-dev/go-validators">
+  <a href="https://goreportcard.com/report/github.com/dariomatias-dev/go-validators" target="_blank">
     <img src="https://goreportcard.com/badge/github.com/dariomatias-dev/go-validators" alt="Go Report Card">
   </a>
-  <a href="https://pkg.go.dev/github.com/dariomatias-dev/go-validators">
+  <a href="https://pkg.go.dev/github.com/dariomatias-dev/go-validators" target="_blank">
     <img src="https://pkg.go.dev/badge/github.com/dariomatias-dev/go-validators.svg" alt="Go Reference">
   </a>
   <a href="https://github.com/dariomatias-dev/go-validators/blob/main/LICENSE">
