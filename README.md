@@ -44,7 +44,7 @@
 - [Available Validators](#available-validators)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
+- [Author](#author)
 
 ## About The Project
 
@@ -207,9 +207,9 @@ git push origin feature/AmazingFeature
 
 Distributed under the **MIT License**. See the [LICENSE](LICENSE) file for more information.
 
-## Contact
+## Author
 
-I am always open to discussing new projects and ideas. Feel free to get in touch.
+Developed by **Dário Matias**:
 
 - **Portfolio**: [dariomatias-dev](https://dariomatias-dev.com)
 - **GitHub**: [dariomatias-dev](https://github.com/dariomatias-dev)
